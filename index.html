@@ -75,7 +75,7 @@ display:grid;place-items:center;font-size:18px;font-weight:900;box-shadow:var(--
  <div class="welcomeSub">Le cose importanti arrivano prima. Il resto resta a un tap.</div>
 </section>
 
-<a id="trafficHero" class="hero tie" href="/Dashboard/v32.html?v=36">
+<a id="trafficHero" class="hero tie" href="/Dashboard/v32.html?v=37">
  <div class="heroHead"><div class="heroLabel">🚗 TRAFFICO LAVORO</div><div id="trafficLive" class="heroBadge">ULTIMO DATO</div></div>
  <div id="trafficDecision" class="heroDecision">Apri Traffico</div>
  <div id="trafficRoute" class="heroRoute">Reggello → Firenze · Via Panciatichi</div>
@@ -109,7 +109,7 @@ function fmt(total){total=Math.max(0,Math.round(Number(total)||0));if(total<60)r
 function greet(){var h=new Date().getHours();$("#greeting").textContent=(h<12?"Buongiorno":h<18?"Buon pomeriggio":"Buonasera")+", Marco"}
 function traffic(){
  try{
-  var d=JSON.parse(localStorage.getItem("morning.lastTraffic.v36")||"null");if(!d||!d.a1||!d.norm)return;
+  var d=JSON.parse(localStorage.getItem("morning.lastTraffic.v37")||"null");if(!d||!d.a1||!d.norm)return;
   var a=d.a1,n=d.norm,diff=Math.abs(a.current-n.current),blocked=a.delay>=30||a.ratio>=1.65;
   var choice=blocked||a.current>=n.current+2?"NOA1":a.current<=n.current-2?"A1":"TIE";
   var hero=$("#trafficHero");
