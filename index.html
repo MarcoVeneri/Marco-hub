@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#eef3ff" media="(prefers-color-scheme:light)">
-<meta name="theme-color" content="#070a11" media="(prefers-color-scheme:dark)">
+<meta name="theme-color" content="#f4f7ff" media="(prefers-color-scheme:light)">
+<meta name="theme-color" content="#07101f" media="(prefers-color-scheme:dark)">
 <meta name="color-scheme" content="light dark">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -15,128 +15,271 @@
 <title>Marco Hub</title>
 <style>
 :root{
-  --bg:#eef3fb;--bg2:#f8faff;--glass:rgba(255,255,255,.70);--glass2:rgba(255,255,255,.88);
-  --text:#0f172a;--muted:#6f7a91;--line:rgba(81,103,140,.13);--shadow:0 20px 60px rgba(31,52,89,.11);
-  --blue:#3979f6;--green:#1fb56b;--purple:#7869ef;--orange:#f39a3b;--red:#ed5b57;--cyan:#24a9c9;
+ --bg:#f4f7ff;--bg2:#eef4ff;--ink:#0c1930;--muted:#71809b;
+ --glass:rgba(255,255,255,.66);--glassStrong:rgba(255,255,255,.82);--stroke:rgba(255,255,255,.76);
+ --hair:rgba(75,98,138,.10);--shadow:0 24px 68px rgba(45,72,118,.12);
+ --blue:#2787ff;--green:#19b86b;--red:#ef554f;--violet:#7b5cff;--orange:#ff9e3d;--cyan:#1eb9c8;
+ --hero:#316ff6;--hero2:#7c6df5;
 }
 @media(prefers-color-scheme:dark){
- :root{--bg:#070a11;--bg2:#101623;--glass:rgba(24,31,44,.72);--glass2:rgba(26,34,48,.91);--text:#f6f8fc;--muted:#a3aec1;--line:rgba(255,255,255,.10);--shadow:0 24px 65px rgba(0,0,0,.36);--blue:#69a0ff;--green:#55cf8d;--purple:#9d90ff;--orange:#ffb35f;--red:#ff7972;--cyan:#63cae1}
+ :root{
+  --bg:#07101f;--bg2:#0d1728;--ink:#f8fbff;--muted:#9aa9c1;
+  --glass:rgba(20,31,49,.60);--glassStrong:rgba(22,34,53,.80);--stroke:rgba(255,255,255,.10);
+  --hair:rgba(255,255,255,.08);--shadow:0 30px 80px rgba(0,0,0,.38);
+  --blue:#63a8ff;--green:#5bd696;--red:#ff7b73;--violet:#a18cff;--orange:#ffb86d;--cyan:#67d5df;
+ }
 }
 *{box-sizing:border-box}
-html,body{margin:0;min-height:100%;background:
-radial-gradient(circle at 88% -6%,rgba(81,132,255,.18),transparent 29%),
-radial-gradient(circle at -8% 20%,rgba(103,203,173,.12),transparent 25%),
-linear-gradient(180deg,var(--bg2),var(--bg));color:var(--text);
-font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Segoe UI",sans-serif;-webkit-font-smoothing:antialiased}
-body{min-height:100dvh}
-button,a{font:inherit;-webkit-tap-highlight-color:transparent}
-.app{width:min(100%,760px);margin:0 auto;padding:max(15px,env(safe-area-inset-top)) 13px max(94px,env(safe-area-inset-bottom))}
-.top{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;padding:4px 4px 13px}
-.brand{font-size:12px;font-weight:850;letter-spacing:.10em;color:var(--muted)}
-h1{font-size:42px;line-height:.94;letter-spacing:-.058em;margin:7px 0 7px;font-weight:900}
-.subtitle{font-size:12px;color:var(--muted)}
-.avatar{width:48px;height:48px;border-radius:17px;border:1px solid var(--line);background:
-linear-gradient(145deg,rgba(57,121,246,.18),rgba(120,105,239,.16)),var(--glass);
-display:grid;place-items:center;font-size:18px;font-weight:900;box-shadow:var(--shadow);backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px)}
-.welcome{border:1px solid var(--line);background:linear-gradient(145deg,rgba(255,255,255,.74),rgba(255,255,255,.46));border-radius:29px;padding:18px 18px 17px;box-shadow:var(--shadow);backdrop-filter:blur(26px);-webkit-backdrop-filter:blur(26px);position:relative;overflow:hidden;margin-bottom:12px}
-@media(prefers-color-scheme:dark){.welcome{background:linear-gradient(145deg,rgba(31,41,58,.86),rgba(21,28,40,.74))}}
-.welcome:after{content:"";position:absolute;width:220px;height:220px;border-radius:50%;right:-95px;top:-115px;background:linear-gradient(145deg,rgba(57,121,246,.24),rgba(120,105,239,.10))}
-.greeting{font-size:12px;color:var(--muted);font-weight:750;position:relative;z-index:1}.welcomeTitle{font-size:27px;line-height:1.03;letter-spacing:-.042em;font-weight:900;margin-top:5px;position:relative;z-index:1}.welcomeSub{font-size:11px;color:var(--muted);margin-top:8px;position:relative;z-index:1}
-.hero{display:block;text-decoration:none;color:white;border-radius:29px;padding:17px 18px;min-height:180px;position:relative;overflow:hidden;background:linear-gradient(145deg,#687386,#4f596a);box-shadow:0 23px 55px rgba(60,70,88,.20);margin-bottom:11px;transition:background .25s ease,box-shadow .25s ease}
-.hero.a1{background:linear-gradient(145deg,#24bd73,#108952);box-shadow:0 23px 55px rgba(21,151,89,.24)}
-.hero.noa1{background:linear-gradient(145deg,#ff625f,#c92f38);box-shadow:0 23px 55px rgba(201,47,56,.27)}
-.hero.tie{background:linear-gradient(145deg,#687386,#4f596a);box-shadow:0 23px 55px rgba(60,70,88,.20)}
-.hero:after{content:"";position:absolute;width:280px;height:280px;border-radius:50%;right:-110px;top:-150px;background:rgba(255,255,255,.10)}
-.heroHead{display:flex;align-items:center;justify-content:space-between;gap:10px;position:relative;z-index:1}.heroLabel{font-size:12px;font-weight:850;letter-spacing:.03em}.heroBadge{font-size:9px;font-weight:900;padding:6px 8px;border-radius:999px;background:rgba(255,255,255,.16)}
-.heroDecision{font-size:34px;font-weight:950;line-height:.98;letter-spacing:-.055em;margin-top:26px;position:relative;z-index:1}
-.heroRoute{font-size:12px;opacity:.94;margin-top:8px;position:relative;z-index:1}.heroMini{display:flex;gap:8px;margin-top:13px;position:relative;z-index:1}.miniPill{font-size:10px;font-weight:800;padding:7px 9px;border-radius:999px;background:rgba(255,255,255,.13)}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.card{min-height:148px;border-radius:25px;padding:15px;background:var(--glass);border:1px solid var(--line);box-shadow:var(--shadow);backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px);text-decoration:none;color:var(--text);position:relative;overflow:hidden}
-.card:active,.hero:active{transform:scale(.985)}
-.cardIcon{width:40px;height:40px;border-radius:14px;display:grid;place-items:center;font-size:20px;margin-bottom:15px}
-.house{background:rgba(57,121,246,.12);color:var(--blue)}.english{background:rgba(120,105,239,.13);color:var(--purple)}.alice{background:rgba(243,154,59,.14);color:var(--orange)}.agenda{background:rgba(36,169,201,.13);color:var(--cyan)}.kids{background:rgba(31,181,107,.13);color:var(--green)}.garage{background:rgba(237,91,87,.12);color:var(--red)}
-.cardTitle{font-size:13px;font-weight:850}.cardValue{font-size:24px;font-weight:920;letter-spacing:-.045em;margin-top:7px;line-height:1.02}.cardSub{font-size:10px;color:var(--muted);margin-top:6px;line-height:1.35}.chev{position:absolute;right:14px;top:15px;color:var(--muted);font-size:17px}
-.newDot{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--red);margin-left:5px;vertical-align:middle}
-.sectionTitle{font-size:12px;color:var(--muted);font-weight:850;letter-spacing:.08em;margin:18px 4px 9px}
-.listCard{background:var(--glass);border:1px solid var(--line);border-radius:24px;padding:5px 14px;box-shadow:var(--shadow);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px)}
-.row{display:flex;align-items:center;gap:11px;text-decoration:none;color:var(--text);min-height:62px;border-bottom:1px solid var(--line)}.row:last-child{border-bottom:0}.rowIcon{width:36px;height:36px;border-radius:12px;display:grid;place-items:center;background:rgba(127,127,127,.07);font-size:18px}.rowMain{min-width:0;flex:1}.rowTitle{font-size:12px;font-weight:830}.rowSub{font-size:10px;color:var(--muted);margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.rowTail{font-size:11px;color:var(--muted)}
-.nav{position:fixed;left:0;right:0;bottom:0;padding:9px max(12px,env(safe-area-inset-right)) max(8px,env(safe-area-inset-bottom)) max(12px,env(safe-area-inset-left));background:linear-gradient(transparent,var(--bg) 34%);z-index:20;pointer-events:none}.navIn{width:min(100%,760px);margin:auto;display:grid;grid-template-columns:repeat(4,1fr);background:var(--glass2);border:1px solid var(--line);border-radius:23px;padding:6px;box-shadow:var(--shadow);backdrop-filter:blur(28px);-webkit-backdrop-filter:blur(28px);pointer-events:auto}.nav a{min-height:46px;text-decoration:none;color:var(--muted);display:grid;place-items:center;align-content:center;gap:3px;border-radius:17px;font-size:9px;font-weight:820}.nav a.active{color:var(--blue);background:rgba(57,121,246,.10)}.navI{font-size:18px}
-@media(min-width:680px){.grid{grid-template-columns:repeat(3,1fr)}.hero{min-height:195px}.card{min-height:158px}}
-@media(max-width:390px){h1{font-size:37px}.welcomeTitle{font-size:24px}.heroDecision{font-size:30px}.card{min-height:140px;padding:14px}.cardValue{font-size:21px}}
+html,body{margin:0;min-height:100%;color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text","Segoe UI",sans-serif;-webkit-font-smoothing:antialiased}
+body{
+ min-height:100dvh;
+ background:
+   radial-gradient(circle at 8% -3%,rgba(39,135,255,.18),transparent 27%),
+   radial-gradient(circle at 100% 8%,rgba(123,92,255,.14),transparent 24%),
+   radial-gradient(circle at 35% 105%,rgba(30,185,200,.10),transparent 25%),
+   linear-gradient(180deg,var(--bg),var(--bg2));
+}
+body:before{
+ content:"";position:fixed;inset:0;pointer-events:none;z-index:-1;
+ background:linear-gradient(120deg,rgba(255,255,255,.13),transparent 34%,rgba(255,255,255,.05) 62%,transparent);
+}
+a,button{font:inherit;-webkit-tap-highlight-color:transparent}
+.app{width:min(100%,760px);margin:0 auto;padding:max(18px,env(safe-area-inset-top)) 16px calc(118px + env(safe-area-inset-bottom))}
+.header{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:4px 2px 18px}
+.identity{display:flex;align-items:center;gap:12px;min-width:0}
+.avatar{
+ width:54px;height:54px;border-radius:50%;display:grid;place-items:center;flex:0 0 auto;
+ color:#fff;font-size:17px;font-weight:900;letter-spacing:-.03em;
+ background:linear-gradient(145deg,#346ff2,#7566e9);
+ border:1px solid rgba(255,255,255,.52);
+ box-shadow:0 12px 32px rgba(47,104,233,.24),inset 0 1px 0 rgba(255,255,255,.25);
+}
+.hello{font-size:25px;line-height:1;font-weight:900;letter-spacing:-.04em}
+.helloSub{font-size:13px;color:var(--muted);margin-top:5px}
+.headerActions{display:flex;gap:9px}
+.circleBtn{
+ width:45px;height:45px;border-radius:50%;border:1px solid var(--stroke);color:var(--ink);
+ background:var(--glass);box-shadow:0 12px 30px rgba(45,72,118,.08);
+ backdrop-filter:blur(24px) saturate(150%);-webkit-backdrop-filter:blur(24px) saturate(150%);
+ display:grid;place-items:center;text-decoration:none;font-size:20px;
+}
+.hero{
+ position:relative;overflow:hidden;border-radius:34px;padding:18px;min-height:295px;color:white;
+ border:1px solid rgba(255,255,255,.24);
+ background:
+   linear-gradient(180deg,rgba(7,22,48,.08),rgba(4,12,28,.30)),
+   linear-gradient(135deg,var(--hero),var(--hero2));
+ box-shadow:0 30px 70px rgba(37,86,190,.28);
+ backdrop-filter:blur(24px) saturate(150%);-webkit-backdrop-filter:blur(24px) saturate(150%);
+ text-decoration:none;display:block;transition:transform .18s ease,background .25s ease;
+}
+.hero:active,.appTile:active,.glassCard:active{transform:scale(.985)}
+.hero:before{
+ content:"";position:absolute;width:330px;height:330px;border-radius:50%;right:-118px;top:-150px;
+ background:radial-gradient(circle at 35% 35%,rgba(255,255,255,.30),rgba(255,255,255,.03) 58%,transparent 70%);
+}
+.hero:after{
+ content:"";position:absolute;inset:auto 0 0;height:46%;
+ background:linear-gradient(180deg,transparent,rgba(6,15,34,.22));
+}
+.hero.a1{--hero:#168b63;--hero2:#225c98}
+.hero.noa1{--hero:#d43f49;--hero2:#7f3f76}
+.hero.tie{--hero:#3565a6;--hero2:#5a5f93}
+.heroTop,.heroDecision,.heroCompare,.heroBottom{position:relative;z-index:2}
+.heroTop{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.heroKicker{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:800}
+.heroIcon{width:32px;height:32px;border-radius:11px;background:rgba(255,255,255,.18);display:grid;place-items:center}
+.heroTime{font-size:11px;opacity:.83}
+.heroDecision{font-size:41px;font-weight:950;letter-spacing:-.055em;line-height:.95;margin-top:22px}
+.heroHint{font-size:14px;font-weight:650;margin-top:8px;opacity:.95}
+.heroCompare{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:20px}
+.routeBox{
+ min-width:0;border-radius:21px;padding:12px 13px;background:rgba(10,19,38,.26);
+ border:1px solid rgba(255,255,255,.15);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px)
+}
+.routeBox.recommended{background:rgba(27,195,111,.28);border-color:rgba(166,255,205,.28)}
+.routeLabel{font-size:11px;font-weight:800;opacity:.92}
+.routeValue{font-size:27px;font-weight:950;letter-spacing:-.04em;line-height:1;margin-top:6px;white-space:nowrap}
+.routeEta{font-size:10px;opacity:.76;margin-top:5px}
+.heroBottom{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:13px}
+.condition{display:inline-flex;align-items:center;gap:7px;padding:7px 10px;border-radius:999px;background:rgba(16,200,104,.22);font-size:10px;font-weight:900}
+.updated{font-size:10px;opacity:.75}
+.sectionHead{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:25px 4px 11px}
+.sectionHead h2{font-size:21px;line-height:1;margin:0;font-weight:900;letter-spacing:-.035em}
+.sectionMore{font-size:11px;color:var(--muted)}
+.appGrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.appTile{
+ min-width:0;min-height:123px;border-radius:25px;padding:14px 10px 12px;text-decoration:none;color:var(--ink);
+ border:1px solid var(--stroke);background:var(--glass);box-shadow:0 18px 45px rgba(45,72,118,.08);
+ backdrop-filter:blur(24px) saturate(155%);-webkit-backdrop-filter:blur(24px) saturate(155%);
+ display:flex;flex-direction:column;align-items:center;text-align:center;transition:transform .18s ease;
+}
+.appIcon{
+ width:49px;height:49px;border-radius:17px;display:grid;place-items:center;font-size:25px;margin-bottom:9px;
+ background:rgba(127,127,127,.07);border:1px solid rgba(255,255,255,.30);
+ box-shadow:inset 0 1px 0 rgba(255,255,255,.30);
+}
+.iHouse{background:linear-gradient(145deg,rgba(28,188,132,.24),rgba(29,151,115,.10))}
+.iAlice{background:linear-gradient(145deg,rgba(123,92,255,.24),rgba(85,62,210,.10))}
+.iEnglish{background:linear-gradient(145deg,rgba(45,136,255,.23),rgba(45,136,255,.08))}
+.iTrain{background:linear-gradient(145deg,rgba(30,185,200,.22),rgba(30,185,200,.08))}
+.iFood{background:linear-gradient(145deg,rgba(255,158,61,.23),rgba(255,158,61,.08))}
+.iBike{background:linear-gradient(145deg,rgba(239,85,79,.22),rgba(239,85,79,.08))}
+.appName{font-size:12px;font-weight:880;line-height:1.08}
+.appSub{font-size:9px;color:var(--muted);line-height:1.25;margin-top:4px;max-width:100%;overflow:hidden;text-overflow:ellipsis}
+.badgeDot{display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--red);margin-left:4px;vertical-align:middle}
+.featureGrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.glassCard{
+ min-height:132px;border-radius:27px;padding:15px;border:1px solid var(--stroke);background:var(--glass);
+ box-shadow:var(--shadow);backdrop-filter:blur(24px) saturate(155%);-webkit-backdrop-filter:blur(24px) saturate(155%);
+ text-decoration:none;color:var(--ink);position:relative;overflow:hidden
+}
+.glassCard:after{content:"";position:absolute;width:130px;height:130px;border-radius:50%;right:-55px;top:-70px;background:rgba(255,255,255,.14)}
+.featureIcon{font-size:24px}.featureLabel{font-size:10px;color:var(--muted);font-weight:800;margin-top:17px}.featureValue{font-size:19px;font-weight:920;letter-spacing:-.035em;margin-top:3px}.featureSub{font-size:9px;color:var(--muted);margin-top:5px}
+.bottomNav{
+ position:fixed;left:0;right:0;bottom:0;z-index:50;pointer-events:none;
+ padding:8px max(12px,env(safe-area-inset-right)) max(9px,env(safe-area-inset-bottom)) max(12px,env(safe-area-inset-left));
+}
+.bottomNav:before{content:"";position:absolute;left:0;right:0;bottom:0;height:105px;background:linear-gradient(transparent,var(--bg2) 64%);z-index:-1}
+.navGlass{
+ width:min(100%,740px);margin:auto;display:grid;grid-template-columns:repeat(5,1fr);padding:8px 7px;
+ border-radius:31px;background:var(--glassStrong);border:1px solid var(--stroke);box-shadow:0 20px 55px rgba(31,52,89,.18);
+ backdrop-filter:blur(30px) saturate(175%);-webkit-backdrop-filter:blur(30px) saturate(175%);pointer-events:auto
+}
+.navGlass a{height:52px;border-radius:21px;text-decoration:none;color:var(--muted);display:grid;place-items:center;align-content:center;gap:3px;font-size:9px;font-weight:800}
+.navGlass a.active{color:var(--blue);background:rgba(39,135,255,.11)}
+.navIcon{font-size:20px;line-height:1}
+@media(prefers-color-scheme:dark){
+ .circleBtn,.appTile,.glassCard{box-shadow:0 20px 50px rgba(0,0,0,.20)}
+ .routeBox{background:rgba(5,12,24,.32)}
+ .navGlass{box-shadow:0 26px 70px rgba(0,0,0,.34)}
+}
+@media(max-width:390px){
+ .app{padding-left:12px;padding-right:12px}
+ .hello{font-size:23px}.avatar{width:50px;height:50px}.circleBtn{width:42px;height:42px}
+ .hero{padding:16px;min-height:286px;border-radius:30px}
+ .heroDecision{font-size:37px}.routeValue{font-size:24px}
+ .appGrid{gap:8px}.appTile{min-height:116px;padding:12px 7px;border-radius:22px}.appIcon{width:45px;height:45px;font-size:23px}
+ .appName{font-size:11px}.featureGrid{gap:8px}.glassCard{border-radius:23px;padding:13px}
+}
 </style>
 </head>
 <body>
 <main class="app">
-<header class="top"><div><div class="brand">MARCO HUB</div><h1>Tutto, qui.</h1><div class="subtitle">Le tue app. Una sola Home.</div></div><div class="avatar">MV</div></header>
-
-<section class="welcome">
- <div id="greeting" class="greeting">Buon pomeriggio, Marco</div>
- <div class="welcomeTitle">La tua giornata,<br>in un unico sguardo.</div>
- <div class="welcomeSub">Le cose importanti arrivano prima. Il resto resta a un tap.</div>
-</section>
+<header class="header">
+ <div class="identity">
+  <div class="avatar">MV</div>
+  <div><div id="hello" class="hello">Ciao Marco</div><div class="helloSub">Tutto sotto controllo</div></div>
+ </div>
+ <div class="headerActions">
+  <a class="circleBtn" href="/Alice-Job-Radar/?v=6.10" aria-label="Ricerca lavoro">⌕</a>
+  <a class="circleBtn" href="/Dashboard/v32.html?v=37" aria-label="Traffico">⚙︎</a>
+ </div>
+</header>
 
 <a id="trafficHero" class="hero tie" href="/Dashboard/v32.html?v=37">
- <div class="heroHead"><div class="heroLabel">🚗 TRAFFICO LAVORO</div><div id="trafficLive" class="heroBadge">ULTIMO DATO</div></div>
+ <div class="heroTop">
+  <div class="heroKicker"><span class="heroIcon">🚗</span><span>Traffico casa → Firenze</span></div>
+  <div id="heroClock" class="heroTime">—</div>
+ </div>
  <div id="trafficDecision" class="heroDecision">Apri Traffico</div>
- <div id="trafficRoute" class="heroRoute">Reggello → Firenze · Via Panciatichi</div>
- <div class="heroMini"><div id="a1Mini" class="miniPill">A1 --</div><div id="normalMini" class="miniPill">Normale --</div></div>
+ <div id="trafficHint" class="heroHint">Reggello → Via Panciatichi</div>
+ <div class="heroCompare">
+  <div id="a1Box" class="routeBox">
+   <div class="routeLabel">A1 · Autostrada</div>
+   <div id="a1Value" class="routeValue">—</div>
+   <div id="a1Eta" class="routeEta">tempo live</div>
+  </div>
+  <div id="normalBox" class="routeBox">
+   <div class="routeLabel">Strada normale</div>
+   <div id="normalValue" class="routeValue">—</div>
+   <div id="normalEta" class="routeEta">tempo live</div>
+  </div>
+ </div>
+ <div class="heroBottom">
+  <div id="trafficCondition" class="condition">● Dati pronti</div>
+  <div id="trafficUpdated" class="updated">Apri per aggiornare</div>
+ </div>
 </a>
 
-<section class="grid">
- <a class="card" href="/Cerca-Casa/"><div class="chev">›</div><div class="cardIcon house">⌂</div><div class="cardTitle">Cerca Casa</div><div id="houseValue" class="cardValue">Apri ricerca</div><div id="houseSub" class="cardSub">Firenze e Valdarno · filtri personali</div></a>
- <a class="card" href="/English-Meeting/"><div class="chev">›</div><div class="cardIcon english">🎙</div><div class="cardTitle">English Meeting</div><div id="englishValue" class="cardValue">Start meeting</div><div id="englishSub" class="cardSub">Speaking per call UK / USA</div></a>
- <a class="card" href="/Alice-Job-Radar/?v=6.7"><div class="chev">›</div><div class="cardIcon alice">💼</div><div class="cardTitle">Alice Job Radar</div><div id="aliceValue" class="cardValue">Controllo offerte</div><div id="aliceSub" class="cardSub">Tender · Sales Support · Eventi</div></a>
- <a class="card" href="#agenda"><div class="chev">›</div><div class="cardIcon agenda">▣</div><div class="cardTitle">Agenda</div><div class="cardValue">Oggi</div><div class="cardSub">Prossimi impegni e cose da fare</div></a>
- <a class="card" href="#weekend"><div class="chev">›</div><div class="cardIcon kids">♟</div><div class="cardTitle">Weekend figli</div><div id="kidsValue" class="cardValue">—</div><div id="kidsSub" class="cardSub">Alternanza weekend</div></a>
- <a class="card" href="#garage"><div class="chev">›</div><div class="cardIcon garage">🏍</div><div class="cardTitle">Garage</div><div class="cardValue">Harley 883</div><div class="cardSub">Manutenzione e controlli</div></a>
+<div class="sectionHead"><h2>Le tue app</h2><div class="sectionMore">Tutto a un tap</div></div>
+<section class="appGrid">
+ <a class="appTile" href="/Cerca-Casa/?v=1.1"><div class="appIcon iHouse">🏠</div><div class="appName">Cerca Casa</div><div id="houseSub" class="appSub">Affitti e zone</div></a>
+ <a class="appTile" href="/Alice-Job-Radar/?v=6.10"><div class="appIcon iAlice">💼</div><div class="appName">Lavoro Alice<span id="aliceDot"></span></div><div id="aliceSub" class="appSub">Offerte e candidature</div></a>
+ <a class="appTile" href="/English-Meeting/"><div class="appIcon iEnglish">🇬🇧</div><div class="appName">Inglese</div><div id="englishSub" class="appSub">Meeting practice</div></a>
+ <a class="appTile" href="/Train/"><div class="appIcon iTrain">🚆</div><div class="appName">Train</div><div class="appSub">Treni e ritardi</div></a>
+ <a class="appTile" href="/AirFry-Ricette/"><div class="appIcon iFood">👨‍🍳</div><div class="appName">Ricette</div><div class="appSub">Air fryer</div></a>
+ <a class="appTile" href="#garage"><div class="appIcon iBike">🏍️</div><div class="appName">Harley 883</div><div class="appSub">Manutenzione</div></a>
 </section>
 
-<div class="sectionTitle">ALTRE APP</div>
-<section class="listCard">
- <a class="row" href="/Train/"><div class="rowIcon">🚆</div><div class="rowMain"><div class="rowTitle">Train</div><div class="rowSub">Treni e spostamenti</div></div><div class="rowTail">›</div></a>
- <a class="row" href="/AirFry-Ricette/"><div class="rowIcon">🍟</div><div class="rowMain"><div class="rowTitle">AirFry Ricette</div><div class="rowSub">Ricette per friggitrice ad aria</div></div><div class="rowTail">›</div></a>
- <a class="row" href="/Alice-Job-Radar/?v=6.7"><div class="rowIcon">✦</div><div class="rowMain"><div class="rowTitle">Ricerca Alice</div><div class="rowSub">Offerte aggiornate 08:00 e 15:00</div></div><div class="rowTail">›</div></a>
+<div class="sectionHead"><h2>In evidenza</h2><div class="sectionMore">Personale</div></div>
+<section class="featureGrid">
+ <a class="glassCard" href="#weekend"><div class="featureIcon">❤️</div><div class="featureLabel">WEEKEND FIGLI</div><div id="kidsValue" class="featureValue">—</div><div id="kidsSub" class="featureSub">Alternanza weekend</div></a>
+ <a class="glassCard" href="/Alice-Job-Radar/?v=6.10"><div class="featureIcon">✨</div><div class="featureLabel">ALICE JOB RADAR</div><div id="aliceValue" class="featureValue">Controllo offerte</div><div class="featureSub">Aggiornamento 08:00 / 15:00</div></a>
 </section>
 </main>
 
-<nav class="nav"><div class="navIn"><a class="active" href="./"><span class="navI">⌂</span><span>Home</span></a><a href="/Cerca-Casa/"><span class="navI">⌕</span><span>Casa</span></a><a href="/English-Meeting/"><span class="navI">🎙</span><span>Speak</span></a><a href="#altro"><span class="navI">•••</span><span>Altro</span></a></div></nav>
+<nav class="bottomNav">
+ <div class="navGlass">
+  <a class="active" href="./"><span class="navIcon">⌂</span><span>Home</span></a>
+  <a href="/Dashboard/v32.html?v=37"><span class="navIcon">🚗</span><span>Traffico</span></a>
+  <a href="/Cerca-Casa/?v=1.1"><span class="navIcon">⌕</span><span>Casa</span></a>
+  <a href="/English-Meeting/"><span class="navIcon">🎙</span><span>Speak</span></a>
+  <a href="/Alice-Job-Radar/?v=6.10"><span class="navIcon">•••</span><span>Altro</span></a>
+ </div>
+</nav>
 
 <script>
 (function(){
 "use strict";
 function $(s){return document.querySelector(s)}
-function fmt(total){total=Math.max(0,Math.round(Number(total)||0));if(total<60)return total+" min";var h=Math.floor(total/60),m=total%60;return h+" ora"+(h!==1?"e":"")+(m?" "+String(m).padStart(2,"0")+" min":"")}
-function greet(){var h=new Date().getHours();$("#greeting").textContent=(h<12?"Buongiorno":h<18?"Buon pomeriggio":"Buonasera")+", Marco"}
+function fmt(total){
+ total=Math.max(0,Math.round(Number(total)||0));
+ if(total<60)return total+" min";
+ var h=Math.floor(total/60),m=total%60;
+ return h+" ora"+(h!==1?"e":"")+(m?" "+String(m).padStart(2,"0")+" min":"");
+}
+function clock(d){
+ return new Intl.DateTimeFormat("it-IT",{hour:"2-digit",minute:"2-digit",hourCycle:"h23"}).format(d||new Date());
+}
+function eta(minutes,baseTs){
+ return clock(new Date((Number(baseTs)||Date.now())+Math.max(0,Number(minutes)||0)*60000));
+}
+function greet(){
+ var h=new Date().getHours();
+ $("#hello").textContent=(h<12?"Buongiorno":h<18?"Buon pomeriggio":"Buonasera")+" Marco";
+ $("#heroClock").textContent="Ore "+clock();
+}
 function traffic(){
  try{
-  var d=JSON.parse(localStorage.getItem("morning.lastTraffic.v37")||"null");if(!d||!d.a1||!d.norm)return;
+  var d=JSON.parse(localStorage.getItem("morning.lastTraffic.v37")||"null");
+  if(!d||!d.a1||!d.norm)return;
   var a=d.a1,n=d.norm,diff=Math.abs(a.current-n.current),blocked=a.delay>=30||a.ratio>=1.65;
   var choice=blocked||a.current>=n.current+2?"NOA1":a.current<=n.current-2?"A1":"TIE";
-  var hero=$("#trafficHero");
-  hero.classList.remove("a1","noa1","tie");
-  hero.classList.add(choice==="A1"?"a1":choice==="NOA1"?"noa1":"tie");
-  $("#trafficDecision").textContent=choice==="A1"?"PRENDI A1":choice==="NOA1"?(blocked?"A1 BLOCCATA · EVITALA":"EVITA A1"):"TEMPI SIMILI";
-  $("#a1Mini").textContent="A1 "+fmt(a.current);$("#normalMini").textContent="Normale "+fmt(n.current);
-  $("#trafficLive").textContent="LIVE SALVATO";
-  $("#trafficRoute").textContent=(choice==="TIE"?"Tempi equivalenti":diff+" min di differenza")+" · Reggello → Firenze";
+  var hero=$("#trafficHero"),a1b=$("#a1Box"),nb=$("#normalBox");
+  hero.classList.remove("a1","noa1","tie");hero.classList.add(choice==="A1"?"a1":choice==="NOA1"?"noa1":"tie");
+  a1b.classList.toggle("recommended",choice==="A1");nb.classList.toggle("recommended",choice==="NOA1");
+  $("#trafficDecision").textContent=choice==="A1"?"Prendi A1":choice==="NOA1"?(blocked?"A1 bloccata · evitala":"Evita A1"):"Tempi simili";
+  $("#trafficHint").textContent=choice==="TIE"?"Tempi quasi equivalenti":"È più veloce di "+diff+" minut"+(diff===1?"o":"i");
+  $("#a1Value").textContent=fmt(a.current);$("#normalValue").textContent=fmt(n.current);
+  $("#a1Eta").textContent="Arrivo "+eta(a.current,d.ts);$("#normalEta").textContent="Arrivo "+eta(n.current,d.ts);
+  $("#trafficCondition").textContent=blocked?"● A1 critica":"● Condizioni aggiornate";
+  $("#trafficUpdated").textContent="Dato "+clock(new Date(Number(d.ts)||Date.now()));
  }catch(e){}
 }
 function house(){
  try{
-  var l=JSON.parse(localStorage.getItem("casa.listings")||"[]"),f=JSON.parse(localStorage.getItem("casa.filters")||"null");
-  if(Array.isArray(l)&&l.length){$("#houseValue").textContent=l.length+" salvata"+(l.length===1?"":"e");}
-  if(f&&f.budget)$("#houseSub").textContent="Budget max €"+f.budget+" · "+(f.sqm||50)+"+ m²";
+  var f=JSON.parse(localStorage.getItem("casa.filters")||"null");
+  if(f&&f.budget)$("#houseSub").textContent="Max €"+f.budget+" · "+(f.sqm||50)+"+ m²";
  }catch(e){}
 }
 function english(){
  try{
-  var s=JSON.parse(localStorage.getItem("english.stats")||"null"),cfg=JSON.parse(localStorage.getItem("english.settings")||"null");
-  if(s&&s.sessions)$("#englishValue").textContent=s.sessions+" session"+(s.sessions===1?"e":"i");
-  if(cfg&&cfg.scenario)$("#englishSub").textContent="Scenario: "+cfg.scenario+" · "+(cfg.accent==="en-US"?"USA":"UK");
+  var s=JSON.parse(localStorage.getItem("english.stats")||"null");
+  if(s&&s.sessions)$("#englishSub").textContent=s.sessions+" session"+(s.sessions===1?"e":"i");
  }catch(e){}
 }
 function kids(){
- // Anchor weekend: 19-20 Sep 2026 = weekend con i figli.
  var anchor=new Date("2026-09-19T12:00:00+02:00"),now=new Date(),day=now.getDay(),delta=(6-day+7)%7;
  var sat=new Date(now);sat.setDate(now.getDate()+delta);sat.setHours(12,0,0,0);
  var weeks=Math.round((sat-anchor)/(7*24*3600*1000)),withKids=Math.abs(weeks%2)===0;
@@ -145,16 +288,20 @@ function kids(){
 }
 async function alice(){
  try{
-  var r=await fetch("/Alice-Job-Radar/data/jobs.json?t="+Date.now(),{cache:"no-store"});if(!r.ok)return;var j=await r.json(),today=new Intl.DateTimeFormat("en-CA",{timeZone:"Europe/Rome",year:"numeric",month:"2-digit",day:"2-digit"}).format(new Date());
-  var news=(j.jobs||[]).filter(x=>String(x.firstSeenAt||"").slice(0,10)===today).length;
-  $("#aliceValue").innerHTML=news?news+' nuove<span class="newDot"></span>':"Nessuna nuova";
-  var audit=j.audit&&j.audit.date===today?j.audit.runs:null;
-  if(audit){var slots=Object.keys(audit).filter(k=>audit[k]);$("#aliceSub").textContent=slots.length+" controlli oggi · "+(j.jobs||[]).length+" offerte attive";}
+  var r=await fetch("/Alice-Job-Radar/data/jobs.json?t="+Date.now(),{cache:"no-store"});if(!r.ok)return;
+  var j=await r.json(),parts=new Intl.DateTimeFormat("en-CA",{timeZone:"Europe/Rome",year:"numeric",month:"2-digit",day:"2-digit"}).formatToParts(new Date());
+  var o=Object.fromEntries(parts.map(function(x){return [x.type,x.value]})),today=o.year+"-"+o.month+"-"+o.day;
+  var news=(j.jobs||[]).filter(function(x){return String(x.firstSeenAt||"").slice(0,10)===today}).length;
+  $("#aliceValue").textContent=news?news+" nuove":"Nessuna nuova";
+  $("#aliceSub").textContent=news?news+" nuove oggi":"Offerte e candidature";
+  $("#aliceDot").className=news?"badgeDot":"";
  }catch(e){}
 }
-greet();traffic();house();english();kids();alice();
-document.addEventListener("visibilitychange",function(){if(document.visibilityState==="visible"){greet();traffic();house();english();kids();alice()}});
-if("serviceWorker" in navigator)window.addEventListener("load",function(){navigator.serviceWorker.register("./sw.js").catch(function(){})});
+function refresh(){greet();traffic();house();english();kids();alice()}
+refresh();
+setInterval(greet,60000);
+document.addEventListener("visibilitychange",function(){if(document.visibilityState==="visible")refresh()});
+if("serviceWorker" in navigator)window.addEventListener("load",function(){navigator.serviceWorker.register("./sw.js",{updateViaCache:"none"}).catch(function(){})});
 })();
 </script>
 </body>
