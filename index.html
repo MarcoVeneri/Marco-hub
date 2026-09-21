@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#eef3ff" media="(prefers-color-scheme:light)">
+<meta name="theme-color" content="#070a11" media="(prefers-color-scheme:dark)">
+<meta name="color-scheme" content="light dark">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Marco Hub">
+<link rel="manifest" href="./manifest.webmanifest">
+<link rel="icon" href="./icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="./icon.svg">
+<title>Marco Hub</title>
+<style>
+:root{
+  --bg:#eef3fb;--bg2:#f8faff;--glass:rgba(255,255,255,.70);--glass2:rgba(255,255,255,.88);
+  --text:#0f172a;--muted:#6f7a91;--line:rgba(81,103,140,.13);--shadow:0 20px 60px rgba(31,52,89,.11);
+  --blue:#3979f6;--green:#1fb56b;--purple:#7869ef;--orange:#f39a3b;--red:#ed5b57;--cyan:#24a9c9;
+}
+@media(prefers-color-scheme:dark){
+ :root{--bg:#070a11;--bg2:#101623;--glass:rgba(24,31,44,.72);--glass2:rgba(26,34,48,.91);--text:#f6f8fc;--muted:#a3aec1;--line:rgba(255,255,255,.10);--shadow:0 24px 65px rgba(0,0,0,.36);--blue:#69a0ff;--green:#55cf8d;--purple:#9d90ff;--orange:#ffb35f;--red:#ff7972;--cyan:#63cae1}
+}
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%;background:
+radial-gradient(circle at 88% -6%,rgba(81,132,255,.18),transparent 29%),
+radial-gradient(circle at -8% 20%,rgba(103,203,173,.12),transparent 25%),
+linear-gradient(180deg,var(--bg2),var(--bg));color:var(--text);
+font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Segoe UI",sans-serif;-webkit-font-smoothing:antialiased}
+body{min-height:100dvh}
+button,a{font:inherit;-webkit-tap-highlight-color:transparent}
+.app{width:min(100%,760px);margin:0 auto;padding:max(15px,env(safe-area-inset-top)) 13px max(94px,env(safe-area-inset-bottom))}
+.top{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;padding:4px 4px 13px}
+.brand{font-size:12px;font-weight:850;letter-spacing:.10em;color:var(--muted)}
+h1{font-size:42px;line-height:.94;letter-spacing:-.058em;margin:7px 0 7px;font-weight:900}
+.subtitle{font-size:12px;color:var(--muted)}
+.avatar{width:48px;height:48px;border-radius:17px;border:1px solid var(--line);background:
+linear-gradient(145deg,rgba(57,121,246,.18),rgba(120,105,239,.16)),var(--glass);
+display:grid;place-items:center;font-size:18px;font-weight:900;box-shadow:var(--shadow);backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px)}
+.welcome{border:1px solid var(--line);background:linear-gradient(145deg,rgba(255,255,255,.74),rgba(255,255,255,.46));border-radius:29px;padding:18px 18px 17px;box-shadow:var(--shadow);backdrop-filter:blur(26px);-webkit-backdrop-filter:blur(26px);position:relative;overflow:hidden;margin-bottom:12px}
+@media(prefers-color-scheme:dark){.welcome{background:linear-gradient(145deg,rgba(31,41,58,.86),rgba(21,28,40,.74))}}
+.welcome:after{content:"";position:absolute;width:220px;height:220px;border-radius:50%;right:-95px;top:-115px;background:linear-gradient(145deg,rgba(57,121,246,.24),rgba(120,105,239,.10))}
+.greeting{font-size:12px;color:var(--muted);font-weight:750;position:relative;z-index:1}.welcomeTitle{font-size:27px;line-height:1.03;letter-spacing:-.042em;font-weight:900;margin-top:5px;position:relative;z-index:1}.welcomeSub{font-size:11px;color:var(--muted);margin-top:8px;position:relative;z-index:1}
+.hero{display:block;text-decoration:none;color:white;border-radius:29px;padding:17px 18px;min-height:180px;position:relative;overflow:hidden;background:linear-gradient(145deg,#24bd73,#108952);box-shadow:0 23px 55px rgba(21,151,89,.24);margin-bottom:11px}
+.hero:after{content:"";position:absolute;width:280px;height:280px;border-radius:50%;right:-110px;top:-150px;background:rgba(255,255,255,.10)}
+.heroHead{display:flex;align-items:center;justify-content:space-between;gap:10px;position:relative;z-index:1}.heroLabel{font-size:12px;font-weight:850;letter-spacing:.03em}.heroBadge{font-size:9px;font-weight:900;padding:6px 8px;border-radius:999px;background:rgba(255,255,255,.16)}
+.heroDecision{font-size:34px;font-weight:950;line-height:.98;letter-spacing:-.055em;margin-top:26px;position:relative;z-index:1}
+.heroRoute{font-size:12px;opacity:.94;margin-top:8px;position:relative;z-index:1}.heroMini{display:flex;gap:8px;margin-top:13px;position:relative;z-index:1}.miniPill{font-size:10px;font-weight:800;padding:7px 9px;border-radius:999px;background:rgba(255,255,255,.13)}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.card{min-height:148px;border-radius:25px;padding:15px;background:var(--glass);border:1px solid var(--line);box-shadow:var(--shadow);backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px);text-decoration:none;color:var(--text);position:relative;overflow:hidden}
+.card:active,.hero:active{transform:scale(.985)}
+.cardIcon{width:40px;height:40px;border-radius:14px;display:grid;place-items:center;font-size:20px;margin-bottom:15px}
+.house{background:rgba(57,121,246,.12);color:var(--blue)}.english{background:rgba(120,105,239,.13);color:var(--purple)}.alice{background:rgba(243,154,59,.14);color:var(--orange)}.agenda{background:rgba(36,169,201,.13);color:var(--cyan)}.kids{background:rgba(31,181,107,.13);color:var(--green)}.garage{background:rgba(237,91,87,.12);color:var(--red)}
+.cardTitle{font-size:13px;font-weight:850}.cardValue{font-size:24px;font-weight:920;letter-spacing:-.045em;margin-top:7px;line-height:1.02}.cardSub{font-size:10px;color:var(--muted);margin-top:6px;line-height:1.35}.chev{position:absolute;right:14px;top:15px;color:var(--muted);font-size:17px}
+.newDot{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--red);margin-left:5px;vertical-align:middle}
+.sectionTitle{font-size:12px;color:var(--muted);font-weight:850;letter-spacing:.08em;margin:18px 4px 9px}
+.listCard{background:var(--glass);border:1px solid var(--line);border-radius:24px;padding:5px 14px;box-shadow:var(--shadow);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px)}
+.row{display:flex;align-items:center;gap:11px;text-decoration:none;color:var(--text);min-height:62px;border-bottom:1px solid var(--line)}.row:last-child{border-bottom:0}.rowIcon{width:36px;height:36px;border-radius:12px;display:grid;place-items:center;background:rgba(127,127,127,.07);font-size:18px}.rowMain{min-width:0;flex:1}.rowTitle{font-size:12px;font-weight:830}.rowSub{font-size:10px;color:var(--muted);margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.rowTail{font-size:11px;color:var(--muted)}
+.nav{position:fixed;left:0;right:0;bottom:0;padding:9px max(12px,env(safe-area-inset-right)) max(8px,env(safe-area-inset-bottom)) max(12px,env(safe-area-inset-left));background:linear-gradient(transparent,var(--bg) 34%);z-index:20;pointer-events:none}.navIn{width:min(100%,760px);margin:auto;display:grid;grid-template-columns:repeat(4,1fr);background:var(--glass2);border:1px solid var(--line);border-radius:23px;padding:6px;box-shadow:var(--shadow);backdrop-filter:blur(28px);-webkit-backdrop-filter:blur(28px);pointer-events:auto}.nav a{min-height:46px;text-decoration:none;color:var(--muted);display:grid;place-items:center;align-content:center;gap:3px;border-radius:17px;font-size:9px;font-weight:820}.nav a.active{color:var(--blue);background:rgba(57,121,246,.10)}.navI{font-size:18px}
+@media(min-width:680px){.grid{grid-template-columns:repeat(3,1fr)}.hero{min-height:195px}.card{min-height:158px}}
+@media(max-width:390px){h1{font-size:37px}.welcomeTitle{font-size:24px}.heroDecision{font-size:30px}.card{min-height:140px;padding:14px}.cardValue{font-size:21px}}
+</style>
+</head>
+<body>
+<main class="app">
+<header class="top"><div><div class="brand">MARCO HUB</div><h1>Tutto, qui.</h1><div class="subtitle">Le tue app. Una sola Home.</div></div><div class="avatar">MV</div></header>
+
+<section class="welcome">
+ <div id="greeting" class="greeting">Buon pomeriggio, Marco</div>
+ <div class="welcomeTitle">La tua giornata,<br>in un unico sguardo.</div>
+ <div class="welcomeSub">Le cose importanti arrivano prima. Il resto resta a un tap.</div>
+</section>
+
+<a class="hero" href="/Dashboard/v32.html?v=33.1">
+ <div class="heroHead"><div class="heroLabel">🚗 TRAFFICO LAVORO</div><div id="trafficLive" class="heroBadge">ULTIMO DATO</div></div>
+ <div id="trafficDecision" class="heroDecision">Apri Traffico</div>
+ <div id="trafficRoute" class="heroRoute">Reggello → Firenze · Via Panciatichi</div>
+ <div class="heroMini"><div id="a1Mini" class="miniPill">A1 --</div><div id="normalMini" class="miniPill">Normale --</div></div>
+</a>
+
+<section class="grid">
+ <a class="card" href="/Cerca-Casa/"><div class="chev">›</div><div class="cardIcon house">⌂</div><div class="cardTitle">Cerca Casa</div><div id="houseValue" class="cardValue">Apri ricerca</div><div id="houseSub" class="cardSub">Firenze e Valdarno · filtri personali</div></a>
+ <a class="card" href="/English-Meeting/"><div class="chev">›</div><div class="cardIcon english">🎙</div><div class="cardTitle">English Meeting</div><div id="englishValue" class="cardValue">Start meeting</div><div id="englishSub" class="cardSub">Speaking per call UK / USA</div></a>
+ <a class="card" href="/Alice-Job-Radar/?v=6.7"><div class="chev">›</div><div class="cardIcon alice">💼</div><div class="cardTitle">Alice Job Radar</div><div id="aliceValue" class="cardValue">Controllo offerte</div><div id="aliceSub" class="cardSub">Tender · Sales Support · Eventi</div></a>
+ <a class="card" href="#agenda"><div class="chev">›</div><div class="cardIcon agenda">▣</div><div class="cardTitle">Agenda</div><div class="cardValue">Oggi</div><div class="cardSub">Prossimi impegni e cose da fare</div></a>
+ <a class="card" href="#weekend"><div class="chev">›</div><div class="cardIcon kids">♟</div><div class="cardTitle">Weekend figli</div><div id="kidsValue" class="cardValue">—</div><div id="kidsSub" class="cardSub">Alternanza weekend</div></a>
+ <a class="card" href="#garage"><div class="chev">›</div><div class="cardIcon garage">🏍</div><div class="cardTitle">Garage</div><div class="cardValue">Harley 883</div><div class="cardSub">Manutenzione e controlli</div></a>
+</section>
+
+<div class="sectionTitle">ALTRE APP</div>
+<section class="listCard">
+ <a class="row" href="/Train/"><div class="rowIcon">🚆</div><div class="rowMain"><div class="rowTitle">Train</div><div class="rowSub">Treni e spostamenti</div></div><div class="rowTail">›</div></a>
+ <a class="row" href="/AirFry-Ricette/"><div class="rowIcon">🍟</div><div class="rowMain"><div class="rowTitle">AirFry Ricette</div><div class="rowSub">Ricette per friggitrice ad aria</div></div><div class="rowTail">›</div></a>
+ <a class="row" href="/Alice-Job-Radar/?v=6.7"><div class="rowIcon">✦</div><div class="rowMain"><div class="rowTitle">Ricerca Alice</div><div class="rowSub">Offerte aggiornate 08:00 e 15:00</div></div><div class="rowTail">›</div></a>
+</section>
+</main>
+
+<nav class="nav"><div class="navIn"><a class="active" href="./"><span class="navI">⌂</span><span>Home</span></a><a href="/Cerca-Casa/"><span class="navI">⌕</span><span>Casa</span></a><a href="/English-Meeting/"><span class="navI">🎙</span><span>Speak</span></a><a href="#altro"><span class="navI">•••</span><span>Altro</span></a></div></nav>
+
+<script>
+(function(){
+"use strict";
+function $(s){return document.querySelector(s)}
+function fmt(total){total=Math.max(0,Math.round(Number(total)||0));if(total<60)return total+" min";var h=Math.floor(total/60),m=total%60;return h+" ora"+(h!==1?"e":"")+(m?" "+String(m).padStart(2,"0")+" min":"")}
+function greet(){var h=new Date().getHours();$("#greeting").textContent=(h<12?"Buongiorno":h<18?"Buon pomeriggio":"Buonasera")+", Marco"}
+function traffic(){
+ try{
+  var d=JSON.parse(localStorage.getItem("morning.lastTraffic.v31")||"null");if(!d||!d.a1||!d.norm)return;
+  var a=d.a1,n=d.norm,diff=Math.abs(a.current-n.current),blocked=a.delay>=30||a.ratio>=1.65;
+  var choice=blocked||a.current>=n.current+2?"NOA1":a.current<=n.current-2?"A1":"TIE";
+  $("#trafficDecision").textContent=choice==="A1"?"PRENDI A1":choice==="NOA1"?(blocked?"A1 BLOCCATA · EVITALA":"EVITA A1"):"TEMPI SIMILI";
+  $("#a1Mini").textContent="A1 "+fmt(a.current);$("#normalMini").textContent="Normale "+fmt(n.current);
+  $("#trafficLive").textContent="LIVE SALVATO";
+  $("#trafficRoute").textContent=(choice==="TIE"?"Tempi equivalenti":diff+" min di differenza")+" · Reggello → Firenze";
+ }catch(e){}
+}
+function house(){
+ try{
+  var l=JSON.parse(localStorage.getItem("casa.listings")||"[]"),f=JSON.parse(localStorage.getItem("casa.filters")||"null");
+  if(Array.isArray(l)&&l.length){$("#houseValue").textContent=l.length+" salvata"+(l.length===1?"":"e");}
+  if(f&&f.budget)$("#houseSub").textContent="Budget max €"+f.budget+" · "+(f.sqm||50)+"+ m²";
+ }catch(e){}
+}
+function english(){
+ try{
+  var s=JSON.parse(localStorage.getItem("english.stats")||"null"),cfg=JSON.parse(localStorage.getItem("english.settings")||"null");
+  if(s&&s.sessions)$("#englishValue").textContent=s.sessions+" session"+(s.sessions===1?"e":"i");
+  if(cfg&&cfg.scenario)$("#englishSub").textContent="Scenario: "+cfg.scenario+" · "+(cfg.accent==="en-US"?"USA":"UK");
+ }catch(e){}
+}
+function kids(){
+ // Anchor weekend: 19-20 Sep 2026 = weekend con i figli.
+ var anchor=new Date("2026-09-19T12:00:00+02:00"),now=new Date(),day=now.getDay(),delta=(6-day+7)%7;
+ var sat=new Date(now);sat.setDate(now.getDate()+delta);sat.setHours(12,0,0,0);
+ var weeks=Math.round((sat-anchor)/(7*24*3600*1000)),withKids=Math.abs(weeks%2)===0;
+ $("#kidsValue").textContent=withKids?"Con i figli":"Weekend libero";
+ $("#kidsSub").textContent="Prossimo weekend · "+new Intl.DateTimeFormat("it-IT",{day:"numeric",month:"short"}).format(sat);
+}
+async function alice(){
+ try{
+  var r=await fetch("/Alice-Job-Radar/data/jobs.json?t="+Date.now(),{cache:"no-store"});if(!r.ok)return;var j=await r.json(),today=new Intl.DateTimeFormat("en-CA",{timeZone:"Europe/Rome",year:"numeric",month:"2-digit",day:"2-digit"}).format(new Date());
+  var news=(j.jobs||[]).filter(x=>String(x.firstSeenAt||"").slice(0,10)===today).length;
+  $("#aliceValue").innerHTML=news?news+' nuove<span class="newDot"></span>':"Nessuna nuova";
+  var audit=j.audit&&j.audit.date===today?j.audit.runs:null;
+  if(audit){var slots=Object.keys(audit).filter(k=>audit[k]);$("#aliceSub").textContent=slots.length+" controlli oggi · "+(j.jobs||[]).length+" offerte attive";}
+ }catch(e){}
+}
+greet();traffic();house();english();kids();alice();
+document.addEventListener("visibilitychange",function(){if(document.visibilityState==="visible"){greet();traffic();house();english();kids();alice()}});
+if("serviceWorker" in navigator)window.addEventListener("load",function(){navigator.serviceWorker.register("./sw.js").catch(function(){})});
+})();
+</script>
+</body>
+</html>
