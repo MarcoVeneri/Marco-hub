@@ -109,13 +109,13 @@ a,button{font:inherit;-webkit-tap-highlight-color:transparent}
 .sectionMore{font-size:11px;color:var(--muted)}
 .appGrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
 .appTile{
- min-width:0;min-height:132px;border-radius:25px;padding:14px 9px 13px;text-decoration:none;color:var(--ink);
+ min-width:0;min-height:130px;border-radius:25px;padding:16px 9px 14px;text-decoration:none;color:var(--ink);
  border:1px solid var(--stroke);background:var(--glass);box-shadow:0 18px 45px rgba(45,72,118,.08);
  backdrop-filter:blur(24px) saturate(155%);-webkit-backdrop-filter:blur(24px) saturate(155%);
  display:flex;flex-direction:column;align-items:center;text-align:center;transition:transform .18s ease;
 }
 .appIcon{
- width:54px;height:54px;border-radius:18px;display:grid;place-items:center;font-size:28px;margin-bottom:10px;
+ width:62px;height:62px;border-radius:20px;display:grid;place-items:center;font-size:31px;margin-bottom:12px;
  background:rgba(127,127,127,.07);border:1px solid rgba(255,255,255,.30);
  box-shadow:inset 0 1px 0 rgba(255,255,255,.30);
 }
@@ -128,14 +128,14 @@ a,button{font:inherit;-webkit-tap-highlight-color:transparent}
 .appName{font-size:14px;font-weight:900;line-height:1.12;letter-spacing:-.02em}
 .appSub{font-size:11px;color:var(--muted);line-height:1.28;margin-top:5px;max-width:100%;overflow:hidden;text-overflow:ellipsis}
 .badgeDot{display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--red);margin-left:4px;vertical-align:middle}
-.featureGrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.featureGrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.featureGrid.single{grid-template-columns:1fr}
 .glassCard{
  min-height:132px;border-radius:27px;padding:15px;border:1px solid var(--stroke);background:var(--glass);
  box-shadow:var(--shadow);backdrop-filter:blur(24px) saturate(155%);-webkit-backdrop-filter:blur(24px) saturate(155%);
  text-decoration:none;color:var(--ink);position:relative;overflow:hidden
 }
 .glassCard:after{content:"";position:absolute;width:130px;height:130px;border-radius:50%;right:-55px;top:-70px;background:rgba(255,255,255,.14)}
-.featureIcon{font-size:24px}.featureLabel{font-size:10px;color:var(--muted);font-weight:800;margin-top:17px}.featureValue{font-size:19px;font-weight:920;letter-spacing:-.035em;margin-top:3px}.featureSub{font-size:9px;color:var(--muted);margin-top:5px}
+.featureIcon{font-size:24px}.featureLabel{font-size:10px;color:var(--muted);font-weight:800;margin-top:17px}.featureValue{font-size:19px;font-weight:920;letter-spacing:-.035em;margin-top:3px}.featureSub{font-size:11px;color:var(--muted);margin-top:5px}.calendarCard{width:100%;text-align:left;color:var(--ink);cursor:pointer}
 .bottomNav{
  position:fixed;left:0;right:0;bottom:0;z-index:50;pointer-events:none;
  padding:8px max(12px,env(safe-area-inset-right)) max(9px,env(safe-area-inset-bottom)) max(12px,env(safe-area-inset-left));
@@ -163,6 +163,24 @@ a,button{font:inherit;-webkit-tap-highlight-color:transparent}
  .appGrid{gap:8px}.appTile{min-height:124px;padding:12px 6px;border-radius:22px}.appIcon{width:50px;height:50px;font-size:26px}
  .appName{font-size:13px}.appSub{font-size:10.5px}.featureGrid{gap:8px}.glassCard{border-radius:23px;padding:13px}
 }
+
+.calendarModal{display:none;position:fixed;inset:0;z-index:100;background:rgba(5,10,20,.42);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);padding:18px;align-items:flex-end;justify-content:center}
+.calendarModal.open{display:flex}
+.calendarSheet{width:min(100%,560px);max-height:82dvh;overflow:auto;background:var(--glassStrong);border:1px solid var(--stroke);border-radius:30px;padding:18px;box-shadow:0 30px 90px rgba(0,0,0,.28);backdrop-filter:blur(30px) saturate(175%);-webkit-backdrop-filter:blur(30px) saturate(175%)}
+.calHead{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.calTitle{font-size:22px;font-weight:900;letter-spacing:-.03em}
+.calNav{display:flex;gap:8px}
+.calNav button,.calClose{width:40px;height:40px;border-radius:50%;border:1px solid var(--stroke);background:var(--glass);color:var(--ink);font-size:18px}
+.calWeek{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;margin-top:16px;color:var(--muted);font-size:10px;font-weight:800;text-align:center}
+.calGrid{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;margin-top:7px}
+.calDay{min-height:62px;border-radius:14px;padding:7px 5px;background:rgba(127,127,127,.06);border:1px solid var(--hair);font-size:11px}
+.calDay.empty{visibility:hidden}
+.calNum{font-weight:850}
+.calMark{font-size:8px;line-height:1.15;margin-top:6px;color:var(--muted)}
+.calDay.withKids{background:rgba(31,181,107,.14);border-color:rgba(31,181,107,.22)}
+.calDay.withoutKids{background:rgba(39,135,255,.10);border-color:rgba(39,135,255,.16)}
+.calLegend{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+.calLegend span{font-size:10px;padding:6px 9px;border-radius:999px;background:rgba(127,127,127,.07);border:1px solid var(--hair)}
 </style>
 </head>
 <body>
@@ -205,21 +223,44 @@ a,button{font:inherit;-webkit-tap-highlight-color:transparent}
 
 <div class="sectionHead"><h2>Le tue app</h2><div class="sectionMore">Tutto a un tap</div></div>
 <section class="appGrid">
- <a class="appTile" href="/Cerca-Casa/?v=1.1"><div class="appIcon iHouse">🏠</div><div class="appName">Cerca Casa</div><div id="houseSub" class="appSub">Affitti e zone</div></a>
- <a class="appTile" href="/Alice-Job-Radar/?v=6.10"><div class="appIcon iAlice">💼</div><div class="appName">Lavoro Alice<span id="aliceDot"></span></div><div id="aliceSub" class="appSub">Offerte e candidature</div></a>
- <a class="appTile" href="/English-Meeting/"><div class="appIcon iEnglish">🇬🇧</div><div class="appName">Inglese</div><div id="englishSub" class="appSub">Meeting practice</div></a>
- <a class="appTile" href="/Train/"><div class="appIcon iTrain">🚆</div><div class="appName">Train</div><div class="appSub">Treni e ritardi</div></a>
- <a class="appTile" href="/AirFry-Ricette/"><div class="appIcon iFood">👨‍🍳</div><div class="appName">Ricette</div><div class="appSub">Air fryer</div></a>
- <a class="appTile" href="#garage"><div class="appIcon iBike">🏍️</div><div class="appName">Harley 883</div><div class="appSub">Manutenzione</div></a>
+ <a class="appTile" href="/Cerca-Casa/?v=1.1"><div class="appIcon iHouse">🏠</div><div class="appName">Cerca Casa</div></a>
+ <a class="appTile" href="/Alice-Job-Radar/?v=6.10"><div class="appIcon iAlice">💼</div><div class="appName">Lavoro Alice<span id="aliceDot"></span></div></a>
+ <a class="appTile" href="/English-Meeting/"><div class="appIcon iEnglish">🇬🇧</div><div class="appName">Inglese</div></a>
+ <a class="appTile" href="/Train/"><div class="appIcon iTrain">🚆</div><div class="appName">Train</div></a>
+ <a class="appTile" href="/AirFry-Ricette/"><div class="appIcon iFood">👨‍🍳</div><div class="appName">Ricette</div></a>
+ <a class="appTile" href="#garage"><div class="appIcon iBike">🏍️</div><div class="appName">Harley 883</div></a>
 </section>
 
 <div class="sectionHead"><h2>In evidenza</h2><div class="sectionMore">Personale</div></div>
-<section class="featureGrid">
- <a class="glassCard" href="#weekend"><div class="featureIcon">❤️</div><div class="featureLabel">WEEKEND FIGLI</div><div id="kidsValue" class="featureValue">—</div><div id="kidsSub" class="featureSub">Alternanza weekend</div></a>
- <a class="glassCard" href="/Alice-Job-Radar/?v=6.10"><div class="featureIcon">✨</div><div class="featureLabel">ALICE JOB RADAR</div><div id="aliceValue" class="featureValue">Controllo offerte</div><div class="featureSub">Aggiornamento 08:00 / 15:00</div></a>
+<section class="featureGrid single">
+ <button id="kidsCalendarBtn" class="glassCard calendarCard" type="button">
+  <div class="featureIcon">❤️</div>
+  <div class="featureLabel">CALENDARIO FIGLI</div>
+  <div id="kidsValue" class="featureValue">—</div>
+  <div id="kidsSub" class="featureSub">Tocca per vedere i prossimi mesi</div>
+ </button>
 </section>
 </main>
 
+
+<div id="kidsCalendar" class="calendarModal" aria-hidden="true">
+ <div class="calendarSheet">
+  <div class="calHead">
+   <div>
+    <div class="featureLabel">CALENDARIO FIGLI</div>
+    <div id="calTitle" class="calTitle">—</div>
+   </div>
+   <div class="calNav">
+    <button id="calPrev" type="button" aria-label="Mese precedente">‹</button>
+    <button id="calNext" type="button" aria-label="Mese successivo">›</button>
+    <button id="calClose" class="calClose" type="button" aria-label="Chiudi">×</button>
+   </div>
+  </div>
+  <div class="calWeek"><span>L</span><span>M</span><span>M</span><span>G</span><span>V</span><span>S</span><span>D</span></div>
+  <div id="calGrid" class="calGrid"></div>
+  <div class="calLegend"><span>🟢 Con figli</span><span>🔵 Senza figli</span></div>
+ </div>
+</div>
 <nav class="bottomNav">
  <div class="navGlass">
   <a class="active" href="./"><span class="navIcon">⌂</span><span>Home</span></a>
@@ -266,24 +307,46 @@ function traffic(){
   $("#trafficUpdated").textContent="Dato "+clock(new Date(Number(d.ts)||Date.now()));
  }catch(e){}
 }
-function house(){
- try{
-  var f=JSON.parse(localStorage.getItem("casa.filters")||"null");
-  if(f&&f.budget)$("#houseSub").textContent="Max €"+f.budget+" · "+(f.sqm||50)+"+ m²";
- }catch(e){}
-}
-function english(){
- try{
-  var s=JSON.parse(localStorage.getItem("english.stats")||"null");
-  if(s&&s.sessions)$("#englishSub").textContent=s.sessions+" session"+(s.sessions===1?"e":"i");
- }catch(e){}
+function house(){}
+function english(){}
+function weekendWithKids(sat){
+ var anchor=new Date("2026-09-19T12:00:00+02:00");
+ var s=new Date(sat);s.setHours(12,0,0,0);
+ var weeks=Math.round((s-anchor)/(7*24*3600*1000));
+ return Math.abs(weeks%2)===0;
 }
 function kids(){
- var anchor=new Date("2026-09-19T12:00:00+02:00"),now=new Date(),day=now.getDay(),delta=(6-day+7)%7;
+ var now=new Date(),day=now.getDay(),delta=(6-day+7)%7;
  var sat=new Date(now);sat.setDate(now.getDate()+delta);sat.setHours(12,0,0,0);
- var weeks=Math.round((sat-anchor)/(7*24*3600*1000)),withKids=Math.abs(weeks%2)===0;
- $("#kidsValue").textContent=withKids?"Con i figli":"Weekend libero";
+ var withKids=weekendWithKids(sat);
+ $("#kidsValue").textContent=withKids?"Con figli":"Senza figli";
  $("#kidsSub").textContent="Prossimo weekend · "+new Intl.DateTimeFormat("it-IT",{day:"numeric",month:"short"}).format(sat);
+}
+var calCursor=new Date();calCursor.setDate(1);
+function renderCalendar(){
+ var y=calCursor.getFullYear(),m=calCursor.getMonth();
+ $("#calTitle").textContent=new Intl.DateTimeFormat("it-IT",{month:"long",year:"numeric"}).format(calCursor);
+ var first=new Date(y,m,1),last=new Date(y,m+1,0);
+ var start=(first.getDay()+6)%7,html="";
+ for(var i=0;i<start;i++)html+='<div class="calDay empty"></div>';
+ for(var d=1;d<=last.getDate();d++){
+   var dt=new Date(y,m,d),dow=dt.getDay(),cls="calDay",mark="";
+   if(dow===6||dow===0){
+     var sat=new Date(dt);
+     if(dow===0)sat.setDate(dt.getDate()-1);
+     var wk=weekendWithKids(sat);
+     cls+=" "+(wk?"withKids":"withoutKids");
+     mark=wk?"Con figli":"Senza figli";
+   }
+   html+='<div class="'+cls+'"><div class="calNum">'+d+'</div>'+(mark?'<div class="calMark">'+mark+'</div>':'')+'</div>';
+ }
+ $("#calGrid").innerHTML=html;
+}
+function openCalendar(){
+ $("#kidsCalendar").classList.add("open");$("#kidsCalendar").setAttribute("aria-hidden","false");renderCalendar();document.body.style.overflow="hidden";
+}
+function closeCalendar(){
+ $("#kidsCalendar").classList.remove("open");$("#kidsCalendar").setAttribute("aria-hidden","true");document.body.style.overflow="";
 }
 async function alice(){
  try{
@@ -291,11 +354,14 @@ async function alice(){
   var j=await r.json(),parts=new Intl.DateTimeFormat("en-CA",{timeZone:"Europe/Rome",year:"numeric",month:"2-digit",day:"2-digit"}).formatToParts(new Date());
   var o=Object.fromEntries(parts.map(function(x){return [x.type,x.value]})),today=o.year+"-"+o.month+"-"+o.day;
   var news=(j.jobs||[]).filter(function(x){return String(x.firstSeenAt||"").slice(0,10)===today}).length;
-  $("#aliceValue").textContent=news?news+" nuove":"Nessuna nuova";
-  $("#aliceSub").textContent=news?news+" nuove oggi":"Offerte e candidature";
   $("#aliceDot").className=news?"badgeDot":"";
  }catch(e){}
 }
+$("#kidsCalendarBtn").addEventListener("click",openCalendar);
+$("#calClose").addEventListener("click",closeCalendar);
+$("#calPrev").addEventListener("click",function(){calCursor.setMonth(calCursor.getMonth()-1);renderCalendar()});
+$("#calNext").addEventListener("click",function(){calCursor.setMonth(calCursor.getMonth()+1);renderCalendar()});
+$("#kidsCalendar").addEventListener("click",function(e){if(e.target===this)closeCalendar()});
 function refresh(){greet();traffic();house();english();kids();alice()}
 refresh();
 setInterval(greet,60000);
