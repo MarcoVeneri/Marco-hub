@@ -42,7 +42,10 @@ display:grid;place-items:center;font-size:18px;font-weight:900;box-shadow:var(--
 @media(prefers-color-scheme:dark){.welcome{background:linear-gradient(145deg,rgba(31,41,58,.86),rgba(21,28,40,.74))}}
 .welcome:after{content:"";position:absolute;width:220px;height:220px;border-radius:50%;right:-95px;top:-115px;background:linear-gradient(145deg,rgba(57,121,246,.24),rgba(120,105,239,.10))}
 .greeting{font-size:12px;color:var(--muted);font-weight:750;position:relative;z-index:1}.welcomeTitle{font-size:27px;line-height:1.03;letter-spacing:-.042em;font-weight:900;margin-top:5px;position:relative;z-index:1}.welcomeSub{font-size:11px;color:var(--muted);margin-top:8px;position:relative;z-index:1}
-.hero{display:block;text-decoration:none;color:white;border-radius:29px;padding:17px 18px;min-height:180px;position:relative;overflow:hidden;background:linear-gradient(145deg,#24bd73,#108952);box-shadow:0 23px 55px rgba(21,151,89,.24);margin-bottom:11px}
+.hero{display:block;text-decoration:none;color:white;border-radius:29px;padding:17px 18px;min-height:180px;position:relative;overflow:hidden;background:linear-gradient(145deg,#687386,#4f596a);box-shadow:0 23px 55px rgba(60,70,88,.20);margin-bottom:11px;transition:background .25s ease,box-shadow .25s ease}
+.hero.a1{background:linear-gradient(145deg,#24bd73,#108952);box-shadow:0 23px 55px rgba(21,151,89,.24)}
+.hero.noa1{background:linear-gradient(145deg,#ff625f,#c92f38);box-shadow:0 23px 55px rgba(201,47,56,.27)}
+.hero.tie{background:linear-gradient(145deg,#687386,#4f596a);box-shadow:0 23px 55px rgba(60,70,88,.20)}
 .hero:after{content:"";position:absolute;width:280px;height:280px;border-radius:50%;right:-110px;top:-150px;background:rgba(255,255,255,.10)}
 .heroHead{display:flex;align-items:center;justify-content:space-between;gap:10px;position:relative;z-index:1}.heroLabel{font-size:12px;font-weight:850;letter-spacing:.03em}.heroBadge{font-size:9px;font-weight:900;padding:6px 8px;border-radius:999px;background:rgba(255,255,255,.16)}
 .heroDecision{font-size:34px;font-weight:950;line-height:.98;letter-spacing:-.055em;margin-top:26px;position:relative;z-index:1}
@@ -72,7 +75,7 @@ display:grid;place-items:center;font-size:18px;font-weight:900;box-shadow:var(--
  <div class="welcomeSub">Le cose importanti arrivano prima. Il resto resta a un tap.</div>
 </section>
 
-<a class="hero" href="/Dashboard/v32.html?v=33.1">
+<a id="trafficHero" class="hero tie" href="/Dashboard/v32.html?v=33.1">
  <div class="heroHead"><div class="heroLabel">🚗 TRAFFICO LAVORO</div><div id="trafficLive" class="heroBadge">ULTIMO DATO</div></div>
  <div id="trafficDecision" class="heroDecision">Apri Traffico</div>
  <div id="trafficRoute" class="heroRoute">Reggello → Firenze · Via Panciatichi</div>
@@ -109,6 +112,9 @@ function traffic(){
   var d=JSON.parse(localStorage.getItem("morning.lastTraffic.v31")||"null");if(!d||!d.a1||!d.norm)return;
   var a=d.a1,n=d.norm,diff=Math.abs(a.current-n.current),blocked=a.delay>=30||a.ratio>=1.65;
   var choice=blocked||a.current>=n.current+2?"NOA1":a.current<=n.current-2?"A1":"TIE";
+  var hero=$("#trafficHero");
+  hero.classList.remove("a1","noa1","tie");
+  hero.classList.add(choice==="A1"?"a1":choice==="NOA1"?"noa1":"tie");
   $("#trafficDecision").textContent=choice==="A1"?"PRENDI A1":choice==="NOA1"?(blocked?"A1 BLOCCATA · EVITALA":"EVITA A1"):"TEMPI SIMILI";
   $("#a1Mini").textContent="A1 "+fmt(a.current);$("#normalMini").textContent="Normale "+fmt(n.current);
   $("#trafficLive").textContent="LIVE SALVATO";
