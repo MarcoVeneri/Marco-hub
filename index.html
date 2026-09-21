@@ -115,16 +115,27 @@ a,button{font:inherit;-webkit-tap-highlight-color:transparent}
  display:flex;flex-direction:column;align-items:center;text-align:center;transition:transform .18s ease;
 }
 .appIcon{
- width:62px;height:62px;border-radius:20px;display:grid;place-items:center;font-size:31px;margin-bottom:12px;
- background:rgba(127,127,127,.07);border:1px solid rgba(255,255,255,.30);
- box-shadow:inset 0 1px 0 rgba(255,255,255,.30);
+ width:66px;height:66px;border-radius:22px;display:grid;place-items:center;margin-bottom:12px;
+ border:1px solid rgba(255,255,255,.50);
+ box-shadow:
+   inset 0 1px 0 rgba(255,255,255,.55),
+   inset 0 -10px 18px rgba(0,0,0,.07),
+   0 10px 24px rgba(28,43,72,.16);
+ position:relative;overflow:hidden;
 }
-.iHouse{background:linear-gradient(145deg,rgba(28,188,132,.24),rgba(29,151,115,.10))}
-.iAlice{background:linear-gradient(145deg,rgba(123,92,255,.24),rgba(85,62,210,.10))}
-.iEnglish{background:linear-gradient(145deg,rgba(45,136,255,.23),rgba(45,136,255,.08))}
-.iTrain{background:linear-gradient(145deg,rgba(30,185,200,.22),rgba(30,185,200,.08))}
-.iFood{background:linear-gradient(145deg,rgba(255,158,61,.23),rgba(255,158,61,.08))}
-.iBike{background:linear-gradient(145deg,rgba(239,85,79,.22),rgba(239,85,79,.08))}
+.appIcon:before{
+ content:"";position:absolute;inset:1px;border-radius:21px;
+ background:linear-gradient(145deg,rgba(255,255,255,.26),transparent 44%);
+ pointer-events:none
+}
+.appIcon svg{width:31px;height:31px;position:relative;z-index:1;fill:none;stroke:#fff;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round;filter:drop-shadow(0 2px 3px rgba(0,0,0,.16))}
+
+.iHouse{background:linear-gradient(145deg,#35c991,#15986e)}
+.iAlice{background:linear-gradient(145deg,#8d78ff,#5f48df)}
+.iEnglish{background:linear-gradient(145deg,#4f9dff,#2676e7)}
+.iTrain{background:linear-gradient(145deg,#3ed0df,#189aae)}
+.iFood{background:linear-gradient(145deg,#ffbd63,#ee8c2f)}
+.iBike{background:linear-gradient(145deg,#ff7d72,#d94a4f)}
 .appName{font-size:14px;font-weight:900;line-height:1.12;letter-spacing:-.02em}
 .appSub{font-size:11px;color:var(--muted);line-height:1.28;margin-top:5px;max-width:100%;overflow:hidden;text-overflow:ellipsis}
 .badgeDot{display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--red);margin-left:4px;vertical-align:middle}
@@ -155,32 +166,43 @@ a,button{font:inherit;-webkit-tap-highlight-color:transparent}
  .navGlass{box-shadow:0 26px 70px rgba(0,0,0,.34)}
 }
 @media(max-width:390px){
+ .calendarSheet{padding-left:10px;padding-right:10px;border-radius:26px}
+ .calGrid,.calWeek{gap:4px}
+ .calDay{min-height:74px;padding:7px 2px 6px}
+ .calMark{font-size:8px;padding:4px 2px}
+
  .app{padding-left:12px;padding-right:12px}
  .hello{font-size:23px}.avatar{width:50px;height:50px}.circleBtn{width:42px;height:42px}
  .hero{padding:14px;min-height:244px;border-radius:28px}
  .heroDecision{font-size:33px}.routeValue{font-size:clamp(18px,5.8vw,23px)}
  .heroCompare{gap:7px}.routeBox{padding:9px 8px}
- .appGrid{gap:8px}.appTile{min-height:124px;padding:12px 6px;border-radius:22px}.appIcon{width:50px;height:50px;font-size:26px}
+ .appGrid{gap:8px}.appTile{min-height:126px;padding:12px 6px;border-radius:22px}.appIcon{width:58px;height:58px;border-radius:20px}.appIcon:before{border-radius:19px}.appIcon svg{width:28px;height:28px}
  .appName{font-size:13px}.appSub{font-size:10.5px}.featureGrid{gap:8px}.glassCard{border-radius:23px;padding:13px}
 }
 
-.calendarModal{display:none;position:fixed;inset:0;z-index:100;background:rgba(5,10,20,.42);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);padding:18px;align-items:flex-end;justify-content:center}
+.calendarModal{display:none;position:fixed;inset:0;z-index:100;background:rgba(5,10,20,.48);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);padding:10px;align-items:flex-end;justify-content:center}
 .calendarModal.open{display:flex}
-.calendarSheet{width:min(100%,560px);max-height:82dvh;overflow:auto;background:var(--glassStrong);border:1px solid var(--stroke);border-radius:30px;padding:18px;box-shadow:0 30px 90px rgba(0,0,0,.28);backdrop-filter:blur(30px) saturate(175%);-webkit-backdrop-filter:blur(30px) saturate(175%)}
+.calendarSheet{width:min(100%,680px);max-height:88dvh;overflow:auto;background:var(--glassStrong);border:1px solid var(--stroke);border-radius:30px;padding:18px 14px 20px;box-shadow:0 30px 90px rgba(0,0,0,.32);backdrop-filter:blur(30px) saturate(175%);-webkit-backdrop-filter:blur(30px) saturate(175%)}
 .calHead{display:flex;align-items:center;justify-content:space-between;gap:10px}
 .calTitle{font-size:22px;font-weight:900;letter-spacing:-.03em}
 .calNav{display:flex;gap:8px}
 .calNav button,.calClose{width:40px;height:40px;border-radius:50%;border:1px solid var(--stroke);background:var(--glass);color:var(--ink);font-size:18px}
-.calWeek{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;margin-top:16px;color:var(--muted);font-size:10px;font-weight:800;text-align:center}
-.calGrid{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;margin-top:7px}
-.calDay{min-height:62px;border-radius:14px;padding:7px 5px;background:rgba(127,127,127,.06);border:1px solid var(--hair);font-size:11px}
+.calWeek{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:5px;margin-top:18px;color:var(--muted);font-size:11px;font-weight:900;text-align:center}
+.calGrid{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:5px;margin-top:8px}
+.calDay{min-width:0;min-height:78px;border-radius:16px;padding:8px 4px 7px;background:rgba(127,127,127,.06);border:1px solid var(--hair);font-size:12px;text-align:center;overflow:hidden}
 .calDay.empty{visibility:hidden}
-.calNum{font-weight:850}
-.calMark{font-size:8px;line-height:1.15;margin-top:6px;color:var(--muted)}
-.calDay.withKids{background:rgba(31,181,107,.14);border-color:rgba(31,181,107,.22)}
-.calDay.withoutKids{background:rgba(39,135,255,.10);border-color:rgba(39,135,255,.16)}
-.calLegend{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
-.calLegend span{font-size:10px;padding:6px 9px;border-radius:999px;background:rgba(127,127,127,.07);border:1px solid var(--hair)}
+.calNum{font-weight:900;font-size:13px}
+.calMark{display:block;width:100%;font-size:9px;line-height:1.1;margin-top:8px;padding:5px 3px;border-radius:999px;font-weight:900;white-space:normal}
+.calDay.withKids{background:rgba(31,181,107,.13);border-color:rgba(31,181,107,.28)}
+.calDay.withKids .calMark{background:rgba(31,181,107,.18);color:#13884c}
+.calDay.withoutKids{background:rgba(39,135,255,.09);border-color:rgba(39,135,255,.20)}
+.calDay.withoutKids .calMark{background:rgba(39,135,255,.15);color:#2f73cf}
+@media(prefers-color-scheme:dark){
+ .calDay.withKids .calMark{color:#88e7b4;background:rgba(91,214,150,.18)}
+ .calDay.withoutKids .calMark{color:#9bc4ff;background:rgba(99,168,255,.17)}
+}
+.calLegend{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}
+.calLegend span{font-size:11px;font-weight:850;padding:7px 10px;border-radius:999px;background:rgba(127,127,127,.07);border:1px solid var(--hair)}
 </style>
 </head>
 <body>
@@ -222,19 +244,19 @@ a,button{font:inherit;-webkit-tap-highlight-color:transparent}
 
 <div class="sectionHead"><h2>Le tue app</h2><div class="sectionMore">Tutto a un tap</div></div>
 <section class="appGrid">
- <a class="appTile" href="/Cerca-Casa/?v=1.1"><div class="appIcon iHouse">🏠</div><div class="appName">Cerca Casa</div></a>
- <a class="appTile" href="/Alice-Job-Radar/?v=6.10"><div class="appIcon iAlice">💼</div><div class="appName">Lavoro Alice<span id="aliceDot"></span></div></a>
- <a class="appTile" href="/English-Meeting/"><div class="appIcon iEnglish">🇬🇧</div><div class="appName">Inglese</div></a>
- <a class="appTile" href="/Train/"><div class="appIcon iTrain">🚆</div><div class="appName">Train</div></a>
- <a class="appTile" href="/AirFry-Ricette/"><div class="appIcon iFood">👨‍🍳</div><div class="appName">Ricette</div></a>
- <a class="appTile" href="#garage"><div class="appIcon iBike">🏍️</div><div class="appName">Harley 883</div></a>
+ <a class="appTile" href="/Cerca-Casa/?v=1.1"><div class="appIcon iHouse"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 10.5 12 3l8.5 7.5"/><path d="M5.5 9.5V21h13V9.5"/><path d="M9.5 21v-6h5v6"/></svg></div><div class="appName">Cerca Casa</div></a>
+ <a class="appTile" href="/Alice-Job-Radar/?v=6.10"><div class="appIcon iAlice"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="7" width="18" height="12" rx="3"/><path d="M9 7V5.5A1.5 1.5 0 0 1 10.5 4h3A1.5 1.5 0 0 1 15 5.5V7"/><path d="M3 11.5c4.5 2 13.5 2 18 0"/></svg></div><div class="appName">Lavoro Alice<span id="aliceDot"></span></div></a>
+ <a class="appTile" href="/English-Meeting/"><div class="appIcon iEnglish"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 4h8a4 4 0 0 1 4 4v4a4 4 0 0 1-4 4h-4l-4.5 4V16A4 4 0 0 1 4 12V8a4 4 0 0 1 4-4Z"/><path d="M9 9h6M9 12h4"/></svg></div><div class="appName">Inglese</div></a>
+ <a class="appTile" href="/Train/"><div class="appIcon iTrain"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="3" width="14" height="15" rx="4"/><path d="M8 7h8M8 14h.01M16 14h.01M8 18l-2 3M16 18l2 3M8 21h8"/></svg></div><div class="appName">Train</div></a>
+ <a class="appTile" href="/AirFry-Ricette/"><div class="appIcon iFood"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 10a4 4 0 1 1 8 0"/><path d="M6.5 10A2.5 2.5 0 1 1 9 7.5M17.5 10A2.5 2.5 0 1 0 15 7.5"/><path d="M7 10v8h10v-8M9 14h6"/></svg></div><div class="appName">Ricette</div></a>
+ <a class="appTile" href="#garage"><div class="appIcon iBike"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="6.5" cy="16.5" r="3.5"/><circle cx="17.5" cy="16.5" r="3.5"/><path d="M9 16.5h5l-2.5-6H9M12 10.5h4l2 2M7 13h4M15 8h3"/></svg></div><div class="appName">Harley 883</div></a>
 </section>
 
 <div class="sectionHead"><h2>In evidenza</h2><div class="sectionMore">Personale</div></div>
 <section class="featureGrid single">
  <button id="kidsCalendarBtn" class="glassCard calendarCard" type="button">
   <div class="featureIcon">❤️</div>
-  <div class="featureLabel">CALENDARIO FIGLI</div>
+  <div class="featureLabel">CALENDARIO FIGLIO</div>
   <div id="kidsValue" class="featureValue">—</div>
   <div id="kidsSub" class="featureSub">Tocca per vedere i prossimi mesi</div>
  </button>
@@ -246,7 +268,7 @@ a,button{font:inherit;-webkit-tap-highlight-color:transparent}
  <div class="calendarSheet">
   <div class="calHead">
    <div>
-    <div class="featureLabel">CALENDARIO FIGLI</div>
+    <div class="featureLabel">CALENDARIO FIGLIO</div>
     <div id="calTitle" class="calTitle">—</div>
    </div>
    <div class="calNav">
@@ -257,7 +279,7 @@ a,button{font:inherit;-webkit-tap-highlight-color:transparent}
   </div>
   <div class="calWeek"><span>L</span><span>M</span><span>M</span><span>G</span><span>V</span><span>S</span><span>D</span></div>
   <div id="calGrid" class="calGrid"></div>
-  <div class="calLegend"><span>🟢 Con figli</span><span>🔵 Senza figli</span></div>
+  <div class="calLegend"><span>🟢 Con figlio</span><span>🔵 Senza figlio</span></div>
  </div>
 </div>
 <nav class="bottomNav">
@@ -318,7 +340,7 @@ function kids(){
  var now=new Date(),day=now.getDay(),delta=(6-day+7)%7;
  var sat=new Date(now);sat.setDate(now.getDate()+delta);sat.setHours(12,0,0,0);
  var withKids=weekendWithKids(sat);
- $("#kidsValue").textContent=withKids?"Con figli":"Senza figli";
+ $("#kidsValue").textContent=withKids?"Con figlio":"Senza figlio";
  $("#kidsSub").textContent="Prossimo weekend · "+new Intl.DateTimeFormat("it-IT",{day:"numeric",month:"short"}).format(sat);
 }
 var calCursor=new Date();calCursor.setDate(1);
@@ -335,7 +357,7 @@ function renderCalendar(){
      if(dow===0)sat.setDate(dt.getDate()-1);
      var wk=weekendWithKids(sat);
      cls+=" "+(wk?"withKids":"withoutKids");
-     mark=wk?"Con figli":"Senza figli";
+     mark=wk?"Con figlio":"Senza figlio";
    }
    html+='<div class="'+cls+'"><div class="calNum">'+d+'</div>'+(mark?'<div class="calMark">'+mark+'</div>':'')+'</div>';
  }
