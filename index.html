@@ -64,7 +64,7 @@ a,button{font:inherit;-webkit-tap-highlight-color:transparent}
  display:grid;place-items:center;text-decoration:none;font-size:20px;
 }
 .hero{
- position:relative;overflow:hidden;border-radius:34px;padding:18px;min-height:295px;color:white;
+ position:relative;overflow:hidden;border-radius:31px;padding:15px 16px;min-height:252px;color:white;
  border:1px solid rgba(255,255,255,.24);
  background:
    linear-gradient(180deg,rgba(7,22,48,.08),rgba(4,12,28,.30)),
@@ -88,20 +88,20 @@ a,button{font:inherit;-webkit-tap-highlight-color:transparent}
 .heroTop,.heroDecision,.heroCompare,.heroBottom{position:relative;z-index:2}
 .heroTop{display:flex;align-items:center;justify-content:space-between;gap:10px}
 .heroKicker{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:800}
-.heroIcon{width:32px;height:32px;border-radius:11px;background:rgba(255,255,255,.18);display:grid;place-items:center}
+.heroIcon{width:30px;height:30px;border-radius:10px;background:rgba(255,255,255,.18);display:grid;place-items:center}
 .heroTime{font-size:11px;opacity:.83}
-.heroDecision{font-size:41px;font-weight:950;letter-spacing:-.055em;line-height:.95;margin-top:22px}
-.heroHint{font-size:14px;font-weight:650;margin-top:8px;opacity:.95}
-.heroCompare{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:20px}
+.heroDecision{font-size:36px;font-weight:950;letter-spacing:-.052em;line-height:.95;margin-top:15px}
+.heroHint{font-size:13px;font-weight:650;margin-top:6px;opacity:.95}
+.heroCompare{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-top:14px}
 .routeBox{
- min-width:0;border-radius:21px;padding:12px 13px;background:rgba(10,19,38,.26);
+ min-width:0;overflow:hidden;border-radius:19px;padding:10px 11px;background:rgba(10,19,38,.26);
  border:1px solid rgba(255,255,255,.15);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px)
 }
 .routeBox.recommended{background:rgba(27,195,111,.28);border-color:rgba(166,255,205,.28)}
-.routeLabel{font-size:11px;font-weight:800;opacity:.92}
-.routeValue{font-size:27px;font-weight:950;letter-spacing:-.04em;line-height:1;margin-top:6px;white-space:nowrap}
-.routeEta{font-size:10px;opacity:.76;margin-top:5px}
-.heroBottom{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:13px}
+.routeLabel{font-size:10.5px;font-weight:800;opacity:.92;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.routeValue{font-size:clamp(19px,6vw,26px);font-weight:950;letter-spacing:-.045em;line-height:1;margin-top:6px;white-space:nowrap;overflow:hidden;text-overflow:clip}
+.routeEta{font-size:10px;opacity:.76;margin-top:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.heroBottom{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:10px}
 .condition{display:inline-flex;align-items:center;gap:7px;padding:7px 10px;border-radius:999px;background:rgba(16,200,104,.22);font-size:10px;font-weight:900}
 .updated{font-size:10px;opacity:.75}
 .sectionHead{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:25px 4px 11px}
@@ -109,13 +109,13 @@ a,button{font:inherit;-webkit-tap-highlight-color:transparent}
 .sectionMore{font-size:11px;color:var(--muted)}
 .appGrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
 .appTile{
- min-width:0;min-height:123px;border-radius:25px;padding:14px 10px 12px;text-decoration:none;color:var(--ink);
+ min-width:0;min-height:132px;border-radius:25px;padding:14px 9px 13px;text-decoration:none;color:var(--ink);
  border:1px solid var(--stroke);background:var(--glass);box-shadow:0 18px 45px rgba(45,72,118,.08);
  backdrop-filter:blur(24px) saturate(155%);-webkit-backdrop-filter:blur(24px) saturate(155%);
  display:flex;flex-direction:column;align-items:center;text-align:center;transition:transform .18s ease;
 }
 .appIcon{
- width:49px;height:49px;border-radius:17px;display:grid;place-items:center;font-size:25px;margin-bottom:9px;
+ width:54px;height:54px;border-radius:18px;display:grid;place-items:center;font-size:28px;margin-bottom:10px;
  background:rgba(127,127,127,.07);border:1px solid rgba(255,255,255,.30);
  box-shadow:inset 0 1px 0 rgba(255,255,255,.30);
 }
@@ -125,8 +125,8 @@ a,button{font:inherit;-webkit-tap-highlight-color:transparent}
 .iTrain{background:linear-gradient(145deg,rgba(30,185,200,.22),rgba(30,185,200,.08))}
 .iFood{background:linear-gradient(145deg,rgba(255,158,61,.23),rgba(255,158,61,.08))}
 .iBike{background:linear-gradient(145deg,rgba(239,85,79,.22),rgba(239,85,79,.08))}
-.appName{font-size:12px;font-weight:880;line-height:1.08}
-.appSub{font-size:9px;color:var(--muted);line-height:1.25;margin-top:4px;max-width:100%;overflow:hidden;text-overflow:ellipsis}
+.appName{font-size:14px;font-weight:900;line-height:1.12;letter-spacing:-.02em}
+.appSub{font-size:11px;color:var(--muted);line-height:1.28;margin-top:5px;max-width:100%;overflow:hidden;text-overflow:ellipsis}
 .badgeDot{display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--red);margin-left:4px;vertical-align:middle}
 .featureGrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 .glassCard{
@@ -157,10 +157,11 @@ a,button{font:inherit;-webkit-tap-highlight-color:transparent}
 @media(max-width:390px){
  .app{padding-left:12px;padding-right:12px}
  .hello{font-size:23px}.avatar{width:50px;height:50px}.circleBtn{width:42px;height:42px}
- .hero{padding:16px;min-height:286px;border-radius:30px}
- .heroDecision{font-size:37px}.routeValue{font-size:24px}
- .appGrid{gap:8px}.appTile{min-height:116px;padding:12px 7px;border-radius:22px}.appIcon{width:45px;height:45px;font-size:23px}
- .appName{font-size:11px}.featureGrid{gap:8px}.glassCard{border-radius:23px;padding:13px}
+ .hero{padding:14px;min-height:244px;border-radius:28px}
+ .heroDecision{font-size:33px}.routeValue{font-size:clamp(18px,5.8vw,23px)}
+ .heroCompare{gap:7px}.routeBox{padding:9px 8px}
+ .appGrid{gap:8px}.appTile{min-height:124px;padding:12px 6px;border-radius:22px}.appIcon{width:50px;height:50px;font-size:26px}
+ .appName{font-size:13px}.appSub{font-size:10.5px}.featureGrid{gap:8px}.glassCard{border-radius:23px;padding:13px}
 }
 </style>
 </head>
@@ -169,7 +170,7 @@ a,button{font:inherit;-webkit-tap-highlight-color:transparent}
 <header class="header">
  <div class="identity">
   <div class="avatar">MV</div>
-  <div><div id="hello" class="hello">Ciao Marco</div><div class="helloSub">Tutto sotto controllo</div></div>
+  <div><div class="hello">Marco Hub</div><div class="helloSub">Tutto sotto controllo</div></div>
  </div>
  <div class="headerActions">
   <a class="circleBtn" href="/Alice-Job-Radar/?v=6.10" aria-label="Ricerca lavoro">⌕</a>
@@ -246,8 +247,6 @@ function eta(minutes,baseTs){
  return clock(new Date((Number(baseTs)||Date.now())+Math.max(0,Number(minutes)||0)*60000));
 }
 function greet(){
- var h=new Date().getHours();
- $("#hello").textContent=(h<12?"Buongiorno":h<18?"Buon pomeriggio":"Buonasera")+" Marco";
  $("#heroClock").textContent="Ore "+clock();
 }
 function traffic(){
