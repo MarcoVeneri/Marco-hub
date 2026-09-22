@@ -1,5 +1,5 @@
-const CACHE="marco-hub-v14";
-const SHELL=["./","./index.html","./manifest.webmanifest","./apple-touch-icon-v6.png","./icon-192-v6.png","./icon-512-v6.png","./assets/app-alice-v8.webp","./assets/app-english-v8.webp","./assets/app-train-v8.webp","./assets/app-ricette-v8.webp"];
+const CACHE="marco-hub-v15";
+const SHELL=["./","./index.html","./manifest.webmanifest","./apple-touch-icon-v6.png","./icon-192-v6.png","./icon-512-v6.png"];
 self.addEventListener("install",e=>{e.waitUntil(caches.open(CACHE).then(c=>c.addAll(SHELL)));self.skipWaiting()});
 self.addEventListener("activate",e=>{e.waitUntil(caches.keys().then(k=>Promise.all(k.filter(x=>x!==CACHE).map(x=>caches.delete(x)))));self.clients.claim()});
 self.addEventListener("fetch",e=>{
