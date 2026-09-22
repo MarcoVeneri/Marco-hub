@@ -215,14 +215,14 @@ a,button{font:inherit;-webkit-tap-highlight-color:transparent}
 .calDay.today:after{content:"";position:absolute;right:7px;top:7px;width:5px;height:5px;border-radius:50%;background:var(--ink);opacity:.55}
 .calNum{width:38px;height:38px;margin:0 auto;border-radius:50%;display:grid;place-items:center;font-weight:950;font-size:14px}
 .calMark{display:block;width:100%;font-size:8.5px;line-height:1;margin-top:7px;font-weight:950;white-space:nowrap;letter-spacing:.01em}
-.calDay.withKids{background:rgba(34,187,103,.07);border-color:rgba(34,187,103,.18)}
-.calDay.withKids .calNum{background:linear-gradient(145deg,#22bb67,#079454);color:#fff;box-shadow:0 7px 16px rgba(7,148,84,.24),inset 0 0 0 2px rgba(255,255,255,.72)}
-.calDay.withKids .calMark{color:#079454}
+.calDay.withKids{background:rgba(241,80,71,.045);border-color:rgba(241,80,71,.12)}
+.calDay.withKids .calNum{background:transparent;color:var(--ink);box-shadow:none}
+.calDay.withKids .calMark{font-size:24px;line-height:1;color:#f15047;margin-top:5px}
 .calDay.withoutKids{background:rgba(39,135,255,.055);border-color:rgba(39,135,255,.16)}
 .calDay.withoutKids .calNum{background:#2787ff;color:#fff;box-shadow:0 7px 16px rgba(39,135,255,.22),inset 0 0 0 2px rgba(255,255,255,.72)}
 .calDay.withoutKids .calMark{color:#2f73cf}
 @media(prefers-color-scheme:dark){
- .calDay.withKids .calMark{color:#72dfa5}
+ .calDay.withKids .calMark{color:#ff6b63}
  .calDay.withoutKids .calMark{color:#8dbbff}
  .calDay.today:after{background:#fff;opacity:.7}
 }
@@ -311,7 +311,7 @@ a,button{font:inherit;-webkit-tap-highlight-color:transparent}
    </div>
   </div>
   <div class="calLegend">
-   <span><i class="calLegendDot green"></i>Con i figli</span>
+   <span><span style="font-size:16px;line-height:1;color:#f15047">♥</span>Con i figli</span>
    <span><i class="calLegendDot blue"></i>Senza i figli</span>
   </div>
   <div class="calWeek"><span>L</span><span>M</span><span>M</span><span>G</span><span>V</span><span>S</span><span>D</span></div>
@@ -481,7 +481,7 @@ function renderCalendar(){
      if(dow===0)sat.setDate(dt.getDate()-1);
      var wk=weekendWithKids(sat);
      cls+=" "+(wk?"withKids":"withoutKids");
-     mark=wk?"CON FIGLI":"SENZA";
+     mark=wk?"♥":"SENZA";
    }
    html+='<div class="'+cls+'"><div class="calNum">'+d+'</div>'+(mark?'<div class="calMark">'+mark+'</div>':'')+'</div>';
  }
