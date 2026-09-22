@@ -274,7 +274,7 @@ a,button{font:inherit;-webkit-tap-highlight-color:transparent}
  <div class="navGlass">
   <a class="active" href="./"><span class="navIcon">⌂</span><span>Home</span></a>
   <a href="/Dashboard/v37.7.html?v=37.7"><span class="navIcon">🚗</span><span>Traffico</span></a>
-  <a href="/Cerca-Casa/?v=1.1"><span class="navIcon">⌕</span><span>Casa</span></a>
+  <a href="/Train/"><span class="navIcon">🚆</span><span>Train</span></a>
   <a href="/English-Meeting/?v=fcf4d68"><span class="navIcon">🎙</span><span>Speak</span></a>
   <a href="/Alice-Job-Radar/?v=6.10"><span class="navIcon">💼</span><span>Alice</span></a>
  </div>
@@ -346,16 +346,10 @@ async function refreshTrafficLive(){
  try{
   const p=await hubPositions();
   const rr=await Promise.all([
-    hubRoute([p.home,p.work],false),
+    hubRoute([p.home,INCISA,FIRENZE_SUD,p.work],false),
     hubRoute([p.home].concat(NORMAL_VIAS,[p.work]),true)
   ]);
   let a1=parseRoute(rr[0]),norm=parseRoute(rr[1]);
-  if(!a1.motorway){
-   try{
-    const fallback=parseRoute(await hubRoute([p.home,INCISA,p.work],false));
-    if(fallback.motorway)a1=fallback;
-   }catch(e){}
-  }
   const data={a1:a1,norm:norm,ts:Date.now()};
   safeSet(DATA_STORE,JSON.stringify(data));
   traffic();
@@ -379,24 +373,35 @@ function eta(minutes,baseTs){
 function greet(){
  $("#heroClock").textContent="Ore "+clock();
 }
+function knownA1ClosureNow(){
+ var now=Date.now(),start=Date.parse("2026-09-22T22:00:00+02:00"),end=Date.parse("2026-09-23T05:00:00+02:00");
+ return now>=start&&now<end;
+}
+function a1Condition(a){
+ if(knownA1ClosureNow())return {text:"⛔ A1 CHIUSA PER LAVORI",critical:true};
+ if(!a.motorway)return {text:"⛔ A1 NON PERCORRIBILE",critical:true};
+ if(a.delay>=30||a.ratio>=1.65)return {text:"⛔ A1 BLOCCATA",critical:true};
+ if(a.delay>=15||a.ratio>=1.40)return {text:"🔴 CODA PESANTE",critical:true};
+ if(a.delay>=7||a.ratio>=1.20)return {text:"🟠 A1 RALLENTATA",critical:false};
+ return {text:"🟢 A1 SCORREVOLE",critical:false};
+}
 function traffic(){
  try{
   var d=JSON.parse(safeGet(DATA_STORE)||"null");
   if(!d||!d.a1||!d.norm)return;
-  var a=d.a1,n=d.norm,diff=Math.abs(a.current-n.current),blocked=a.delay>=30||a.ratio>=1.65;
-  var choice=blocked||a.current>=n.current+2?"NOA1":a.current<=n.current-2?"A1":"TIE";
+  var a=d.a1,n=d.norm,diff=Math.abs(a.current-n.current),cond=a1Condition(a);
+  var choice=cond.critical||a.current>=n.current+2?"NOA1":a.current<=n.current-2?"A1":"TIE";
   var hero=$("#trafficHero"),a1b=$("#a1Box"),nb=$("#normalBox");
   hero.classList.remove("a1","noa1","tie");hero.classList.add(choice==="A1"?"a1":choice==="NOA1"?"noa1":"tie");
   a1b.classList.toggle("recommended",choice==="A1");nb.classList.toggle("recommended",choice==="NOA1");
   $("#trafficDecision").textContent=choice==="A1"?"A1":choice==="NOA1"?"Strada normale":"Tempi simili";
-  $("#trafficHint").textContent=choice==="TIE"?"Tempi quasi equivalenti":"È più veloce di "+diff+" minut"+(diff===1?"o":"i");
+  $("#trafficHint").textContent=choice==="TIE"?"Tempi quasi equivalenti":cond.critical?cond.text:"È più veloce di "+diff+" minut"+(diff===1?"o":"i");
   $("#a1Value").textContent=fmt(a.current);$("#normalValue").textContent=fmt(n.current);
   $("#a1Eta").textContent="Arrivo "+eta(a.current,d.ts);$("#normalEta").textContent="Arrivo "+eta(n.current,d.ts);
   $("#trafficCondition").textContent=cond.text;
   $("#trafficUpdated").textContent="Dato "+clock(new Date(Number(d.ts)||Date.now()));
  }catch(e){}
 }
-function house(){}
 function english(){}
 function weekendWithKids(sat){
  var anchor=new Date("2026-09-19T12:00:00+02:00");
