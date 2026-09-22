@@ -123,30 +123,42 @@ a,button{font:inherit;-webkit-tap-highlight-color:transparent}
 .sectionHead{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:25px 4px 11px}
 .sectionHead h2{font-size:21px;line-height:1;margin:0;font-weight:900;letter-spacing:-.035em}
 .sectionMore{font-size:11px;color:var(--muted)}
-.appGrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.appGrid{
+ display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;padding:4px 0 2px;
+}
 .appTile{
- min-width:0;min-height:142px;border-radius:28px;padding:16px 10px 14px;text-decoration:none;color:var(--ink);
- border:1px solid var(--stroke);background:var(--glassStrong);
- box-shadow:0 18px 50px rgba(34,51,84,.10),inset 0 1px 0 rgba(255,255,255,.45);
- backdrop-filter:blur(28px) saturate(165%);-webkit-backdrop-filter:blur(28px) saturate(165%);
- display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;
- transition:transform .18s ease,box-shadow .18s ease;
+ min-width:0;text-decoration:none;color:var(--ink);
+ display:flex;flex-direction:column;align-items:center;text-align:center;
+ transition:transform .16s ease; -webkit-tap-highlight-color:transparent;
 }
-.appTile:active{transform:scale(.975)}
+.appTile:active{transform:scale(.94)}
 .appIcon{
- width:76px;height:76px;border-radius:23px;margin-bottom:12px;position:relative;flex:0 0 auto;
+ width:72px;height:72px;border-radius:22%;margin-bottom:9px;position:relative;flex:0 0 auto;
  display:grid;place-items:center;overflow:hidden;
- border:1px solid rgba(255,255,255,.58);
- box-shadow:0 13px 28px rgba(24,36,60,.20),inset 0 1px 0 rgba(255,255,255,.48),inset 0 -10px 20px rgba(0,0,0,.08);
+ border:1px solid rgba(255,255,255,.62);
+ box-shadow:
+   0 10px 22px rgba(21,31,48,.16),
+   inset 0 1px 0 rgba(255,255,255,.34),
+   inset 0 -1px 0 rgba(0,0,0,.08);
 }
-.appIcon:before{content:"";position:absolute;inset:0;background:linear-gradient(145deg,rgba(255,255,255,.25),transparent 42%);pointer-events:none}
-.appIcon svg{width:40px;height:40px;position:relative;z-index:1;filter:drop-shadow(0 2px 5px rgba(0,0,0,.12))}
-.appIcon.alice{background:linear-gradient(145deg,#ff6b8a,#d94b72)}
-.appIcon.english{background:linear-gradient(145deg,#2f80ed,#0f56b3)}
-.appIcon.train{background:linear-gradient(145deg,#2f343d,#111827)}
-.appIcon.recipes{background:linear-gradient(145deg,#ff9f43,#ef6c28)}
-.appName{font-size:14px;font-weight:900;line-height:1.12;letter-spacing:-.025em}
-.appSub{font-size:11px;color:var(--muted);line-height:1.28;margin-top:5px;max-width:100%;overflow:hidden;text-overflow:ellipsis}
+.appIcon:before{
+ content:"";position:absolute;inset:0;
+ background:linear-gradient(180deg,rgba(255,255,255,.16),rgba(255,255,255,0) 42%);
+ pointer-events:none
+}
+.appIcon svg{
+ width:36px;height:36px;position:relative;z-index:1;
+ stroke:#fff;fill:none;stroke-width:2.15;stroke-linecap:round;stroke-linejoin:round;
+}
+.appIcon.alice{background:linear-gradient(180deg,#ff4f76,#ff2d55)}
+.appIcon.english{background:linear-gradient(180deg,#2596ff,#007aff)}
+.appIcon.train{background:linear-gradient(180deg,#42d75f,#30b94d)}
+.appIcon.recipes{background:linear-gradient(180deg,#ffad28,#ff9500)}
+.appName{
+ width:100%;font-size:11.5px;font-weight:650;line-height:1.18;letter-spacing:-.01em;
+ white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+}
+.appSub{display:none}
 .badgeDot{display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--red);margin-left:4px;vertical-align:middle}
 .featureGrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.featureGrid.single{grid-template-columns:1fr}
 .glassCard{
@@ -172,15 +184,14 @@ a,button{font:inherit;-webkit-tap-highlight-color:transparent}
  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;
  font-size:9px;font-weight:800;letter-spacing:-.01em;
 }
-.navGlass a.active{color:var(--ink);background:rgba(127,127,127,.10);box-shadow:inset 0 1px 0 rgba(255,255,255,.50)}
+.navGlass a.active{color:#007aff;background:rgba(0,122,255,.08);box-shadow:inset 0 1px 0 rgba(255,255,255,.50)}
 .navIcon{width:23px;height:23px;display:grid;place-items:center}
-.navIcon svg{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+.navIcon svg{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round}
 @media(prefers-color-scheme:dark){
  .circleBtn,.appTile,.glassCard{box-shadow:0 20px 50px rgba(0,0,0,.20)}
  .routeBox{background:rgba(5,12,24,.32)}
- .appTile{background:rgba(22,34,53,.78);border-color:rgba(255,255,255,.10);box-shadow:0 20px 50px rgba(0,0,0,.22),inset 0 1px 0 rgba(255,255,255,.05)}
  .navGlass{background:rgba(18,28,44,.80);border-color:rgba(255,255,255,.10);box-shadow:0 26px 70px rgba(0,0,0,.34),inset 0 1px 0 rgba(255,255,255,.05)}
- .navGlass a.active{background:rgba(255,255,255,.09);color:#fff}
+ .navGlass a.active{background:rgba(10,132,255,.14);color:#0a84ff}
 }
 @media(max-width:390px){
  .calendarSheet{padding-left:10px;padding-right:10px;border-radius:26px}
@@ -193,8 +204,7 @@ a,button{font:inherit;-webkit-tap-highlight-color:transparent}
  .hero{padding:14px;min-height:244px;border-radius:28px}
  .heroDecision{font-size:33px}.routeValue{font-size:clamp(18px,5.8vw,23px)}
  .heroCompare{gap:7px}.routeBox{padding:9px 8px}
- .appGrid{gap:8px}.appTile{min-height:128px;padding:12px 6px;border-radius:22px}.appIcon{width:64px;height:64px;border-radius:21px}
- .appName{font-size:13px}.appSub{font-size:10.5px}.featureGrid{gap:8px}.glassCard{border-radius:23px;padding:13px}
+ .appGrid{gap:7px}.appIcon{width:62px;height:62px}.appIcon svg{width:31px;height:31px}.appName{font-size:10.5px}.featureGrid{gap:8px}.glassCard{border-radius:23px;padding:13px}
 }
 
 .calendarModal{display:none;position:fixed;inset:0;z-index:100;background:rgba(5,10,20,.48);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);padding:10px;align-items:flex-end;justify-content:center}
@@ -236,13 +246,13 @@ a,button{font:inherit;-webkit-tap-highlight-color:transparent}
   <div><div class="hello">Marco Hub</div><div class="helloSub">Tutto sotto controllo</div></div>
  </div>
  <div class="headerActions">
-  <a class="circleBtn" href="/Dashboard/v37.8.html?v=37.8" aria-label="Traffico">⚙︎</a>
+  <a class="circleBtn" href="/Dashboard/v37.8.html?v=37.8" aria-label="Traffico"><svg viewBox="0 0 24 24" width="21" height="21" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .34 1.88l.06.06-2.83 2.83-.06-.06a1.7 1.7 0 0 0-1.88-.34 1.7 1.7 0 0 0-1.03 1.55V21h-4v-.08A1.7 1.7 0 0 0 9 19.37a1.7 1.7 0 0 0-1.88.34l-.06.06-2.83-2.83.06-.06A1.7 1.7 0 0 0 4.63 15 1.7 1.7 0 0 0 3.08 14H3v-4h.08A1.7 1.7 0 0 0 4.63 9a1.7 1.7 0 0 0-.34-1.88l-.06-.06 2.83-2.83.06.06A1.7 1.7 0 0 0 9 4.63 1.7 1.7 0 0 0 10 3.08V3h4v.08A1.7 1.7 0 0 0 15 4.63a1.7 1.7 0 0 0 1.88-.34l.06-.06 2.83 2.83-.06.06A1.7 1.7 0 0 0 19.37 9 1.7 1.7 0 0 0 20.92 10H21v4h-.08A1.7 1.7 0 0 0 19.4 15Z"/></svg></a>
  </div>
 </header>
 
 <a id="trafficHero" class="hero tie" href="/Dashboard/v37.8.html?v=37.8">
  <div class="heroTop">
-  <div class="heroKicker"><span class="heroIcon">🚗</span><span>Traffico casa → Firenze</span></div>
+  <div class="heroKicker"><span class="heroIcon"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 16h14l-1.3-5.5A2 2 0 0 0 15.8 9H8.2a2 2 0 0 0-1.9 1.5Z"/><path d="M4 16v2M20 16v2M7.5 16v1M16.5 16v1M7 9l1-3h8l1 3"/></svg></span><span>Traffico casa → Firenze</span></div>
   <div id="heroClock" class="heroTime">—</div>
  </div>
  <div id="trafficDecision" class="heroDecision">Apri Traffico</div>
@@ -267,20 +277,50 @@ a,button{font:inherit;-webkit-tap-highlight-color:transparent}
 
 <div class="sectionHead"><h2>Le tue app</h2><div class="sectionMore">Tutto a un tap</div></div>
 <section class="appGrid">
- <a class="appTile" href="/Alice-Job-Radar/?v=6.10">
-  <div class="appIcon alice"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M12 18.5h24a4 4 0 0 1 4 4v14a4 4 0 0 1-4 4H12a4 4 0 0 1-4-4v-14a4 4 0 0 1 4-4Z" fill="none" stroke="white" stroke-width="3"/><path d="M18 18.5v-3a6 6 0 0 1 12 0v3M8 27h32" fill="none" stroke="white" stroke-width="3" stroke-linecap="round"/><path d="M21 27v3h6v-3" fill="none" stroke="white" stroke-width="3" stroke-linejoin="round"/></svg></div>
+ <a class="appTile" href="/Alice-Job-Radar/?v=6.10" aria-label="Lavoro Alice">
+  <div class="appIcon alice">
+   <svg viewBox="0 0 48 48" aria-hidden="true">
+    <rect x="9.5" y="17" width="29" height="21" rx="5.5"/>
+    <path d="M18 17v-3.2A4.8 4.8 0 0 1 22.8 9h2.4a4.8 4.8 0 0 1 4.8 4.8V17"/>
+    <path d="M9.5 25.5h29"/>
+    <path d="M21 24v4h6v-4"/>
+   </svg>
+  </div>
   <div class="appName">Lavoro Alice<span id="aliceDot"></span></div>
  </a>
- <a class="appTile" href="/English-Meeting/?v=fcf4d68">
-  <div class="appIcon english"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M15 10h18a6 6 0 0 1 6 6v11a6 6 0 0 1-6 6h-8l-7 6v-6h-3a6 6 0 0 1-6-6V16a6 6 0 0 1 6-6Z" fill="none" stroke="white" stroke-width="3" stroke-linejoin="round"/><path d="M16 18h16M16 24h11" stroke="white" stroke-width="3" stroke-linecap="round"/></svg></div>
+ <a class="appTile" href="/English-Meeting/?v=fcf4d68" aria-label="Inglese">
+  <div class="appIcon english">
+   <svg viewBox="0 0 48 48" aria-hidden="true">
+    <rect x="18" y="8" width="12" height="22" rx="6"/>
+    <path d="M13 24a11 11 0 0 0 22 0"/>
+    <path d="M24 35v6"/>
+    <path d="M19 41h10"/>
+   </svg>
+  </div>
   <div class="appName">Inglese</div>
  </a>
- <a class="appTile" href="/Train/">
-  <div class="appIcon train"><svg viewBox="0 0 48 48" aria-hidden="true"><rect x="11" y="7" width="26" height="30" rx="7" fill="none" stroke="white" stroke-width="3"/><path d="M15 17h18M17 37l-4 5M31 37l4 5" stroke="white" stroke-width="3" stroke-linecap="round"/><circle cx="18" cy="30" r="2.3" fill="white"/><circle cx="30" cy="30" r="2.3" fill="white"/></svg></div>
+ <a class="appTile" href="/Train/" aria-label="Train">
+  <div class="appIcon train">
+   <svg viewBox="0 0 48 48" aria-hidden="true">
+    <rect x="13" y="7.5" width="22" height="29" rx="7"/>
+    <path d="M17 17h14"/>
+    <path d="M18 36.5 14 42"/>
+    <path d="M30 36.5 34 42"/>
+    <circle cx="19" cy="29.5" r="1.5" fill="#fff" stroke="none"/>
+    <circle cx="29" cy="29.5" r="1.5" fill="#fff" stroke="none"/>
+   </svg>
+  </div>
   <div class="appName">Train</div>
  </a>
- <a class="appTile" href="/AirFry-Ricette/">
-  <div class="appIcon recipes"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M15 18h18a5 5 0 0 1 5 5v13H10V23a5 5 0 0 1 5-5Z" fill="none" stroke="white" stroke-width="3" stroke-linejoin="round"/><path d="M18 18c0-5 3-8 6-8s6 3 6 8M15 36v5M33 36v5" fill="none" stroke="white" stroke-width="3" stroke-linecap="round"/><path d="M18 28h12" stroke="white" stroke-width="3" stroke-linecap="round"/></svg></div>
+ <a class="appTile" href="/AirFry-Ricette/" aria-label="Ricette">
+  <div class="appIcon recipes">
+   <svg viewBox="0 0 48 48" aria-hidden="true">
+    <path d="M12 17h24v19a5 5 0 0 1-5 5H17a5 5 0 0 1-5-5Z"/>
+    <path d="M16 17v-3a4 4 0 0 1 4-4h8a4 4 0 0 1 4 4v3"/>
+    <path d="M18 27h12"/>
+    <circle cx="24" cy="34" r="2"/>
+   </svg>
+  </div>
   <div class="appName">Ricette</div>
  </a>
 </section>
