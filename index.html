@@ -115,53 +115,17 @@ a,button{font:inherit;-webkit-tap-highlight-color:transparent}
  display:flex;flex-direction:column;align-items:center;text-align:center;transition:transform .18s ease;
 }
 .appIcon{
- width:70px;height:70px;border-radius:23px;display:grid;place-items:center;margin-bottom:12px;
- border:1px solid rgba(255,255,255,.50);
- box-shadow:
-   inset 0 1px 0 rgba(255,255,255,.55),
-   inset 0 -10px 18px rgba(0,0,0,.07),
-   0 10px 24px rgba(28,43,72,.16);
- position:relative;overflow:hidden;
+ width:70px;height:70px;border-radius:23px;overflow:hidden;margin-bottom:12px;
+ border:1px solid rgba(255,255,255,.44);
+ box-shadow:inset 0 1px 0 rgba(255,255,255,.52),0 11px 27px rgba(28,43,72,.20);
+ position:relative;background:#111;flex:0 0 auto;
 }
-.appIcon:before{
- content:"";position:absolute;inset:1px;border-radius:22px;
- background:linear-gradient(145deg,rgba(255,255,255,.26),transparent 44%);
- pointer-events:none
+.appIcon img{width:100%;height:100%;display:block;object-fit:cover}
+.appIcon:after{
+ content:"";position:absolute;inset:0;border-radius:inherit;
+ box-shadow:inset 0 1px 0 rgba(255,255,255,.48),inset 0 -8px 16px rgba(0,0,0,.06);
+ pointer-events:none;
 }
-.appIcon svg{width:54px;height:54px;position:relative;z-index:1;fill:#fff;stroke:none;filter:drop-shadow(0 2px 4px rgba(0,0,0,.18))}
-.appIcon .fullIcon{width:59px;height:59px}
-.iHouse svg{width:57px;height:57px}
-.iAlice svg{width:56px;height:56px}
-.iTrain svg{width:62px;height:62px}
-.iFood svg{width:60px;height:60px}
-.iBike svg{width:60px;height:60px}
-.appIcon.flagUK{padding:0;background:#153f86}
-.appIcon.flagUK .ukFlag{position:absolute;inset:0;border-radius:23px;overflow:hidden;background:#153f86}
-.appIcon.flagUK .ukFlag:before{
- content:"";position:absolute;inset:-8%;
- background:
- linear-gradient(33deg,transparent 42%,#fff 42%,#fff 48%,#cf1730 48%,#cf1730 53%,#fff 53%,#fff 59%,transparent 59%),
- linear-gradient(-33deg,transparent 42%,#fff 42%,#fff 48%,#cf1730 48%,#cf1730 53%,#fff 53%,#fff 59%,transparent 59%);
-}
-.appIcon.flagUK .ukFlag:after{
- content:"";position:absolute;inset:0;
- background:
- linear-gradient(90deg,transparent 35%,#fff 35%,#fff 65%,transparent 65%),
- linear-gradient(0deg,transparent 35%,#fff 35%,#fff 65%,transparent 65%);
-}
-.appIcon.flagUK .ukFlag i{
- position:absolute;inset:0;z-index:2;display:block;
- background:
- linear-gradient(90deg,transparent 41%,#cf1730 41%,#cf1730 59%,transparent 59%),
- linear-gradient(0deg,transparent 41%,#cf1730 41%,#cf1730 59%,transparent 59%);
-}
-
-.iHouse{background:linear-gradient(145deg,#35c991,#15986e)}
-.iAlice{background:linear-gradient(145deg,#8d78ff,#5f48df)}
-.iEnglish{background:linear-gradient(145deg,#4f9dff,#2676e7)}
-.iTrain{background:linear-gradient(145deg,#3ed0df,#189aae)}
-.iFood{background:linear-gradient(145deg,#ffbd63,#ee8c2f)}
-.iBike{background:linear-gradient(145deg,#ff7d72,#d94a4f)}
 .appName{font-size:14px;font-weight:900;line-height:1.12;letter-spacing:-.02em}
 .appSub{font-size:11px;color:var(--muted);line-height:1.28;margin-top:5px;max-width:100%;overflow:hidden;text-overflow:ellipsis}
 .badgeDot{display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--red);margin-left:4px;vertical-align:middle}
@@ -202,7 +166,7 @@ a,button{font:inherit;-webkit-tap-highlight-color:transparent}
  .hero{padding:14px;min-height:244px;border-radius:28px}
  .heroDecision{font-size:33px}.routeValue{font-size:clamp(18px,5.8vw,23px)}
  .heroCompare{gap:7px}.routeBox{padding:9px 8px}
- .appGrid{gap:8px}.appTile{min-height:128px;padding:12px 6px;border-radius:22px}.appIcon{width:62px;height:62px;border-radius:21px}.appIcon:before{border-radius:20px}.appIcon svg{width:50px;height:50px}.appIcon .fullIcon{width:55px;height:55px}.iHouse svg{width:53px;height:53px}.iAlice svg{width:52px;height:52px}.iTrain svg{width:58px;height:58px}.iFood svg{width:56px;height:56px}.iBike svg{width:56px;height:56px}.appIcon.flagUK .ukFlag{border-radius:21px}
+ .appGrid{gap:8px}.appTile{min-height:128px;padding:12px 6px;border-radius:22px}.appIcon{width:64px;height:64px;border-radius:21px}
  .appName{font-size:13px}.appSub{font-size:10.5px}.featureGrid{gap:8px}.glassCard{border-radius:23px;padding:13px}
 }
 
@@ -270,12 +234,12 @@ a,button{font:inherit;-webkit-tap-highlight-color:transparent}
 
 <div class="sectionHead"><h2>Le tue app</h2><div class="sectionMore">Tutto a un tap</div></div>
 <section class="appGrid">
- <a class="appTile" href="/Cerca-Casa/?v=1.1"><div class="appIcon iHouse"><svg viewBox="0 0 64 64" aria-hidden="true"><path d="M7 29.5 32 8l25 21.5-4.8 5.6L49 32.3V55H36V39h-8v16H15V32.3l-3.2 2.8z"/></svg></div><div class="appName">Cerca Casa</div></a>
- <a class="appTile" href="/Alice-Job-Radar/?v=6.10"><div class="appIcon iAlice"><svg viewBox="0 0 64 64" aria-hidden="true"><path d="M23 13a7 7 0 0 1 7-7h4a7 7 0 0 1 7 7v4h9a8 8 0 0 1 8 8v7H6v-7a8 8 0 0 1 8-8h9zm7 4h4v-4h-4zM6 36h20v4a4 4 0 0 0 4 4h4a4 4 0 0 0 4-4v-4h20v14a8 8 0 0 1-8 8H14a8 8 0 0 1-8-8zm25 0h2v4h-2z"/></svg></div><div class="appName">Lavoro Alice<span id="aliceDot"></span></div></a>
- <a class="appTile" href="/English-Meeting/"><div class="appIcon flagUK" aria-label="Inglese"><span class="ukFlag"><i></i></span></div><div class="appName">Inglese</div></a>
- <a class="appTile" href="/Train/"><div class="appIcon iTrain"><svg class="fullIcon" viewBox="0 0 64 64" aria-hidden="true"><path d="M18 5h28a10 10 0 0 1 10 10v27a10 10 0 0 1-10 10h-2l6 7h-8l-5-7H27l-5 7h-8l6-7h-2A10 10 0 0 1 8 42V15A10 10 0 0 1 18 5m-2 11v15h32V16zm4 24a5 5 0 1 0 10 0 5 5 0 0 0-10 0m14 0a5 5 0 1 0 10 0 5 5 0 0 0-10 0"/></svg></div><div class="appName">Train</div></a>
- <a class="appTile" href="/AirFry-Ricette/"><div class="appIcon iFood"><svg class="fullIcon" viewBox="0 0 64 64" aria-hidden="true"><path d="M12 8h31a9 9 0 0 1 9 9v39H18a10 10 0 0 1-10-10V12a4 4 0 0 1 4-4m6 8v31a3 3 0 0 0 3 3h23V17a1 1 0 0 0-1-1z"/><path d="M27 21h4v12h3V21h4v12c0 4-2 7-5 8v7h-4v-7c-3-1-5-4-5-8V21zm14 0h4v27h-4z"/></svg></div><div class="appName">Ricette</div></a>
- <a class="appTile" href="#garage"><div class="appIcon iBike"><svg class="fullIcon" viewBox="0 0 64 64" aria-hidden="true"><path d="M13 37a12 12 0 1 0 11.6 15H39a12 12 0 1 0 1.8-8H29l-6-16H13v7h5l2 6.2A12 12 0 0 0 13 37m0 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10m39 0a5 5 0 1 1 0 10 5 5 0 0 1 0-10M27 21h14l7 8h-8l-4-4h-9z"/></svg></div><div class="appName">Harley 883</div></a>
+ <a class="appTile" href="/Cerca-Casa/?v=1.1"><div class="appIcon"><img src="./assets/app-casa-v8.webp" alt=""></div><div class="appName">Cerca Casa</div></a>
+ <a class="appTile" href="/Alice-Job-Radar/?v=6.10"><div class="appIcon"><img src="./assets/app-alice-v8.webp" alt=""></div><div class="appName">Lavoro Alice<span id="aliceDot"></span></div></a>
+ <a class="appTile" href="/English-Meeting/"><div class="appIcon"><img src="./assets/app-english-v8.webp" alt=""></div><div class="appName">Inglese</div></a>
+ <a class="appTile" href="/Train/"><div class="appIcon"><img src="./assets/app-train-v8.webp" alt=""></div><div class="appName">Train</div></a>
+ <a class="appTile" href="/AirFry-Ricette/"><div class="appIcon"><img src="./assets/app-ricette-v8.webp" alt=""></div><div class="appName">Ricette</div></a>
+ <a class="appTile" href="#garage"><div class="appIcon"><img src="./assets/app-harley-v8.webp" alt=""></div><div class="appName">Harley 883</div></a>
 </section>
 
 <div class="sectionHead"><h2>In evidenza</h2><div class="sectionMore">Personale</div></div>
