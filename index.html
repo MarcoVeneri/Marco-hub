@@ -10,8 +10,8 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Marco Hub">
 <link rel="manifest" href="./manifest.webmanifest">
-<link rel="icon" sizes="192x192" href="/Marco-hub/icon-192-v5.png" type="image/png">
-<link rel="apple-touch-icon" sizes="180x180" href="/Marco-hub/apple-touch-icon-v5.png">
+<link rel="icon" sizes="192x192" href="/Marco-hub/icon-192-v6.png" type="image/png">
+<link rel="apple-touch-icon" sizes="180x180" href="/Marco-hub/apple-touch-icon-v6.png">
 <title>Marco Hub</title>
 <style>
 :root{
@@ -107,7 +107,7 @@ a,button{font:inherit;-webkit-tap-highlight-color:transparent}
 .sectionHead{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:25px 4px 11px}
 .sectionHead h2{font-size:21px;line-height:1;margin:0;font-weight:900;letter-spacing:-.035em}
 .sectionMore{font-size:11px;color:var(--muted)}
-.appGrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}.appGrid .appTile:nth-child(4){grid-column:1}.appGrid .appTile:nth-child(5){grid-column:2}
+.appGrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
 .appTile{
  min-width:0;min-height:130px;border-radius:25px;padding:16px 9px 14px;text-decoration:none;color:var(--ink);
  border:1px solid var(--stroke);background:var(--glass);box-shadow:0 18px 45px rgba(45,72,118,.08);
@@ -136,7 +136,7 @@ a,button{font:inherit;-webkit-tap-highlight-color:transparent}
  text-decoration:none;color:var(--ink);position:relative;overflow:hidden
 }
 .glassCard:after{content:"";position:absolute;width:130px;height:130px;border-radius:50%;right:-55px;top:-70px;background:rgba(255,255,255,.14)}
-.featureIcon{font-size:24px}.featureLabel{font-size:10px;color:var(--muted);font-weight:800;margin-top:17px}.featureValue{font-size:19px;font-weight:920;letter-spacing:-.035em;margin-top:3px}.featureSub{font-size:11px;color:var(--muted);margin-top:5px}.calendarCard{width:100%;text-align:left;color:var(--ink);cursor:pointer}
+.featureIcon{font-size:24px}.featureLabel{font-size:10px;color:var(--muted);font-weight:800;margin-top:17px}.featureValue{font-size:21px;font-weight:950;letter-spacing:-.04em;margin-top:3px}.featureSub{font-size:11px;color:var(--muted);margin-top:5px}.calendarCard{width:100%;text-align:left;color:var(--ink);cursor:pointer;min-height:142px}.calendarCard .featureIcon{width:45px;height:45px;border-radius:15px;display:grid;place-items:center;background:linear-gradient(145deg,rgba(255,105,135,.18),rgba(123,92,255,.16));border:1px solid var(--hair)}
 .bottomNav{
  position:fixed;left:0;right:0;bottom:0;z-index:50;pointer-events:none;
  padding:8px max(12px,env(safe-area-inset-right)) max(9px,env(safe-area-inset-bottom)) max(12px,env(safe-area-inset-left));
@@ -174,14 +174,14 @@ a,button{font:inherit;-webkit-tap-highlight-color:transparent}
 .calendarModal.open{display:flex}
 .calendarSheet{width:min(100%,680px);max-height:88dvh;overflow:auto;background:var(--glassStrong);border:1px solid var(--stroke);border-radius:30px;padding:18px 14px 20px;box-shadow:0 30px 90px rgba(0,0,0,.32);backdrop-filter:blur(30px) saturate(175%);-webkit-backdrop-filter:blur(30px) saturate(175%)}
 .calHead{display:flex;align-items:center;justify-content:space-between;gap:10px}
-.calTitle{font-size:22px;font-weight:900;letter-spacing:-.03em}
+.calTitle{font-size:25px;font-weight:950;letter-spacing:-.04em;text-transform:capitalize}
 .calNav{display:flex;gap:8px}
 .calNav button,.calClose{width:40px;height:40px;border-radius:50%;border:1px solid var(--stroke);background:var(--glass);color:var(--ink);font-size:18px}
 .calWeek{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:5px;margin-top:18px;color:var(--muted);font-size:11px;font-weight:900;text-align:center}
 .calGrid{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:5px;margin-top:8px}
-.calDay{min-width:0;min-height:78px;border-radius:16px;padding:8px 4px 7px;background:rgba(127,127,127,.06);border:1px solid var(--hair);font-size:12px;text-align:center;overflow:hidden}
+.calDay{min-width:0;min-height:78px;border-radius:17px;padding:8px 4px 7px;background:rgba(127,127,127,.055);border:1px solid var(--hair);font-size:12px;text-align:center;overflow:hidden;position:relative}.calDay.today{box-shadow:inset 0 0 0 2px var(--blue)}
 .calDay.empty{visibility:hidden}
-.calNum{font-weight:900;font-size:13px}
+.calNum{font-weight:950;font-size:13px}.calDay.today .calNum{color:var(--blue)}
 .calMark{display:block;width:100%;font-size:9px;line-height:1.1;margin-top:8px;padding:5px 3px;border-radius:999px;font-weight:900;white-space:normal}
 .calDay.withKids{background:rgba(31,181,107,.13);border-color:rgba(31,181,107,.28)}
 .calDay.withKids .calMark{background:rgba(31,181,107,.18);color:#13884c}
@@ -192,7 +192,7 @@ a,button{font:inherit;-webkit-tap-highlight-color:transparent}
  .calDay.withoutKids .calMark{color:#9bc4ff;background:rgba(99,168,255,.17)}
 }
 .calLegend{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}
-.calLegend span{font-size:11px;font-weight:850;padding:7px 10px;border-radius:999px;background:rgba(127,127,127,.07);border:1px solid var(--hair)}
+.calLegend span{font-size:11px;font-weight:900;padding:8px 11px;border-radius:999px;background:rgba(127,127,127,.07);border:1px solid var(--hair)}
 </style>
 </head>
 <body>
@@ -203,11 +203,11 @@ a,button{font:inherit;-webkit-tap-highlight-color:transparent}
   <div><div class="hello">Marco Hub</div><div class="helloSub">Tutto sotto controllo</div></div>
  </div>
  <div class="headerActions">
-  <a class="circleBtn" href="/Dashboard/v32.html?v=37" aria-label="Traffico">⚙︎</a>
+  <a class="circleBtn" href="/Dashboard/v37.7.html?v=37.7" aria-label="Traffico">⚙︎</a>
  </div>
 </header>
 
-<a id="trafficHero" class="hero tie" href="/Dashboard/v32.html?v=37">
+<a id="trafficHero" class="hero tie" href="/Dashboard/v37.7.html?v=37.7">
  <div class="heroTop">
   <div class="heroKicker"><span class="heroIcon">🚗</span><span>Traffico casa → Firenze</span></div>
   <div id="heroClock" class="heroTime">—</div>
@@ -234,9 +234,8 @@ a,button{font:inherit;-webkit-tap-highlight-color:transparent}
 
 <div class="sectionHead"><h2>Le tue app</h2><div class="sectionMore">Tutto a un tap</div></div>
 <section class="appGrid">
- <a class="appTile" href="/Cerca-Casa/?v=1.1"><div class="appIcon"><img src="./assets/app-casa-v8.webp" alt=""></div><div class="appName">Cerca Casa</div></a>
  <a class="appTile" href="/Alice-Job-Radar/?v=6.10"><div class="appIcon"><img src="./assets/app-alice-v8.webp" alt=""></div><div class="appName">Lavoro Alice<span id="aliceDot"></span></div></a>
- <a class="appTile" href="/English-Meeting/"><div class="appIcon"><img src="./assets/app-english-v8.webp" alt=""></div><div class="appName">Inglese</div></a>
+ <a class="appTile" href="/English-Meeting/?v=fcf4d68"><div class="appIcon"><img src="./assets/app-english-v8.webp" alt=""></div><div class="appName">Inglese</div></a>
  <a class="appTile" href="/Train/"><div class="appIcon"><img src="./assets/app-train-v8.webp" alt=""></div><div class="appName">Train</div></a>
  <a class="appTile" href="/AirFry-Ricette/"><div class="appIcon"><img src="./assets/app-ricette-v8.webp" alt=""></div><div class="appName">Ricette</div></a>
 </section>
@@ -245,7 +244,7 @@ a,button{font:inherit;-webkit-tap-highlight-color:transparent}
 <section class="featureGrid single">
  <button id="kidsCalendarBtn" class="glassCard calendarCard" type="button">
   <div class="featureIcon">❤️</div>
-  <div class="featureLabel">CALENDARIO FIGLIO</div>
+  <div class="featureLabel">CALENDARIO FIGLI</div>
   <div id="kidsValue" class="featureValue">—</div>
   <div id="kidsSub" class="featureSub">Tocca per vedere i prossimi mesi</div>
  </button>
@@ -257,7 +256,7 @@ a,button{font:inherit;-webkit-tap-highlight-color:transparent}
  <div class="calendarSheet">
   <div class="calHead">
    <div>
-    <div class="featureLabel">CALENDARIO FIGLIO</div>
+    <div class="featureLabel">CALENDARIO FIGLI</div>
     <div id="calTitle" class="calTitle">—</div>
    </div>
    <div class="calNav">
@@ -268,16 +267,16 @@ a,button{font:inherit;-webkit-tap-highlight-color:transparent}
   </div>
   <div class="calWeek"><span>L</span><span>M</span><span>M</span><span>G</span><span>V</span><span>S</span><span>D</span></div>
   <div id="calGrid" class="calGrid"></div>
-  <div class="calLegend"><span>🟢 Con figlio</span><span>🔵 Senza figlio</span></div>
+  <div class="calLegend"><span>🟢 Con i figli</span><span>🔵 Senza i figli</span></div>
  </div>
 </div>
 <nav class="bottomNav">
  <div class="navGlass">
   <a class="active" href="./"><span class="navIcon">⌂</span><span>Home</span></a>
-  <a href="/Dashboard/v32.html?v=37"><span class="navIcon">🚗</span><span>Traffico</span></a>
+  <a href="/Dashboard/v37.7.html?v=37.7"><span class="navIcon">🚗</span><span>Traffico</span></a>
   <a href="/Cerca-Casa/?v=1.1"><span class="navIcon">⌕</span><span>Casa</span></a>
-  <a href="/English-Meeting/"><span class="navIcon">🎙</span><span>Speak</span></a>
-  <a href="/Alice-Job-Radar/?v=6.10"><span class="navIcon">•••</span><span>Altro</span></a>
+  <a href="/English-Meeting/?v=fcf4d68"><span class="navIcon">🎙</span><span>Speak</span></a>
+  <a href="/Alice-Job-Radar/?v=6.10"><span class="navIcon">💼</span><span>Alice</span></a>
  </div>
 </nav>
 
@@ -294,6 +293,7 @@ const NORMAL_VIAS=[
  {lat:43.76646,lon:11.31282}
 ];
 const INCISA={lat:43.66393,lon:11.45768};
+const FIRENZE_SUD={lat:43.74225,lon:11.28054};
 const KEY_STORE="morning.tomtomApiKey.v30";
 const POS_STORE="morning.positions.v36";
 const DATA_STORE="morning.lastTraffic.v37";
@@ -388,11 +388,11 @@ function traffic(){
   var hero=$("#trafficHero"),a1b=$("#a1Box"),nb=$("#normalBox");
   hero.classList.remove("a1","noa1","tie");hero.classList.add(choice==="A1"?"a1":choice==="NOA1"?"noa1":"tie");
   a1b.classList.toggle("recommended",choice==="A1");nb.classList.toggle("recommended",choice==="NOA1");
-  $("#trafficDecision").textContent=choice==="A1"?"Prendi A1":choice==="NOA1"?(blocked?"A1 bloccata · evitala":"Evita A1"):"Tempi simili";
+  $("#trafficDecision").textContent=choice==="A1"?"A1":choice==="NOA1"?"Strada normale":"Tempi simili";
   $("#trafficHint").textContent=choice==="TIE"?"Tempi quasi equivalenti":"È più veloce di "+diff+" minut"+(diff===1?"o":"i");
   $("#a1Value").textContent=fmt(a.current);$("#normalValue").textContent=fmt(n.current);
   $("#a1Eta").textContent="Arrivo "+eta(a.current,d.ts);$("#normalEta").textContent="Arrivo "+eta(n.current,d.ts);
-  $("#trafficCondition").textContent=blocked?"● A1 critica":"● Condizioni aggiornate";
+  $("#trafficCondition").textContent=cond.text;
   $("#trafficUpdated").textContent="Dato "+clock(new Date(Number(d.ts)||Date.now()));
  }catch(e){}
 }
@@ -408,7 +408,7 @@ function kids(){
  var now=new Date(),day=now.getDay(),delta=(6-day+7)%7;
  var sat=new Date(now);sat.setDate(now.getDate()+delta);sat.setHours(12,0,0,0);
  var withKids=weekendWithKids(sat);
- $("#kidsValue").textContent=withKids?"Con figlio":"Senza figlio";
+ $("#kidsValue").textContent=withKids?"Con i figli":"Senza i figli";
  $("#kidsSub").textContent="Prossimo weekend · "+new Intl.DateTimeFormat("it-IT",{day:"numeric",month:"short"}).format(sat);
 }
 var calCursor=new Date();calCursor.setDate(1);
@@ -425,7 +425,7 @@ function renderCalendar(){
      if(dow===0)sat.setDate(dt.getDate()-1);
      var wk=weekendWithKids(sat);
      cls+=" "+(wk?"withKids":"withoutKids");
-     mark=wk?"Con figlio":"Senza figlio";
+     mark=wk?"Con i figli":"Senza i figli";
    }
    html+='<div class="'+cls+'"><div class="calNum">'+d+'</div>'+(mark?'<div class="calMark">'+mark+'</div>':'')+'</div>';
  }
@@ -451,7 +451,7 @@ $("#calClose").addEventListener("click",closeCalendar);
 $("#calPrev").addEventListener("click",function(){calCursor.setMonth(calCursor.getMonth()-1);renderCalendar()});
 $("#calNext").addEventListener("click",function(){calCursor.setMonth(calCursor.getMonth()+1);renderCalendar()});
 $("#kidsCalendar").addEventListener("click",function(e){if(e.target===this)closeCalendar()});
-function refresh(){greet();traffic();house();english();kids();alice();refreshTrafficLive()}
+function refresh(){greet();traffic();english();kids();alice();refreshTrafficLive()}
 refresh();
 setInterval(greet,60000);
 setInterval(function(){if(document.visibilityState==="visible")refreshTrafficLive()},TRAFFIC_REFRESH_MS);
