@@ -123,26 +123,29 @@ a,button{font:inherit;-webkit-tap-highlight-color:transparent}
 .sectionHead{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:25px 4px 11px}
 .sectionHead h2{font-size:21px;line-height:1;margin:0;font-weight:900;letter-spacing:-.035em}
 .sectionMore{font-size:11px;color:var(--muted)}
-.appGrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.appGrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
 .appTile{
- min-width:0;min-height:130px;border-radius:25px;padding:16px 9px 14px;text-decoration:none;color:var(--ink);
- border:1px solid var(--stroke);background:var(--glass);box-shadow:0 18px 45px rgba(45,72,118,.08);
- backdrop-filter:blur(24px) saturate(155%);-webkit-backdrop-filter:blur(24px) saturate(155%);
- display:flex;flex-direction:column;align-items:center;text-align:center;transition:transform .18s ease;
+ min-width:0;min-height:142px;border-radius:28px;padding:16px 10px 14px;text-decoration:none;color:var(--ink);
+ border:1px solid var(--stroke);background:var(--glassStrong);
+ box-shadow:0 18px 50px rgba(34,51,84,.10),inset 0 1px 0 rgba(255,255,255,.45);
+ backdrop-filter:blur(28px) saturate(165%);-webkit-backdrop-filter:blur(28px) saturate(165%);
+ display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;
+ transition:transform .18s ease,box-shadow .18s ease;
 }
+.appTile:active{transform:scale(.975)}
 .appIcon{
- width:70px;height:70px;border-radius:23px;overflow:hidden;margin-bottom:12px;
- border:1px solid rgba(255,255,255,.44);
- box-shadow:inset 0 1px 0 rgba(255,255,255,.52),0 11px 27px rgba(28,43,72,.20);
- position:relative;background:#111;flex:0 0 auto;
+ width:76px;height:76px;border-radius:23px;margin-bottom:12px;position:relative;flex:0 0 auto;
+ display:grid;place-items:center;overflow:hidden;
+ border:1px solid rgba(255,255,255,.58);
+ box-shadow:0 13px 28px rgba(24,36,60,.20),inset 0 1px 0 rgba(255,255,255,.48),inset 0 -10px 20px rgba(0,0,0,.08);
 }
-.appIcon img{width:100%;height:100%;display:block;object-fit:cover}
-.appIcon:after{
- content:"";position:absolute;inset:0;border-radius:inherit;
- box-shadow:inset 0 1px 0 rgba(255,255,255,.48),inset 0 -8px 16px rgba(0,0,0,.06);
- pointer-events:none;
-}
-.appName{font-size:14px;font-weight:900;line-height:1.12;letter-spacing:-.02em}
+.appIcon:before{content:"";position:absolute;inset:0;background:linear-gradient(145deg,rgba(255,255,255,.25),transparent 42%);pointer-events:none}
+.appIcon svg{width:40px;height:40px;position:relative;z-index:1;filter:drop-shadow(0 2px 5px rgba(0,0,0,.12))}
+.appIcon.alice{background:linear-gradient(145deg,#ff6b8a,#d94b72)}
+.appIcon.english{background:linear-gradient(145deg,#2f80ed,#0f56b3)}
+.appIcon.train{background:linear-gradient(145deg,#2f343d,#111827)}
+.appIcon.recipes{background:linear-gradient(145deg,#ff9f43,#ef6c28)}
+.appName{font-size:14px;font-weight:900;line-height:1.12;letter-spacing:-.025em}
 .appSub{font-size:11px;color:var(--muted);line-height:1.28;margin-top:5px;max-width:100%;overflow:hidden;text-overflow:ellipsis}
 .badgeDot{display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--red);margin-left:4px;vertical-align:middle}
 .featureGrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.featureGrid.single{grid-template-columns:1fr}
@@ -152,20 +155,26 @@ a,button{font:inherit;-webkit-tap-highlight-color:transparent}
  text-decoration:none;color:var(--ink);position:relative;overflow:hidden
 }
 .glassCard:after{content:"";position:absolute;width:130px;height:130px;border-radius:50%;right:-55px;top:-70px;background:rgba(255,255,255,.14)}
-.featureIcon{font-size:24px}.featureLabel{font-size:10px;color:var(--muted);font-weight:800;margin-top:17px}.featureValue{font-size:21px;font-weight:950;letter-spacing:-.04em;margin-top:3px}.featureSub{font-size:11px;color:var(--muted);margin-top:5px}.calendarCard{width:100%;text-align:left;color:var(--ink);cursor:pointer;min-height:142px}.calendarCard .featureIcon{width:45px;height:45px;border-radius:15px;display:grid;place-items:center;background:linear-gradient(145deg,rgba(255,105,135,.18),rgba(123,92,255,.16));border:1px solid var(--hair)}
+.featureIcon{font-size:24px}.featureLabel{font-size:10px;color:var(--muted);font-weight:800;margin-top:17px}.featureValue{font-size:21px;font-weight:950;letter-spacing:-.04em;margin-top:3px}.featureSub{font-size:11px;color:var(--muted);margin-top:5px}.calendarCard{width:100%;text-align:left;color:var(--ink);cursor:pointer;min-height:142px}.calendarCard .featureIcon{width:48px;height:48px;border-radius:16px;display:grid;place-items:center;background:linear-gradient(145deg,#ff6b8a,#d94b72);border:1px solid rgba(255,255,255,.55);box-shadow:0 10px 24px rgba(217,75,114,.20)}.calendarCard .featureIcon svg{width:27px;height:27px}
 .bottomNav{
  position:fixed;left:0;right:0;bottom:0;z-index:50;pointer-events:none;
- padding:8px max(12px,env(safe-area-inset-right)) max(9px,env(safe-area-inset-bottom)) max(12px,env(safe-area-inset-left));
+ padding:9px max(12px,env(safe-area-inset-right)) max(9px,env(safe-area-inset-bottom)) max(12px,env(safe-area-inset-left));
 }
-.bottomNav:before{content:"";position:absolute;left:0;right:0;bottom:0;height:105px;background:linear-gradient(transparent,var(--bg2) 64%);z-index:-1}
+.bottomNav:before{content:"";position:absolute;left:0;right:0;bottom:0;height:112px;background:linear-gradient(transparent,var(--bg2) 66%);z-index:-1}
 .navGlass{
- width:min(100%,740px);margin:auto;display:grid;grid-template-columns:repeat(5,1fr);padding:8px 7px;
- border-radius:31px;background:var(--glassStrong);border:1px solid var(--stroke);box-shadow:0 20px 55px rgba(31,52,89,.18);
- backdrop-filter:blur(30px) saturate(175%);-webkit-backdrop-filter:blur(30px) saturate(175%);pointer-events:auto
+ width:min(100%,720px);margin:auto;display:grid;grid-template-columns:repeat(5,1fr);padding:7px;
+ border-radius:30px;background:rgba(255,255,255,.78);border:1px solid rgba(255,255,255,.72);
+ box-shadow:0 18px 50px rgba(28,45,77,.16),inset 0 1px 0 rgba(255,255,255,.76);
+ backdrop-filter:blur(34px) saturate(185%);-webkit-backdrop-filter:blur(34px) saturate(185%);pointer-events:auto
 }
-.navGlass a{height:52px;border-radius:21px;text-decoration:none;color:var(--muted);display:grid;place-items:center;align-content:center;gap:3px;font-size:9px;font-weight:800}
-.navGlass a.active{color:var(--blue);background:rgba(39,135,255,.11)}
-.navIcon{font-size:20px;line-height:1}
+.navGlass a{
+ height:55px;border-radius:19px;text-decoration:none;color:var(--muted);
+ display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;
+ font-size:9px;font-weight:800;letter-spacing:-.01em;
+}
+.navGlass a.active{color:var(--ink);background:rgba(127,127,127,.10);box-shadow:inset 0 1px 0 rgba(255,255,255,.50)}
+.navIcon{width:23px;height:23px;display:grid;place-items:center}
+.navIcon svg{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
 @media(prefers-color-scheme:dark){
  .circleBtn,.appTile,.glassCard{box-shadow:0 20px 50px rgba(0,0,0,.20)}
  .routeBox{background:rgba(5,12,24,.32)}
@@ -219,11 +228,11 @@ a,button{font:inherit;-webkit-tap-highlight-color:transparent}
   <div><div class="hello">Marco Hub</div><div class="helloSub">Tutto sotto controllo</div></div>
  </div>
  <div class="headerActions">
-  <a class="circleBtn" href="/Dashboard/v37.7.html?v=37.7" aria-label="Traffico">⚙︎</a>
+  <a class="circleBtn" href="/Dashboard/v37.8.html?v=37.8" aria-label="Traffico">⚙︎</a>
  </div>
 </header>
 
-<a id="trafficHero" class="hero tie" href="/Dashboard/v37.7.html?v=37.7">
+<a id="trafficHero" class="hero tie" href="/Dashboard/v37.8.html?v=37.8">
  <div class="heroTop">
   <div class="heroKicker"><span class="heroIcon">🚗</span><span>Traffico casa → Firenze</span></div>
   <div id="heroClock" class="heroTime">—</div>
@@ -250,16 +259,28 @@ a,button{font:inherit;-webkit-tap-highlight-color:transparent}
 
 <div class="sectionHead"><h2>Le tue app</h2><div class="sectionMore">Tutto a un tap</div></div>
 <section class="appGrid">
- <a class="appTile" href="/Alice-Job-Radar/?v=6.10"><div class="appIcon"><img src="./assets/app-alice-v8.webp" alt=""></div><div class="appName">Lavoro Alice<span id="aliceDot"></span></div></a>
- <a class="appTile" href="/English-Meeting/?v=fcf4d68"><div class="appIcon"><img src="./assets/app-english-v8.webp" alt=""></div><div class="appName">Inglese</div></a>
- <a class="appTile" href="/Train/"><div class="appIcon"><img src="./assets/app-train-v8.webp" alt=""></div><div class="appName">Train</div></a>
- <a class="appTile" href="/AirFry-Ricette/"><div class="appIcon"><img src="./assets/app-ricette-v8.webp" alt=""></div><div class="appName">Ricette</div></a>
+ <a class="appTile" href="/Alice-Job-Radar/?v=6.10">
+  <div class="appIcon alice"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M12 18.5h24a4 4 0 0 1 4 4v14a4 4 0 0 1-4 4H12a4 4 0 0 1-4-4v-14a4 4 0 0 1 4-4Z" fill="none" stroke="white" stroke-width="3"/><path d="M18 18.5v-3a6 6 0 0 1 12 0v3M8 27h32" fill="none" stroke="white" stroke-width="3" stroke-linecap="round"/><path d="M21 27v3h6v-3" fill="none" stroke="white" stroke-width="3" stroke-linejoin="round"/></svg></div>
+  <div class="appName">Lavoro Alice<span id="aliceDot"></span></div>
+ </a>
+ <a class="appTile" href="/English-Meeting/?v=fcf4d68">
+  <div class="appIcon english"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M15 10h18a6 6 0 0 1 6 6v11a6 6 0 0 1-6 6h-8l-7 6v-6h-3a6 6 0 0 1-6-6V16a6 6 0 0 1 6-6Z" fill="none" stroke="white" stroke-width="3" stroke-linejoin="round"/><path d="M16 18h16M16 24h11" stroke="white" stroke-width="3" stroke-linecap="round"/></svg></div>
+  <div class="appName">Inglese</div>
+ </a>
+ <a class="appTile" href="/Train/">
+  <div class="appIcon train"><svg viewBox="0 0 48 48" aria-hidden="true"><rect x="11" y="7" width="26" height="30" rx="7" fill="none" stroke="white" stroke-width="3"/><path d="M15 17h18M17 37l-4 5M31 37l4 5" stroke="white" stroke-width="3" stroke-linecap="round"/><circle cx="18" cy="30" r="2.3" fill="white"/><circle cx="30" cy="30" r="2.3" fill="white"/></svg></div>
+  <div class="appName">Train</div>
+ </a>
+ <a class="appTile" href="/AirFry-Ricette/">
+  <div class="appIcon recipes"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M15 18h18a5 5 0 0 1 5 5v13H10V23a5 5 0 0 1 5-5Z" fill="none" stroke="white" stroke-width="3" stroke-linejoin="round"/><path d="M18 18c0-5 3-8 6-8s6 3 6 8M15 36v5M33 36v5" fill="none" stroke="white" stroke-width="3" stroke-linecap="round"/><path d="M18 28h12" stroke="white" stroke-width="3" stroke-linecap="round"/></svg></div>
+  <div class="appName">Ricette</div>
+ </a>
 </section>
 
 <div class="sectionHead"><h2>In evidenza</h2><div class="sectionMore">Personale</div></div>
 <section class="featureGrid single">
  <button id="kidsCalendarBtn" class="glassCard calendarCard" type="button">
-  <div class="featureIcon">❤️</div>
+  <div class="featureIcon"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M24 39S9 30.2 9 18.8C9 13.4 12.8 10 17.1 10c3.1 0 5.5 1.7 6.9 4.2C25.4 11.7 27.8 10 30.9 10 35.2 10 39 13.4 39 18.8 39 30.2 24 39 24 39Z" fill="white"/></svg></div>
   <div class="featureLabel">CALENDARIO FIGLI</div>
   <div id="kidsValue" class="featureValue">—</div>
   <div id="kidsSub" class="featureSub">Tocca per vedere i prossimi mesi</div>
@@ -288,11 +309,11 @@ a,button{font:inherit;-webkit-tap-highlight-color:transparent}
 </div>
 <nav class="bottomNav">
  <div class="navGlass">
-  <a class="active" href="./"><span class="navIcon">⌂</span><span>Home</span></a>
-  <a href="/Dashboard/v37.7.html?v=37.7"><span class="navIcon">🚗</span><span>Traffico</span></a>
-  <a href="/Train/"><span class="navIcon">🚆</span><span>Train</span></a>
-  <a href="/English-Meeting/?v=fcf4d68"><span class="navIcon">🎙</span><span>Speak</span></a>
-  <a href="/Alice-Job-Radar/?v=6.10"><span class="navIcon">💼</span><span>Alice</span></a>
+  <a class="active" href="./"><span class="navIcon"><svg viewBox="0 0 24 24"><path d="M3.5 10.5 12 3l8.5 7.5v9a1.5 1.5 0 0 1-1.5 1.5h-5v-6h-4v6H5a1.5 1.5 0 0 1-1.5-1.5Z"/></svg></span><span>Home</span></a>
+  <a href="/Dashboard/v37.8.html?v=37.8"><span class="navIcon"><svg viewBox="0 0 24 24"><path d="M5 17h14l-1.4-6.2A2 2 0 0 0 15.7 9H8.3a2 2 0 0 0-1.9 1.8Z"/><path d="M3.5 17v2M20.5 17v2M7.5 17v1M16.5 17v1M7 9l1.2-3h7.6L17 9"/></svg></span><span>Traffico</span></a>
+  <a href="/Train/"><span class="navIcon"><svg viewBox="0 0 24 24"><rect x="6" y="3" width="12" height="15" rx="3"/><path d="M8 9h8M8.5 18 6.5 21M15.5 18l2 3"/><circle cx="9" cy="14.5" r=".9" fill="currentColor" stroke="none"/><circle cx="15" cy="14.5" r=".9" fill="currentColor" stroke="none"/></svg></span><span>Train</span></a>
+  <a href="/English-Meeting/?v=fcf4d68"><span class="navIcon"><svg viewBox="0 0 24 24"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M6.5 11.5a5.5 5.5 0 0 0 11 0M12 17v4M9 21h6"/></svg></span><span>Speak</span></a>
+  <a href="/Alice-Job-Radar/?v=6.10"><span class="navIcon"><svg viewBox="0 0 24 24"><rect x="3" y="7" width="18" height="13" rx="2.5"/><path d="M9 7V5.5A2.5 2.5 0 0 1 11.5 3h1A2.5 2.5 0 0 1 15 5.5V7M3 12h18M10 12v2h4v-2"/></svg></span><span>Alice</span></a>
  </div>
 </nav>
 
