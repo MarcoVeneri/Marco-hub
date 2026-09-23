@@ -892,6 +892,14 @@ body{
   background:linear-gradient(180deg,rgba(0,122,255,.15),rgba(0,122,255,.07));
 }
 
+/* iPhone: keep long normal-road times fully visible without changing iPad/desktop */
+@media(max-width:699px){
+  #normalValue.routeValue{
+    font-size:clamp(23px,6.5vw,28px);
+    letter-spacing:-.075em;
+  }
+}
+
 /* Tablet / iPad: true control-center composition */
 @media(min-width:700px){
   .app{padding:calc(env(safe-area-inset-top,0px) + 22px) 24px calc(128px + env(safe-area-inset-bottom,0px))}
