@@ -892,11 +892,48 @@ body{
   background:linear-gradient(180deg,rgba(0,122,255,.15),rgba(0,122,255,.07));
 }
 
-/* iPhone: keep long normal-road times fully visible without changing iPad/desktop */
+/* iPhone: compact traffic card, full minute labels, no wasted vertical space */
 @media(max-width:699px){
+  .heroDecision{
+    font-size:46px;
+    line-height:.9;
+    margin-top:11px;
+  }
+  .heroHint{
+    margin-top:6px;
+    padding:5px 9px;
+    font-size:10px;
+  }
+  .heroCompare,
+  .heroCompare:has(#a1Box.recommended),
+  .heroCompare:has(#normalBox.recommended){
+    grid-template-columns:1fr 1fr;
+    gap:8px;
+    margin-top:10px;
+  }
+  .routeBox{
+    min-height:94px;
+    padding:10px 9px;
+    border-radius:21px;
+  }
+  .routeLabel{
+    font-size:9.5px;
+  }
+  .routeValue{
+    font-size:clamp(17px,4.8vw,20px);
+    letter-spacing:-.055em;
+    margin-top:6px;
+  }
   #normalValue.routeValue{
-    font-size:clamp(23px,6.5vw,28px);
-    letter-spacing:-.075em;
+    font-size:clamp(15.5px,4.35vw,18px);
+    letter-spacing:-.065em;
+  }
+  .routeEta{
+    font-size:9.5px;
+    margin-top:5px;
+  }
+  .heroBottom{
+    margin-top:9px;
   }
 }
 
@@ -1276,9 +1313,11 @@ async function refreshTrafficLive(force){
 }
 function fmt(total){
  total=Math.max(0,Math.round(Number(total)||0));
- if(total<60)return total+" mi";
+ var phone=window.matchMedia&&window.matchMedia("(max-width:699px)").matches;
+ var minuteWord=function(n){return n===1?"minuto":"minuti"};
+ if(total<60)return total+" "+(phone?minuteWord(total):"min");
  var h=Math.floor(total/60),m=total%60;
- return h+" ora"+(h!==1?"e":"")+(m?" "+String(m).padStart(2,"0")+" mi":"");
+ return h+" ora"+(h!==1?"e":"")+(m?" "+String(m).padStart(2,"0")+" "+(phone?minuteWord(m):"min"):"");
 }
 function clock(d){
  return new Intl.DateTimeFormat("it-IT",{hour:"2-digit",minute:"2-digit",hourCycle:"h23"}).format(d||new Date());
