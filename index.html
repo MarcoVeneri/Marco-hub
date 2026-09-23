@@ -585,6 +585,418 @@ body:before{
  }
 }
 
+
+/* ===== Marco Hub v27 — Radical Control Center ===== */
+body{
+  background:
+    radial-gradient(circle at 12% -8%,rgba(72,135,255,.30),transparent 34%),
+    radial-gradient(circle at 92% 6%,rgba(164,92,255,.22),transparent 30%),
+    radial-gradient(circle at 50% 110%,rgba(35,196,183,.15),transparent 34%),
+    linear-gradient(180deg,#eef4ff 0%,#f8fbff 44%,#eef3fb 100%);
+}
+.app{
+  width:min(100%,1280px);
+  padding:calc(env(safe-area-inset-top,0px) + 14px) 14px calc(112px + env(safe-area-inset-bottom,0px));
+}
+.header{
+  min-height:0;
+  margin:0 0 14px;
+  padding:11px 12px;
+  border-radius:28px;
+  background:linear-gradient(145deg,rgba(255,255,255,.78),rgba(255,255,255,.52));
+  border:1px solid rgba(255,255,255,.88);
+  box-shadow:0 18px 46px rgba(40,68,112,.14),inset 0 1px 0 rgba(255,255,255,.95);
+  backdrop-filter:blur(32px) saturate(175%);
+  -webkit-backdrop-filter:blur(32px) saturate(175%);
+}
+.avatar{width:52px;height:52px;border-radius:16px}
+.hello{font-size:25px}
+.helloSub{
+  margin-top:6px;
+  font-size:9px;
+  font-weight:900;
+  letter-spacing:.14em;
+  color:#7587a5;
+}
+.circleBtn{
+  width:44px;height:44px;
+  background:rgba(255,255,255,.68);
+}
+.dashboardGrid{
+  display:grid;
+  grid-template-columns:1fr;
+  gap:15px;
+}
+.trafficArea,.appsArea,.featureArea{min-width:0}
+.hero{
+  min-height:318px;
+  padding:18px;
+  border-radius:36px;
+  border:1px solid rgba(255,255,255,.24);
+  overflow:hidden;
+  background:
+    radial-gradient(circle at 92% -8%,rgba(88,155,255,.34),transparent 31%),
+    radial-gradient(circle at 4% 110%,rgba(61,211,163,.20),transparent 35%),
+    linear-gradient(145deg,#16243a 0%,#0e192b 56%,#0b1322 100%);
+  box-shadow:
+    0 30px 70px rgba(16,31,55,.28),
+    inset 0 1px 0 rgba(255,255,255,.16);
+}
+.hero.a1{
+  background:
+    radial-gradient(circle at 92% -8%,rgba(25,224,130,.32),transparent 32%),
+    radial-gradient(circle at 2% 110%,rgba(75,143,255,.24),transparent 34%),
+    linear-gradient(145deg,#17293b 0%,#102231 54%,#0b1825 100%);
+}
+.hero.noa1{
+  background:
+    radial-gradient(circle at 92% -8%,rgba(255,88,78,.34),transparent 32%),
+    radial-gradient(circle at 2% 110%,rgba(120,97,255,.20),transparent 35%),
+    linear-gradient(145deg,#302331 0%,#211925 56%,#15131c 100%);
+}
+.hero.tie{
+  background:
+    radial-gradient(circle at 92% -8%,rgba(90,156,255,.32),transparent 32%),
+    radial-gradient(circle at 2% 110%,rgba(143,103,255,.20),transparent 35%),
+    linear-gradient(145deg,#1d2c43 0%,#152238 56%,#101827 100%);
+}
+.hero:before{
+  width:420px;height:420px;right:-230px;top:-240px;
+  background:radial-gradient(circle,rgba(255,255,255,.18),rgba(255,255,255,0) 66%);
+}
+.hero:after{
+  height:62%;
+  background:linear-gradient(180deg,transparent,rgba(1,7,16,.34));
+}
+.heroTop{align-items:center}
+.heroKicker{
+  font-size:14px;
+  font-weight:900;
+  letter-spacing:-.02em;
+}
+.heroIcon{
+  width:38px;height:38px;border-radius:14px;
+  background:linear-gradient(145deg,rgba(255,255,255,.22),rgba(255,255,255,.08));
+}
+.heroTime{font-size:11px;font-weight:900;opacity:.68}
+.trafficTabs{
+  margin-top:14px;
+  padding:4px;
+  border-radius:15px;
+  background:rgba(2,9,19,.38);
+  border:1px solid rgba(255,255,255,.12);
+}
+.trafficTab{
+  min-width:82px;
+  padding:8px 14px;
+  border-radius:11px;
+  font-size:10px;
+  letter-spacing:.025em;
+}
+.trafficTab.active{
+  background:linear-gradient(180deg,rgba(255,255,255,.28),rgba(255,255,255,.13));
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.24),0 7px 18px rgba(0,0,0,.18);
+}
+.heroDecision{
+  font-size:58px;
+  line-height:.88;
+  margin-top:18px;
+  letter-spacing:-.07em;
+}
+.heroHint{
+  display:inline-flex;
+  margin-top:10px;
+  padding:7px 10px;
+  border-radius:999px;
+  background:rgba(255,255,255,.10);
+  border:1px solid rgba(255,255,255,.10);
+  font-size:11px;
+}
+.heroCompare{
+  margin-top:15px;
+  gap:9px;
+  grid-template-columns:1fr 1fr;
+  transition:grid-template-columns .25s ease;
+}
+.heroCompare:has(#a1Box.recommended){grid-template-columns:1.14fr .86fr}
+.heroCompare:has(#normalBox.recommended){grid-template-columns:.86fr 1.14fr}
+.routeBox{
+  min-height:102px;
+  padding:13px;
+  border-radius:24px;
+  background:linear-gradient(145deg,rgba(255,255,255,.14),rgba(255,255,255,.06));
+  border:1px solid rgba(255,255,255,.26);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.12),0 12px 28px rgba(0,0,0,.10);
+}
+.routeBox.recommended{
+  transform:translateY(-2px);
+  background:
+    radial-gradient(circle at 86% 0%,rgba(255,255,255,.25),transparent 32%),
+    linear-gradient(145deg,#29d57e,#07965a);
+  border-color:rgba(255,255,255,.88);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.28),
+    0 0 0 2px rgba(255,255,255,.12),
+    0 18px 42px rgba(5,156,91,.36);
+}
+.routeLabel{font-size:10px;font-weight:900}
+.routeValue{font-size:31px;margin-top:9px;letter-spacing:-.06em}
+.routeEta{font-size:10px;font-weight:750;margin-top:7px}
+.heroBottom{margin-top:13px}
+.condition{
+  padding:8px 10px;
+  border-radius:14px;
+  background:rgba(255,255,255,.10);
+}
+.updated{font-size:9.5px;font-weight:800;opacity:.62}
+
+/* Bento launcher — clearly different from the old icon row */
+.appsArea{
+  padding:0;
+  border:0;
+  background:transparent;
+  box-shadow:none;
+}
+.appsArea .sectionHead,.featureArea .sectionHead{
+  margin:4px 4px 10px;
+}
+.sectionHead h2{
+  font-size:25px;
+  letter-spacing:-.055em;
+}
+.sectionMore{
+  font-size:10px;
+  font-weight:800;
+  letter-spacing:.02em;
+}
+.appGrid{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:10px;
+  padding:0;
+}
+.appTile,
+.appsArea .appTile{
+  min-height:128px;
+  padding:14px;
+  border-radius:27px;
+  align-items:flex-start;
+  justify-content:flex-end;
+  text-align:left;
+  position:relative;
+  overflow:hidden;
+  background:
+    radial-gradient(circle at 100% 0%,rgba(255,255,255,.52),transparent 34%),
+    linear-gradient(145deg,rgba(255,255,255,.78),rgba(255,255,255,.50));
+  border:1px solid rgba(255,255,255,.90);
+  box-shadow:0 18px 42px rgba(49,73,112,.13),inset 0 1px 0 rgba(255,255,255,.86);
+  backdrop-filter:blur(28px) saturate(170%);
+  -webkit-backdrop-filter:blur(28px) saturate(170%);
+}
+.appTile:before{
+  content:"";
+  position:absolute;
+  width:120px;height:120px;
+  right:-52px;top:-58px;
+  border-radius:50%;
+  background:rgba(255,255,255,.24);
+}
+.appTile .appIcon,
+.appsArea .appIcon{
+  width:54px;height:54px;
+  margin:0 0 auto;
+  border-radius:17px;
+  box-shadow:0 10px 24px rgba(24,42,72,.16),inset 0 1px 0 rgba(255,255,255,.38);
+}
+.appTile .appIcon svg,.appsArea .appIcon svg{width:28px;height:28px}
+.appTile .appName,.appsArea .appName{
+  margin-top:13px;
+  font-size:15px;
+  line-height:1.05;
+  font-weight:900;
+  letter-spacing:-.025em;
+  text-align:left;
+}
+.appSub{
+  display:block;
+  margin-top:4px;
+  font-size:9px;
+  font-weight:800;
+  letter-spacing:.04em;
+  text-transform:uppercase;
+  color:var(--muted);
+}
+.appTile:nth-child(1){
+  background:
+    radial-gradient(circle at 100% 0%,rgba(255,111,143,.20),transparent 42%),
+    linear-gradient(145deg,rgba(255,255,255,.82),rgba(255,245,249,.62));
+}
+.appTile:nth-child(2){
+  background:
+    radial-gradient(circle at 100% 0%,rgba(38,150,255,.18),transparent 42%),
+    linear-gradient(145deg,rgba(255,255,255,.82),rgba(244,250,255,.62));
+}
+.appTile:nth-child(3){
+  background:
+    radial-gradient(circle at 100% 0%,rgba(66,215,95,.17),transparent 42%),
+    linear-gradient(145deg,rgba(255,255,255,.82),rgba(245,255,247,.62));
+}
+.appTile:nth-child(4){
+  background:
+    radial-gradient(circle at 100% 0%,rgba(255,173,40,.19),transparent 42%),
+    linear-gradient(145deg,rgba(255,255,255,.82),rgba(255,250,241,.62));
+}
+
+.featureArea{margin-top:0}
+.calendarCard{
+  min-height:168px;
+  padding:18px 20px;
+  border-radius:32px;
+  background:
+    radial-gradient(circle at 92% 14%,rgba(255,116,151,.28),transparent 26%),
+    radial-gradient(circle at 8% 115%,rgba(98,137,255,.18),transparent 34%),
+    linear-gradient(145deg,rgba(255,255,255,.84),rgba(255,255,255,.56));
+}
+.calendarCard .featureIcon{
+  position:absolute;
+  right:18px;top:18px;
+  width:58px;height:58px;
+  border-radius:20px;
+}
+.calendarCard .featureLabel{margin-top:2px;font-size:10px}
+.calendarCard .featureValue{
+  max-width:75%;
+  margin-top:46px;
+  font-size:32px;
+  letter-spacing:-.06em;
+}
+.calendarCard .featureSub{font-size:11px}
+
+/* Floating dock */
+.bottomNav{padding:8px 12px max(8px,env(safe-area-inset-bottom))}
+.bottomNav:before{height:92px}
+.navGlass{
+  width:min(94vw,860px);
+  padding:6px;
+  border-radius:26px;
+  background:rgba(255,255,255,.82);
+  box-shadow:0 20px 55px rgba(31,49,82,.18),inset 0 1px 0 rgba(255,255,255,.92);
+}
+.navGlass a{
+  height:54px;
+  border-radius:18px;
+  font-size:9px;
+}
+.navGlass a.active{
+  color:#007aff;
+  background:linear-gradient(180deg,rgba(0,122,255,.15),rgba(0,122,255,.07));
+}
+
+/* Tablet / iPad: true control-center composition */
+@media(min-width:700px){
+  .app{padding:calc(env(safe-area-inset-top,0px) + 22px) 24px calc(128px + env(safe-area-inset-bottom,0px))}
+  .header{
+    padding:14px 16px;
+    border-radius:32px;
+    margin-bottom:18px;
+  }
+  .avatar{width:64px;height:64px;border-radius:20px}
+  .hello{font-size:34px}
+  .helloSub{font-size:10px}
+  .dashboardGrid{
+    display:grid;
+    grid-template-columns:minmax(0,1.35fr) minmax(310px,.85fr);
+    grid-template-areas:
+      "traffic apps"
+      "feature apps";
+    gap:18px;
+    align-items:start;
+  }
+  .trafficArea{grid-area:traffic}
+  .appsArea{grid-area:apps}
+  .featureArea{grid-area:feature}
+  .hero{
+    min-height:430px;
+    padding:24px;
+    border-radius:40px;
+  }
+  .heroKicker{font-size:16px}
+  .heroIcon{width:44px;height:44px;border-radius:15px}
+  .trafficTabs{margin-top:18px}
+  .trafficTab{padding:9px 17px;font-size:11px}
+  .heroDecision{font-size:78px;margin-top:24px}
+  .heroHint{font-size:13px;padding:8px 12px}
+  .heroCompare{margin-top:22px;gap:13px}
+  .routeBox{min-height:132px;padding:17px;border-radius:28px}
+  .routeLabel{font-size:12px}
+  .routeValue{font-size:42px;margin-top:12px}
+  .routeEta{font-size:11px}
+  .heroBottom{margin-top:18px}
+  .appsArea{
+    padding:18px;
+    border-radius:36px;
+    background:linear-gradient(145deg,rgba(255,255,255,.72),rgba(255,255,255,.46));
+    border:1px solid rgba(255,255,255,.88);
+    box-shadow:0 26px 66px rgba(50,75,114,.13),inset 0 1px 0 rgba(255,255,255,.86);
+    backdrop-filter:blur(30px) saturate(170%);
+    -webkit-backdrop-filter:blur(30px) saturate(170%);
+  }
+  .appsArea .sectionHead{margin:2px 2px 14px}
+  .appsArea .appGrid{grid-template-columns:1fr 1fr;gap:12px}
+  .appsArea .appTile{min-height:176px;padding:16px;border-radius:29px}
+  .appsArea .appIcon{width:62px;height:62px;border-radius:19px}
+  .appsArea .appIcon svg{width:32px;height:32px}
+  .appsArea .appName{font-size:17px;margin-top:16px}
+  .appsArea .appSub{font-size:9px}
+  .featureArea .calendarCard{min-height:200px;padding:23px;border-radius:34px}
+  .featureArea .calendarCard .featureIcon{width:66px;height:66px;border-radius:22px;right:22px;top:22px}
+  .featureArea .featureValue{font-size:40px;margin-top:58px}
+  .navGlass a{height:62px;font-size:10px}
+}
+
+/* Dark theme stays genuinely premium instead of gray */
+@media(prefers-color-scheme:dark){
+  body{
+    background:
+      radial-gradient(circle at 10% -6%,rgba(29,100,218,.32),transparent 34%),
+      radial-gradient(circle at 92% 5%,rgba(115,70,222,.24),transparent 30%),
+      radial-gradient(circle at 50% 110%,rgba(20,154,148,.12),transparent 34%),
+      linear-gradient(180deg,#07101f 0%,#091525 52%,#0b1627 100%);
+  }
+  .header{
+    background:linear-gradient(145deg,rgba(20,32,50,.82),rgba(13,23,39,.68));
+    border-color:rgba(255,255,255,.10);
+    box-shadow:0 22px 58px rgba(0,0,0,.30),inset 0 1px 0 rgba(255,255,255,.06);
+  }
+  .helloSub{color:#8ea0bc}
+  .appTile,.appsArea .appTile,
+  .appTile:nth-child(1),.appTile:nth-child(2),.appTile:nth-child(3),.appTile:nth-child(4){
+    background:
+      radial-gradient(circle at 100% 0%,rgba(255,255,255,.07),transparent 35%),
+      linear-gradient(145deg,rgba(28,41,62,.84),rgba(17,28,45,.72));
+    border-color:rgba(255,255,255,.09);
+    box-shadow:0 22px 52px rgba(0,0,0,.26),inset 0 1px 0 rgba(255,255,255,.04);
+  }
+  .calendarCard{
+    background:
+      radial-gradient(circle at 92% 14%,rgba(255,100,140,.14),transparent 28%),
+      radial-gradient(circle at 8% 115%,rgba(74,125,255,.13),transparent 34%),
+      linear-gradient(145deg,rgba(27,40,61,.86),rgba(16,27,44,.74));
+    border-color:rgba(255,255,255,.09);
+  }
+  .navGlass{
+    background:rgba(15,26,42,.88);
+    border-color:rgba(255,255,255,.09);
+  }
+  @media(min-width:700px){
+    .appsArea{
+      background:linear-gradient(145deg,rgba(22,34,53,.82),rgba(13,24,40,.70));
+      border-color:rgba(255,255,255,.09);
+      box-shadow:0 30px 78px rgba(0,0,0,.30),inset 0 1px 0 rgba(255,255,255,.04);
+    }
+  }
+}
+
 </style>
 </head>
 <body>
@@ -592,7 +1004,7 @@ body:before{
 <header class="header">
  <div class="identity">
   <div class="avatar"><img src="./apple-touch-icon-v7.png?v=7" alt="" aria-hidden="true"></div>
-  <div><div class="hello">Marco Hub</div><div class="helloSub">Tutto sotto controllo</div></div>
+  <div><div class="hello">Marco Hub</div><div class="helloSub">CONTROL CENTER · LIVE</div></div>
  </div>
  <div class="headerActions">
   <a class="circleBtn" href="/Dashboard/v37.9.html?v=37.12" aria-label="Traffico"><svg viewBox="0 0 24 24" width="21" height="21" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .34 1.88l.06.06-2.83 2.83-.06-.06a1.7 1.7 0 0 0-1.88-.34 1.7 1.7 0 0 0-1.03 1.55V21h-4v-.08A1.7 1.7 0 0 0 9 19.37a1.7 1.7 0 0 0-1.88.34l-.06.06-2.83-2.83.06-.06A1.7 1.7 0 0 0 4.63 15 1.7 1.7 0 0 0 3.08 14H3v-4h.08A1.7 1.7 0 0 0 4.63 9a1.7 1.7 0 0 0-.34-1.88l-.06-.06 2.83-2.83.06.06A1.7 1.7 0 0 0 9 4.63 1.7 1.7 0 0 0 10 3.08V3h4v.08A1.7 1.7 0 0 0 15 4.63a1.7 1.7 0 0 0 1.88-.34l.06-.06 2.83 2.83-.06.06A1.7 1.7 0 0 0 19.37 9 1.7 1.7 0 0 0 20.92 10H21v4h-.08A1.7 1.7 0 0 0 19.4 15Z"/></svg></a>
@@ -643,7 +1055,7 @@ body:before{
     <path d="M21 24v4h6v-4"/>
    </svg>
   </div>
-  <div class="appName">Lavoro Alice<span id="aliceDot"></span></div>
+  <div class="appName">Lavoro Alice<span id="aliceDot"></span></div><div class="appSub">Job radar</div>
  </a>
  <a class="appTile" href="/English-Meeting/?v=fcf4d68" aria-label="Inglese">
   <div class="appIcon english">
@@ -654,7 +1066,7 @@ body:before{
     <path d="M19 41h10"/>
    </svg>
   </div>
-  <div class="appName">Inglese</div>
+  <div class="appName">Inglese</div><div class="appSub">Meeting coach</div>
  </a>
  <a class="appTile" href="/Train/" aria-label="Train">
   <div class="appIcon train">
@@ -667,7 +1079,7 @@ body:before{
     <circle cx="29" cy="29.5" r="1.5" fill="#fff" stroke="none"/>
    </svg>
   </div>
-  <div class="appName">Train</div>
+  <div class="appName">Train</div><div class="appSub">Partenze live</div>
  </a>
  <a class="appTile" href="/AirFry-Ricette/" aria-label="Ricette">
   <div class="appIcon recipes">
@@ -678,7 +1090,7 @@ body:before{
     <circle cx="24" cy="34" r="2"/>
    </svg>
   </div>
-  <div class="appName">Ricette</div>
+  <div class="appName">Ricette</div><div class="appSub">Air fryer</div>
  </a>
 </section>
  </section>
