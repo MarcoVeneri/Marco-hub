@@ -377,10 +377,11 @@ const NORMAL_VIAS=[
  {lat:43.76646,lon:11.31282}
 ];
 const INCISA={lat:43.66393,lon:11.45768};
+const A1_REQUIRED_POINT={lat:43.73004,lon:11.33241};
 const FIRENZE_SUD={lat:43.74225,lon:11.28054};
 const KEY_STORE="morning.tomtomApiKey.v30";
 const POS_STORE="morning.positions.v36";
-const DATA_STORE="morning.lastTraffic.v37";
+const DATA_STORE="morning.lastTraffic.v38";
 const TRAFFIC_REFRESH_MS=5*60*1000;
 let trafficBusy=false;
 function safeGet(k){try{return localStorage.getItem(k)||""}catch(e){return""}}
@@ -430,7 +431,7 @@ async function refreshTrafficLive(){
  try{
   const p=await hubPositions();
   const rr=await Promise.all([
-    hubRoute([p.home,INCISA,FIRENZE_SUD,p.work],false),
+    hubRoute([p.home,INCISA,A1_REQUIRED_POINT,FIRENZE_SUD,p.work],false),
     hubRoute([p.home].concat(NORMAL_VIAS,[p.work]),true)
   ]);
   let a1=parseRoute(rr[0]),norm=parseRoute(rr[1]);
