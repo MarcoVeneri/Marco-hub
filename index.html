@@ -1276,9 +1276,9 @@ async function refreshTrafficLive(force){
 }
 function fmt(total){
  total=Math.max(0,Math.round(Number(total)||0));
- if(total<60)return total+" min";
+ if(total<60)return total+" mi";
  var h=Math.floor(total/60),m=total%60;
- return h+" ora"+(h!==1?"e":"")+(m?" "+String(m).padStart(2,"0")+" min":"");
+ return h+" ora"+(h!==1?"e":"")+(m?" "+String(m).padStart(2,"0")+" mi":"");
 }
 function clock(d){
  return new Intl.DateTimeFormat("it-IT",{hour:"2-digit",minute:"2-digit",hourCycle:"h23"}).format(d||new Date());
