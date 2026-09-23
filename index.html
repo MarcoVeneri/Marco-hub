@@ -1058,6 +1058,12 @@ body{
   }
 }
 
+
+/* ===== traffic hint removed: compact spacing ===== */
+.heroCompare{margin-top:10px}
+@media(max-width:699px){.heroCompare,.heroCompare:has(#a1Box.recommended),.heroCompare:has(#normalBox.recommended){margin-top:7px}}
+@media(min-width:700px){.heroCompare{margin-top:14px}}
+
 </style>
 </head>
 <body>
@@ -1084,7 +1090,6 @@ body{
   <button id="trafficBackTab" class="trafficTab" type="button" role="tab" aria-selected="false">Ritorno</button>
  </div>
  <div id="trafficDecision" class="heroDecision">Aggiorno…</div>
- <div id="trafficHint" class="heroHint">Reggello → Via Panciatichi</div>
  <div class="heroCompare">
   <div id="a1Box" class="routeBox">
    <div class="routeLabel">A1 · Autostrada</div>
@@ -1386,7 +1391,6 @@ function traffic(){
   if(choice==="NOA1")nb.classList.add("recommended");
   if(cond.critical)a1b.classList.add("blocked");
   $("#trafficDecision").textContent=choice==="A1"?"A1":choice==="NOA1"?"Strada normale":"Tempi simili";
-  $("#trafficHint").textContent=choice==="TIE"?"Tempi quasi equivalenti":cond.critical?cond.text:"È più veloce di "+diff+" minut"+(diff===1?"o":"i");
   $("#a1Value").textContent=fmt(a.current);$("#normalValue").textContent=fmt(n.current);
   $("#a1Eta").textContent="Arrivo "+eta(a.current,d.ts);$("#normalEta").textContent="Arrivo "+eta(n.current,d.ts);
   $("#trafficCondition").textContent=cond.text;
