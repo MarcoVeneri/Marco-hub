@@ -66,7 +66,7 @@ a,button{font:inherit;-webkit-tap-highlight-color:transparent}
  display:grid;place-items:center;text-decoration:none;font-size:20px;
 }
 .hero{
- position:relative;overflow:hidden;border-radius:32px;padding:16px 16px;min-height:252px;color:#fff;
+ position:relative;overflow:hidden;border-radius:32px;padding:14px 16px;min-height:224px;color:#fff;
  border:1px solid rgba(255,255,255,.26);
  background:
    radial-gradient(circle at 88% 4%,rgba(255,255,255,.12),transparent 27%),
@@ -87,14 +87,24 @@ a,button{font:inherit;-webkit-tap-highlight-color:transparent}
 .hero.a1,.hero.noa1,.hero.tie{background:
  radial-gradient(circle at 88% 4%,rgba(255,255,255,.12),transparent 27%),
  linear-gradient(145deg,#687386,#4f596a)}
-.heroTop,.heroDecision,.heroCompare,.heroBottom{position:relative;z-index:2}
+.heroTop,.trafficTabs,.heroDecision,.heroCompare,.heroBottom{position:relative;z-index:2}
 .heroTop{display:flex;align-items:center;justify-content:space-between;gap:10px}
 .heroKicker{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:850}
 .heroIcon{width:31px;height:31px;border-radius:11px;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.16);display:grid;place-items:center}
 .heroTime{font-size:11px;opacity:.86}
-.heroDecision{font-size:37px;font-weight:950;letter-spacing:-.055em;line-height:.94;margin-top:16px}
-.heroHint{font-size:13px;font-weight:700;margin-top:7px;opacity:.96}
-.heroCompare{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;margin-top:15px}
+.trafficTabs{
+ display:inline-flex;gap:3px;margin-top:9px;padding:3px;border-radius:999px;
+ background:rgba(7,16,31,.18);border:1px solid rgba(255,255,255,.15);
+ backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px)
+}
+.trafficTab{
+ border:0;background:transparent;color:rgba(255,255,255,.72);padding:6px 11px;border-radius:999px;
+ font-size:10px;font-weight:900;line-height:1;cursor:pointer
+}
+.trafficTab.active{background:rgba(255,255,255,.22);color:#fff;box-shadow:inset 0 1px 0 rgba(255,255,255,.18)}
+.heroDecision{font-size:35px;font-weight:950;letter-spacing:-.055em;line-height:.94;margin-top:10px}
+.heroHint{font-size:12px;font-weight:700;margin-top:5px;opacity:.96}
+.heroCompare{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;margin-top:11px}
 .routeBox{
  min-width:0;overflow:hidden;border-radius:20px;padding:11px 12px;
  background:rgba(255,255,255,.10);
@@ -115,7 +125,7 @@ a,button{font:inherit;-webkit-tap-highlight-color:transparent}
 .routeLabel{font-size:10.5px;font-weight:850;opacity:.94;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .routeValue{font-size:clamp(20px,6.2vw,28px);font-weight:950;letter-spacing:-.05em;line-height:1;margin-top:7px;white-space:nowrap;overflow:hidden;text-overflow:clip}
 .routeEta{font-size:10px;opacity:.84;margin-top:5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.heroBottom{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:11px}
+.heroBottom{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:9px}
 .condition{
  display:inline-flex;align-items:center;gap:7px;padding:8px 11px;border-radius:999px;
  background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.20);
@@ -203,8 +213,8 @@ a,button{font:inherit;-webkit-tap-highlight-color:transparent}
 
  .app{padding-left:12px;padding-right:12px}
  .hello{font-size:23px}.avatar{width:50px;height:50px}.circleBtn{width:42px;height:42px}
- .hero{padding:14px;min-height:244px;border-radius:28px}
- .heroDecision{font-size:33px}.routeValue{font-size:clamp(18px,5.8vw,23px)}
+ .hero{padding:12px 14px;min-height:218px;border-radius:28px}
+ .heroDecision{font-size:32px}.trafficTab{padding:5px 9px;font-size:9.5px}.routeValue{font-size:clamp(18px,5.8vw,23px)}
  .heroCompare{gap:7px}.routeBox{padding:9px 8px}
  .appGrid{gap:7px}.appIcon{width:62px;height:62px}.appIcon svg{width:31px;height:31px}.appName{font-size:10.5px}.featureGrid{gap:8px}.glassCard{border-radius:23px;padding:13px}
 }
@@ -249,12 +259,16 @@ a,button{font:inherit;-webkit-tap-highlight-color:transparent}
  </div>
 </header>
 
-<a id="trafficHero" class="hero tie" href="/Dashboard/v37.9.html?v=37.11.1">
+<section id="trafficHero" class="hero tie">
  <div class="heroTop">
-  <div class="heroKicker"><span class="heroIcon"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 16h14l-1.3-5.5A2 2 0 0 0 15.8 9H8.2a2 2 0 0 0-1.9 1.5Z"/><path d="M4 16v2M20 16v2M7.5 16v1M16.5 16v1M7 9l1-3h8l1 3"/></svg></span><span>Traffico casa → Firenze</span></div>
+  <div class="heroKicker"><span class="heroIcon"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 16h14l-1.3-5.5A2 2 0 0 0 15.8 9H8.2a2 2 0 0 0-1.9 1.5Z"/><path d="M4 16v2M20 16v2M7.5 16v1M16.5 16v1M7 9l1-3h8l1 3"/></svg></span><span id="trafficRouteTitle">Traffico casa → Firenze</span></div>
   <div id="heroClock" class="heroTime">—</div>
  </div>
- <div id="trafficDecision" class="heroDecision">Apri Traffico</div>
+ <div class="trafficTabs" role="tablist" aria-label="Direzione traffico">
+  <button id="trafficOutTab" class="trafficTab active" type="button" role="tab" aria-selected="true">Andata</button>
+  <button id="trafficBackTab" class="trafficTab" type="button" role="tab" aria-selected="false">Ritorno</button>
+ </div>
+ <div id="trafficDecision" class="heroDecision">Aggiorno…</div>
  <div id="trafficHint" class="heroHint">Reggello → Via Panciatichi</div>
  <div class="heroCompare">
   <div id="a1Box" class="routeBox">
@@ -272,7 +286,7 @@ a,button{font:inherit;-webkit-tap-highlight-color:transparent}
   <div id="trafficCondition" class="condition">● Dati pronti</div>
   <div id="trafficUpdated" class="updated">Apri per aggiornare</div>
  </div>
-</a>
+</section>
 
 <div class="sectionHead"><h2>Le tue app</h2><div class="sectionMore">Tutto a un tap</div></div>
 <section class="appGrid">
@@ -387,9 +401,11 @@ const A1_REQUIRED_POINT={lat:43.73004,lon:11.33241};
 const FIRENZE_SUD={lat:43.74225,lon:11.28054};
 const KEY_STORE="morning.tomtomApiKey.v30";
 const POS_STORE="morning.positions.v36";
-const DATA_STORE="morning.lastTraffic.v37";
+const OUT_DATA_STORE="morning.lastTraffic.v37";
+const BACK_DATA_STORE="morning.lastTrafficReturn.v1";
 const TRAFFIC_REFRESH_MS=5*60*1000;
 let trafficBusy=false;
+let trafficDirection="out";
 function safeGet(k){try{return localStorage.getItem(k)||""}catch(e){return""}}
 function safeSet(k,v){try{localStorage.setItem(k,v);return true}catch(e){return false}}
 function getKey(){
@@ -443,6 +459,24 @@ function parseRoute(route){
  const sections=Array.isArray(route.sections)?route.sections:[];
  return {current:current,delay:delay,noTraffic:noTraffic,ratio:current/Math.max(1,noTraffic),motorway:sections.some(function(x){return String(x.sectionType||"").toLowerCase()==="motorway"})};
 }
+async function computeTrafficPair(start,end,fallbackVia){
+ const rr=await Promise.all([
+  hubRoutes([start,end],false,5),
+  hubRoute([start,end],true)
+ ]);
+ const motorwayOptions=rr[0].map(function(raw){return {raw:raw,parsed:parseRoute(raw)}})
+  .filter(function(x){return x.parsed.motorway})
+  .sort(function(a,b){return a.parsed.current-b.parsed.current});
+ let a1=motorwayOptions.length?motorwayOptions[0].parsed:null;
+ const norm=parseRoute(rr[1]);
+ if(!a1&&fallbackVia){
+  const fallback=parseRoute(await hubRoute([start,fallbackVia,end],false));
+  if(fallback.motorway)a1=fallback;
+ }
+ if(!a1||!a1.motorway)throw new Error("Percorso A1 non valido");
+ if(norm.motorway)throw new Error("Percorso normale non valido");
+ return {a1:a1,norm:norm,ts:Date.now()};
+}
 async function refreshTrafficLive(force){
  if(trafficBusy&&!force)return;
  if(!getKey()){traffic();return}
@@ -450,34 +484,21 @@ async function refreshTrafficLive(force){
  $("#trafficUpdated").textContent="Aggiorno…";
  try{
   const p=await hubPositions();
-  let rr=null,lastErr=null;
-  for(var attempt=0;attempt<2;attempt++){
-   try{
-    rr=await Promise.all([
-      hubRoutes([p.home,p.work],false,5),
-      hubRoute([p.home,p.work],true)
-    ]);
-    break;
-   }catch(e){
-    lastErr=e;
-    if(attempt===0)await new Promise(function(resolve){setTimeout(resolve,700)});
-   }
+  const results=await Promise.allSettled([
+   computeTrafficPair(p.home,p.work,INCISA),
+   computeTrafficPair(p.work,p.home,FIRENZE_SUD)
+  ]);
+  var updated=false;
+  if(results[0].status==="fulfilled"){
+   safeSet(OUT_DATA_STORE,JSON.stringify(results[0].value));
+   updated=true;
   }
-  if(!rr)throw lastErr||new Error("Traffico non disponibile");
-  const motorwayOptions=rr[0].map(function(raw){return {raw:raw,parsed:parseRoute(raw)}})
-    .filter(function(x){return x.parsed.motorway})
-    .sort(function(a,b){return a.parsed.current-b.parsed.current});
-  let a1=motorwayOptions.length?motorwayOptions[0].parsed:null;
-  let norm=parseRoute(rr[1]);
-  if(!a1){
-    const fallback=parseRoute(await hubRoute([p.home,INCISA,p.work],false));
-    if(fallback.motorway)a1=fallback;
+  if(results[1].status==="fulfilled"){
+   safeSet(BACK_DATA_STORE,JSON.stringify(results[1].value));
+   updated=true;
   }
-  if(!a1||!a1.motorway)throw new Error("Percorso A1 non valido");
-  if(norm.motorway)throw new Error("Percorso normale non valido");
-  const data={a1:a1,norm:norm,ts:Date.now()};
-  safeSet(DATA_STORE,JSON.stringify(data));
   traffic();
+  if(!updated)$("#trafficUpdated").textContent="Ultimo dato disponibile";
  }catch(e){
   traffic();
   $("#trafficUpdated").textContent="Ultimo dato disponibile";
@@ -512,10 +533,27 @@ function a1Condition(a){
  if(a.delay>=7||a.ratio>=1.20)return {text:"🟠 A1 RALLENTATA",critical:false};
  return {text:"🟢 A1 SCORREVOLE",critical:false};
 }
+function setTrafficDirection(direction){
+ trafficDirection=direction==="back"?"back":"out";
+ var out=trafficDirection==="out";
+ $("#trafficOutTab").classList.toggle("active",out);
+ $("#trafficBackTab").classList.toggle("active",!out);
+ $("#trafficOutTab").setAttribute("aria-selected",out?"true":"false");
+ $("#trafficBackTab").setAttribute("aria-selected",out?"false":"true");
+ $("#trafficRouteTitle").textContent=out?"Traffico casa → Firenze":"Traffico Firenze → casa";
+ traffic();
+}
 function traffic(){
  try{
-  var d=JSON.parse(safeGet(DATA_STORE)||"null");
-  if(!d||!d.a1||!d.norm)return;
+  var key=trafficDirection==="back"?BACK_DATA_STORE:OUT_DATA_STORE;
+  var d=JSON.parse(safeGet(key)||"null");
+  if(!d||!d.a1||!d.norm){
+   $("#trafficDecision").textContent="Aggiorno…";
+   $("#trafficHint").textContent=trafficDirection==="back"?"Via Panciatichi → Reggello":"Reggello → Via Panciatichi";
+   $("#a1Value").textContent="—";$("#normalValue").textContent="—";
+   $("#a1Eta").textContent="tempo live";$("#normalEta").textContent="tempo live";
+   return;
+  }
   var a=d.a1,n=d.norm,diff=Math.abs(a.current-n.current),cond=a1Condition(a);
   var choice=cond.critical||a.current>=n.current+2?"NOA1":a.current<=n.current-2?"A1":"TIE";
   var hero=$("#trafficHero"),a1b=$("#a1Box"),nb=$("#normalBox");
@@ -581,6 +619,8 @@ async function alice(){
   $("#aliceDot").className=news?"badgeDot":"";
  }catch(e){}
 }
+$("#trafficOutTab").addEventListener("click",function(){setTrafficDirection("out")});
+$("#trafficBackTab").addEventListener("click",function(){setTrafficDirection("back")});
 $("#kidsCalendarBtn").addEventListener("click",openCalendar);
 $("#calClose").addEventListener("click",closeCalendar);
 $("#calPrev").addEventListener("click",function(){calCursor.setMonth(calCursor.getMonth()-1);renderCalendar()});
@@ -590,6 +630,7 @@ function refresh(){
  greet();traffic();english();kids();alice();
  refreshTrafficLive(true);
 }
+setTrafficDirection("out");
 refresh();
 setInterval(greet,60000);
 setInterval(function(){
