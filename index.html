@@ -30,9 +30,11 @@
  }
 }
 *{box-sizing:border-box}
-html,body{margin:0;min-height:100%;color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text","Segoe UI",sans-serif;-webkit-font-smoothing:antialiased}
+html,body{margin:0;min-height:100%;color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text","Segoe UI",sans-serif;-webkit-font-smoothing:antialiased} html{scroll-behavior:auto}
 body{
  min-height:100dvh;
+ overflow-x:hidden;
+ overscroll-behavior-y:none;
  background:
    radial-gradient(circle at 8% -3%,rgba(39,135,255,.18),transparent 27%),
    radial-gradient(circle at 100% 8%,rgba(123,92,255,.14),transparent 24%),
@@ -44,16 +46,16 @@ body:before{
  background:linear-gradient(120deg,rgba(255,255,255,.13),transparent 34%,rgba(255,255,255,.05) 62%,transparent);
 }
 a,button{font:inherit;-webkit-tap-highlight-color:transparent}
-.app{width:min(100%,760px);margin:0 auto;padding:max(18px,env(safe-area-inset-top)) 16px calc(118px + env(safe-area-inset-bottom))}
-.header{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:4px 2px 18px}
+.app{width:min(100%,760px);margin:0 auto;padding:calc(env(safe-area-inset-top,0px) + 18px) 16px calc(118px + env(safe-area-inset-bottom,0px))}
+.header{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:4px 2px 18px;position:relative;z-index:5;min-height:76px}
 .identity{display:flex;align-items:center;gap:12px;min-width:0}
 .avatar{
- width:54px;height:54px;border-radius:50%;display:grid;place-items:center;flex:0 0 auto;
- color:#fff;font-size:17px;font-weight:900;letter-spacing:-.03em;
- background:linear-gradient(145deg,#346ff2,#7566e9);
+ width:54px;height:54px;border-radius:17px;display:block;flex:0 0 auto;overflow:hidden;
  border:1px solid rgba(255,255,255,.52);
- box-shadow:0 12px 32px rgba(47,104,233,.24),inset 0 1px 0 rgba(255,255,255,.25);
+ box-shadow:0 12px 32px rgba(47,104,233,.22),inset 0 1px 0 rgba(255,255,255,.25);
+ background:#10172a;
 }
+.avatar img{display:block;width:100%;height:100%;object-fit:cover}
 .hello{font-size:25px;line-height:1;font-weight:900;letter-spacing:-.04em}
 .helloSub{font-size:13px;color:var(--muted);margin-top:5px}
 .headerActions{display:flex;gap:9px}
@@ -239,7 +241,7 @@ a,button{font:inherit;-webkit-tap-highlight-color:transparent}
 <main class="app">
 <header class="header">
  <div class="identity">
-  <div class="avatar">MV</div>
+  <div class="avatar"><img src="./apple-touch-icon-v7.png?v=7" alt="" aria-hidden="true"></div>
   <div><div class="hello">Marco Hub</div><div class="helloSub">Tutto sotto controllo</div></div>
  </div>
  <div class="headerActions">
@@ -367,6 +369,10 @@ a,button{font:inherit;-webkit-tap-highlight-color:transparent}
 <script>
 (function(){
 "use strict";
+try{history.scrollRestoration="manual"}catch(e){}
+window.addEventListener("pageshow",function(){
+ requestAnimationFrame(function(){window.scrollTo(0,0)});
+},{once:true});
 function $(s){return document.querySelector(s)}
 const HOME_ADDR="Via J. F. Kennedy 9, Reggello, Firenze, Italia";
 const WORK_ADDR="Via Panciatichi 17, Firenze, Italia";
