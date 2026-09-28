@@ -1234,10 +1234,26 @@ window.addEventListener("pageshow",function(){
  requestAnimationFrame(function(){window.scrollTo(0,0)});
 },{once:true});
 function $(s){return document.querySelector(s)}
-const OUT_DATA_STORE="morning.lastTraffic.v38";
-const BACK_DATA_STORE="morning.lastTrafficReturn.v2";
+const SYNC_URL="https://nlhxjpartgvplythgzrz.supabase.co";
+const SYNC_KEY="sb_publishable_uA9EbSMwJ5oFraqP-r5njg_EXtLSjEH";
+const SYNC_TABLE="traffic_state";
 let trafficDirection="out";
-function safeGet(k){try{return localStorage.getItem(k)||""}catch(e){return""}}
+
+function trafficSyncHeaders(){
+ return {"apikey":SYNC_KEY,"Content-Type":"application/json","x-client-info":"marco-hub/shared"};
+}
+function trafficSyncEndpoint(suffix=""){
+ return SYNC_URL.replace(/\/$/,"")+"/rest/v1/"+SYNC_TABLE+suffix;
+}
+async function remoteTrafficLoad(direction){
+ const d=direction==="back"?"back":"out";
+ const r=await fetch(trafficSyncEndpoint("?direction=eq."+encodeURIComponent(d)+"&select=payload,source_ts,updated_at&limit=1"),{
+  headers:trafficSyncHeaders(),cache:"no-store"
+ });
+ if(!r.ok)throw new Error("traffic sync read "+r.status);
+ const rows=await r.json(),payload=rows&&rows[0]?rows[0].payload:null;
+ return payload&&payload.a1&&payload.norm?payload:null;
+}
 
 function fmt(total){
  total=Math.max(0,Math.round(Number(total)||0));
@@ -1266,10 +1282,9 @@ function setTrafficDirection(direction){
  $("#trafficRouteTitle").textContent=out?"Traffico casa → Firenze":"Traffico Firenze → casa";
  traffic();
 }
-function traffic(){
+async function traffic(){
  try{
-  var key=trafficDirection==="back"?BACK_DATA_STORE:OUT_DATA_STORE;
-  var d=JSON.parse(safeGet(key)||"null");
+  var d=await remoteTrafficLoad(trafficDirection);
   var hero=$("#trafficHero"),a1b=$("#a1Box"),nb=$("#normalBox");
   a1b.classList.remove("recommended","blocked");
   nb.classList.remove("recommended","blocked");
@@ -1280,8 +1295,8 @@ function traffic(){
    $("#trafficDecision").textContent="Aggiorno…";
    $("#a1Value").textContent="—";$("#normalValue").textContent="—";
    $("#a1Eta").textContent="tempo PWA";$("#normalEta").textContent="tempo PWA";
-   $("#trafficCondition").textContent="Apri Traffico per aggiornare";
-   $("#trafficUpdated").textContent="Nessun dato PWA";
+   $("#trafficCondition").textContent="Nessun dato online";
+   $("#trafficUpdated").textContent="Apri Traffico una volta per sincronizzare";
    return;
   }
 
@@ -1290,13 +1305,14 @@ function traffic(){
   $("#normalValue").textContent=fmt(n.current);
   $("#a1Eta").textContent="Arrivo "+eta(a.current,d.ts);
   $("#normalEta").textContent="Arrivo "+eta(n.current,d.ts);
-  $("#trafficUpdated").textContent="Dato PWA "+clock(new Date(Number(d.ts)||Date.now()));
+  var ageMin=Math.max(0,Math.round((Date.now()-(Number(d.ts)||Date.now()))/60000));
+  $("#trafficUpdated").textContent=ageMin<=1?"Dato online adesso":"Dato online "+ageMin+" min fa";
 
   // Marco Hub NON classifica il traffico: mostra esclusivamente la decisione
   // già prodotta dalla PWA Traffico.
   if(!view||view.schema!==1||!view.a1Status){
    hero.classList.add("tie");
-   $("#trafficCondition").textContent="Apri Traffico per aggiornare lo stato";
+   $("#trafficCondition").textContent="Stato online non disponibile";
    return;
   }
 
@@ -1382,9 +1398,7 @@ window.addEventListener("pageshow",function(){
 window.addEventListener("focus",function(){
  setTimeout(traffic,120);
 });
-window.addEventListener("storage",function(e){
- if(e&&((e.key===OUT_DATA_STORE)||(e.key===BACK_DATA_STORE)))traffic();
-});
+setInterval(traffic,60000);
 if("serviceWorker" in navigator)window.addEventListener("load",function(){
  navigator.serviceWorker.register("./sw.js",{updateViaCache:"none"}).then(function(reg){
   try{reg.update()}catch(e){}
