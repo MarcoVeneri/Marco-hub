@@ -1308,6 +1308,45 @@ function parseRoute(route){
  const closed=sections.some(function(x){return String(x.sectionType||"").toLowerCase()==="traffic"&&String(x.simpleCategory||"").toUpperCase()==="ROAD_CLOSURE"});
  return {current:current,delay:delay,noTraffic:noTraffic,ratio:current/Math.max(1,noTraffic),motorway:motorway,closed:closed};
 }
+function stabilizeHubTraffic(kind,x,previousData){
+ const prev=previousData&&previousData[kind]?previousData[kind]:null;
+ const prevTs=previousData?Number(previousData.ts)||0:0;
+ let effectiveDelay=Math.max(0,Number(x.delay)||0);
+ let base=Math.max(1,Number(x.noTraffic)||Math.max(1,x.current-effectiveDelay));
+
+ // Coerenza tra refresh: se il tempo resta alto ma TomTom perde il delay,
+ // non degradare falsamente lo stato a "SCORREVOLE".
+ if(prev&&prevTs&&Date.now()-prevTs<=45*60*1000){
+  const prevBase=Math.max(1,Number(prev.noTraffic)||0);
+  if(prevBase>0){
+   const implied=Math.max(0,x.current-prevBase);
+   const previousWasCongested=(Number(prev.delay)||0)>=7||(Number(prev.ratio)||1)>=1.20;
+   const stillSlow=x.current>=prevBase+7;
+   if((previousWasCongested&&stillSlow)||implied>=7){
+    effectiveDelay=Math.max(effectiveDelay,implied);
+    base=Math.min(base,prevBase);
+   }
+  }
+ }
+
+ // Salvaguardia assoluta per Reggello -> Firenze / ritorno:
+ // tempi molto elevati non possono risultare verdi per un singolo dato incoerente.
+ if(kind==="a1"){
+  if(x.current>=65&&effectiveDelay<15)effectiveDelay=15;
+  else if(x.current>=55&&effectiveDelay<7)effectiveDelay=7;
+ }
+
+ if(effectiveDelay>x.delay||base<x.noTraffic){
+  const coherentBase=Math.max(1,Math.min(base,x.current-effectiveDelay));
+  return Object.assign({},x,{
+   delay:effectiveDelay,
+   noTraffic:coherentBase,
+   ratio:x.current/coherentBase,
+   stabilized:true
+  });
+ }
+ return x;
+}
 async function computeTrafficPair(start,end,fallbackVia){
  const rr=await Promise.all([
   hubRoutes([start,end],false,5),
@@ -1339,11 +1378,21 @@ async function refreshTrafficLive(force){
   ]);
   var updated=false;
   if(results[0].status==="fulfilled"){
-   safeSet(OUT_DATA_STORE,JSON.stringify(results[0].value));
+   let prevOut=null;
+   try{prevOut=JSON.parse(safeGet(OUT_DATA_STORE)||"null")}catch(e){}
+   const value=results[0].value;
+   value.a1=stabilizeHubTraffic("a1",value.a1,prevOut);
+   value.norm=stabilizeHubTraffic("norm",value.norm,prevOut);
+   safeSet(OUT_DATA_STORE,JSON.stringify(value));
    updated=true;
   }
   if(results[1].status==="fulfilled"){
-   safeSet(BACK_DATA_STORE,JSON.stringify(results[1].value));
+   let prevBack=null;
+   try{prevBack=JSON.parse(safeGet(BACK_DATA_STORE)||"null")}catch(e){}
+   const value=results[1].value;
+   value.a1=stabilizeHubTraffic("a1",value.a1,prevBack);
+   value.norm=stabilizeHubTraffic("norm",value.norm,prevBack);
+   safeSet(BACK_DATA_STORE,JSON.stringify(value));
    updated=true;
   }
   traffic();
@@ -1375,7 +1424,7 @@ function greet(){
 function a1Condition(a){
  if(a.closed)return {text:"⛔ A1 CHIUSA",critical:true};
  if(!a.motorway)return {text:"⛔ A1 NON PERCORRIBILE",critical:true};
- if(a.delay>=30||a.ratio>=1.65)return {text:"⛔ A1 BLOCCATA",critical:true};
+ if(a.delay>=30||a.ratio>=1.65)return {text:"🔴 A1 MOLTO RALLENTATA",critical:true};
  if(a.delay>=15||a.ratio>=1.40)return {text:"🔴 CODA PESANTE",critical:true};
  if(a.delay>=7||a.ratio>=1.20)return {text:"🟠 A1 RALLENTATA",critical:false};
  return {text:"🟢 A1 SCORREVOLE",critical:false};
