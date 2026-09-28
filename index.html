@@ -1234,176 +1234,11 @@ window.addEventListener("pageshow",function(){
  requestAnimationFrame(function(){window.scrollTo(0,0)});
 },{once:true});
 function $(s){return document.querySelector(s)}
-const HOME_ADDR="Via J. F. Kennedy 9, Reggello, Firenze, Italia";
-const WORK_ADDR="Via Panciatichi 17, Firenze, Italia";
-const NORMAL_VIAS=[
- {lat:43.77477,lon:11.43109},
- {lat:43.79028,lon:11.39310},
- {lat:43.78437,lon:11.36114},
- {lat:43.76646,lon:11.31282}
-];
-const INCISA={lat:43.66393,lon:11.45768};
-const A1_REQUIRED_POINT={lat:43.73004,lon:11.33241};
-const FIRENZE_SUD={lat:43.74225,lon:11.28054};
-const KEY_STORE="morning.tomtomApiKey.v30";
-const POS_STORE="morning.positions.v36";
 const OUT_DATA_STORE="morning.lastTraffic.v38";
 const BACK_DATA_STORE="morning.lastTrafficReturn.v2";
-const TRAFFIC_REFRESH_MS=5*60*1000;
-let trafficBusy=false;
 let trafficDirection="out";
 function safeGet(k){try{return localStorage.getItem(k)||""}catch(e){return""}}
-function safeSet(k,v){try{localStorage.setItem(k,v);return true}catch(e){return false}}
-function getKey(){
- var key=safeGet(KEY_STORE)||safeGet("commute.tomtomApiKey.v1")||"";
- if(!key){
-  for(const old of ["morningCfgV25","morningMilanoV23","morningMilanoV22","morningMilanoV21","morningMilanoV20"]){
-   try{var o=JSON.parse(safeGet(old)||"{}");if(o.tomtom){key=o.tomtom;break}}catch(e){}
-  }
- }
- if(key)safeSet(KEY_STORE,key);
- return key;
-}
-async function geocode(address){
- const key=getKey();
- const u="https://api.tomtom.com/search/2/geocode/"+encodeURIComponent(address)+".json?key="+encodeURIComponent(key)+"&limit=1&countrySet=IT&language=it-IT";
- const r=await fetch(u,{cache:"no-store",mode:"cors"});
- if(!r.ok)throw new Error("Geocoding "+r.status);
- const j=await r.json();
- if(!j.results||!j.results.length)throw new Error("Indirizzo non trovato");
- return j.results[0].position;
-}
-async function hubPositions(){
- try{
-  const p=JSON.parse(safeGet(POS_STORE)||"null");
-  if(p&&p.home&&p.home.lat&&p.work&&p.work.lat)return p;
- }catch(e){}
- const vals=await Promise.all([geocode(HOME_ADDR),geocode(WORK_ADDR)]);
- const p={home:vals[0],work:vals[1]};safeSet(POS_STORE,JSON.stringify(p));return p;
-}
-async function hubRoutes(points,avoidMotorways,maxAlternatives){
- const key=getKey(),locs=points.map(function(p){return p.lat+","+p.lon}).join(":");
- const q=new URLSearchParams({key:key,traffic:"true",travelMode:"car",routeType:"fastest",computeTravelTimeFor:"all",routeRepresentation:"polyline",departAt:"now"});
- q.append("sectionType","motorway");
- q.append("sectionType","traffic");
- if(avoidMotorways)q.set("avoid","motorways");
- if(maxAlternatives)q.set("maxAlternatives",String(maxAlternatives));
- const r=await fetch("https://api.tomtom.com/routing/1/calculateRoute/"+locs+"/json?"+q.toString(),{cache:"no-store",mode:"cors"});
- if(!r.ok)throw new Error("Routing "+r.status);
- const j=await r.json(),routes=Array.isArray(j.routes)?j.routes.filter(function(x){return x&&x.summary}):[];
- if(!routes.length)throw new Error("Nessun percorso");
- return routes;
-}
-async function hubRoute(points,avoidMotorways){
- const routes=await hubRoutes(points,avoidMotorways,0);
- return routes[0];
-}
-function mins(sec){return Math.max(1,Math.round(Number(sec||0)/60))}
-function parseRoute(route){
- const s=route.summary,current=mins(s.travelTimeInSeconds);
- const delay=Math.max(0,Math.round(Number(s.trafficDelayInSeconds||0)/60));
- const noTraffic=s.noTrafficTravelTimeInSeconds?mins(s.noTrafficTravelTimeInSeconds):Math.max(1,current-delay);
- const sections=Array.isArray(route.sections)?route.sections:[];
- const motorway=sections.some(function(x){return String(x.sectionType||"").toLowerCase()==="motorway"});
- const closed=sections.some(function(x){return String(x.sectionType||"").toLowerCase()==="traffic"&&String(x.simpleCategory||"").toUpperCase()==="ROAD_CLOSURE"});
- return {current:current,delay:delay,noTraffic:noTraffic,ratio:current/Math.max(1,noTraffic),motorway:motorway,closed:closed};
-}
-function stabilizeHubTraffic(kind,x,previousData){
- const prev=previousData&&previousData[kind]?previousData[kind]:null;
- const prevTs=previousData?Number(previousData.ts)||0:0;
- let effectiveDelay=Math.max(0,Number(x.delay)||0);
- let base=Math.max(1,Number(x.noTraffic)||Math.max(1,x.current-effectiveDelay));
 
- // Coerenza tra refresh: se il tempo resta alto ma TomTom perde il delay,
- // non degradare falsamente lo stato a "SCORREVOLE".
- if(prev&&prevTs&&Date.now()-prevTs<=45*60*1000){
-  const prevBase=Math.max(1,Number(prev.noTraffic)||0);
-  if(prevBase>0){
-   const implied=Math.max(0,x.current-prevBase);
-   const previousWasCongested=(Number(prev.delay)||0)>=7||(Number(prev.ratio)||1)>=1.20;
-   const stillSlow=x.current>=prevBase+7;
-   if((previousWasCongested&&stillSlow)||implied>=7){
-    effectiveDelay=Math.max(effectiveDelay,implied);
-    base=Math.min(base,prevBase);
-   }
-  }
- }
-
- // Salvaguardia assoluta per Reggello -> Firenze / ritorno:
- // tempi molto elevati non possono risultare verdi per un singolo dato incoerente.
- if(kind==="a1"){
-  if(x.current>=65&&effectiveDelay<15)effectiveDelay=15;
-  else if(x.current>=55&&effectiveDelay<7)effectiveDelay=7;
- }
-
- if(effectiveDelay>x.delay||base<x.noTraffic){
-  const coherentBase=Math.max(1,Math.min(base,x.current-effectiveDelay));
-  return Object.assign({},x,{
-   delay:effectiveDelay,
-   noTraffic:coherentBase,
-   ratio:x.current/coherentBase,
-   stabilized:true
-  });
- }
- return x;
-}
-async function computeTrafficPair(start,end,fallbackVia){
- const rr=await Promise.all([
-  hubRoutes([start,end],false,5),
-  hubRoute([start,end],true)
- ]);
- const motorwayOptions=rr[0].map(function(raw){return {raw:raw,parsed:parseRoute(raw)}})
-  .filter(function(x){return x.parsed.motorway})
-  .sort(function(a,b){return a.parsed.current-b.parsed.current});
- let a1=motorwayOptions.length?motorwayOptions[0].parsed:null;
- const norm=parseRoute(rr[1]);
- if(!a1&&fallbackVia){
-  const fallback=parseRoute(await hubRoute([start,fallbackVia,end],false));
-  if(fallback.motorway)a1=fallback;
- }
- if(!a1||!a1.motorway)throw new Error("Percorso A1 non valido");
- if(norm.motorway)throw new Error("Percorso normale non valido");
- return {a1:a1,norm:norm,ts:Date.now()};
-}
-async function refreshTrafficLive(force){
- if(trafficBusy&&!force)return;
- if(!getKey()){traffic();return}
- trafficBusy=true;
- $("#trafficUpdated").textContent="Aggiorno…";
- try{
-  const p=await hubPositions();
-  const results=await Promise.allSettled([
-   computeTrafficPair(p.home,p.work,INCISA),
-   computeTrafficPair(p.work,p.home,FIRENZE_SUD)
-  ]);
-  var updated=false;
-  if(results[0].status==="fulfilled"){
-   let prevOut=null;
-   try{prevOut=JSON.parse(safeGet(OUT_DATA_STORE)||"null")}catch(e){}
-   const value=results[0].value;
-   value.a1=stabilizeHubTraffic("a1",value.a1,prevOut);
-   value.norm=stabilizeHubTraffic("norm",value.norm,prevOut);
-   safeSet(OUT_DATA_STORE,JSON.stringify(value));
-   updated=true;
-  }
-  if(results[1].status==="fulfilled"){
-   let prevBack=null;
-   try{prevBack=JSON.parse(safeGet(BACK_DATA_STORE)||"null")}catch(e){}
-   const value=results[1].value;
-   value.a1=stabilizeHubTraffic("a1",value.a1,prevBack);
-   value.norm=stabilizeHubTraffic("norm",value.norm,prevBack);
-   safeSet(BACK_DATA_STORE,JSON.stringify(value));
-   updated=true;
-  }
-  traffic();
-  if(!updated)$("#trafficUpdated").textContent="Ultimo dato disponibile";
- }catch(e){
-  traffic();
-  $("#trafficUpdated").textContent="Ultimo dato disponibile";
- }finally{
-  trafficBusy=false;
- }
-}
 function fmt(total){
  total=Math.max(0,Math.round(Number(total)||0));
  var phone=window.matchMedia&&window.matchMedia("(max-width:699px)").matches;
@@ -1421,14 +1256,6 @@ function eta(minutes,baseTs){
 function greet(){
  $("#heroClock").textContent="Ore "+clock();
 }
-function a1Condition(a){
- if(a.closed)return {text:"⛔ A1 CHIUSA",critical:true};
- if(!a.motorway)return {text:"⛔ A1 NON PERCORRIBILE",critical:true};
- if(a.delay>=30||a.ratio>=1.65)return {text:"🔴 A1 MOLTO RALLENTATA",critical:true};
- if(a.delay>=15||a.ratio>=1.40)return {text:"🔴 CODA PESANTE",critical:true};
- if(a.delay>=7||a.ratio>=1.20)return {text:"🟠 A1 RALLENTATA",critical:false};
- return {text:"🟢 A1 SCORREVOLE",critical:false};
-}
 function setTrafficDirection(direction){
  trafficDirection=direction==="back"?"back":"out";
  var out=trafficDirection==="out";
@@ -1443,26 +1270,46 @@ function traffic(){
  try{
   var key=trafficDirection==="back"?BACK_DATA_STORE:OUT_DATA_STORE;
   var d=JSON.parse(safeGet(key)||"null");
+  var hero=$("#trafficHero"),a1b=$("#a1Box"),nb=$("#normalBox");
+  a1b.classList.remove("recommended","blocked");
+  nb.classList.remove("recommended","blocked");
+  hero.classList.remove("a1","noa1","tie");
+
   if(!d||!d.a1||!d.norm){
+   hero.classList.add("tie");
    $("#trafficDecision").textContent="Aggiorno…";
    $("#trafficHint").textContent=trafficDirection==="back"?"Via Panciatichi → Reggello":"Reggello → Via Panciatichi";
    $("#a1Value").textContent="—";$("#normalValue").textContent="—";
-   $("#a1Eta").textContent="tempo live";$("#normalEta").textContent="tempo live";
+   $("#a1Eta").textContent="tempo PWA";$("#normalEta").textContent="tempo PWA";
+   $("#trafficCondition").textContent="Apri Traffico per aggiornare";
+   $("#trafficUpdated").textContent="Nessun dato PWA";
    return;
   }
-  var a=d.a1,n=d.norm,diff=Math.abs(a.current-n.current),cond=a1Condition(a);
-  var choice=cond.critical||a.current>=n.current+2?"NOA1":a.current<=n.current-2?"A1":"TIE";
-  var hero=$("#trafficHero"),a1b=$("#a1Box"),nb=$("#normalBox");
-  hero.classList.remove("a1","noa1","tie");hero.classList.add(choice==="A1"?"a1":choice==="NOA1"?"noa1":"tie");
-  a1b.classList.remove("recommended","blocked");nb.classList.remove("recommended","blocked");
+
+  var a=d.a1,n=d.norm,view=d.view;
+  $("#a1Value").textContent=fmt(a.current);
+  $("#normalValue").textContent=fmt(n.current);
+  $("#a1Eta").textContent="Arrivo "+eta(a.current,d.ts);
+  $("#normalEta").textContent="Arrivo "+eta(n.current,d.ts);
+  $("#trafficUpdated").textContent="Dato PWA "+clock(new Date(Number(d.ts)||Date.now()));
+
+  // Marco Hub NON classifica il traffico: mostra esclusivamente la decisione
+  // già prodotta dalla PWA Traffico.
+  if(!view||view.schema!==1||!view.a1Status){
+   hero.classList.add("tie");
+   $("#trafficCondition").textContent="Apri Traffico per aggiornare lo stato";
+   return;
+  }
+
+  var choice=view.choice==="A1"?"A1":view.choice==="NOA1"?"NOA1":"TIE";
+  var status=view.a1Status;
+  hero.classList.add(choice==="A1"?"a1":choice==="NOA1"?"noa1":"tie");
   if(choice==="A1")a1b.classList.add("recommended");
   if(choice==="NOA1")nb.classList.add("recommended");
-  if(cond.critical)a1b.classList.add("blocked");
+  if(status.kind==="bad")a1b.classList.add("blocked");
+
   $("#trafficDecision").textContent=choice==="A1"?"A1":choice==="NOA1"?"Strada normale":"Tempi simili";
-  $("#a1Value").textContent=fmt(a.current);$("#normalValue").textContent=fmt(n.current);
-  $("#a1Eta").textContent="Arrivo "+eta(a.current,d.ts);$("#normalEta").textContent="Arrivo "+eta(n.current,d.ts);
-  $("#trafficCondition").textContent=cond.text;
-  $("#trafficUpdated").textContent="Dato "+clock(new Date(Number(d.ts)||Date.now()));
+  $("#trafficCondition").textContent=status.text||"Dato PWA";
  }catch(e){}
 }
 function english(){}
@@ -1523,22 +1370,21 @@ $("#calNext").addEventListener("click",function(){calCursor.setMonth(calCursor.g
 $("#kidsCalendar").addEventListener("click",function(e){if(e.target===this)closeCalendar()});
 function refresh(){
  greet();traffic();english();kids();alice();
- refreshTrafficLive(true);
 }
 setTrafficDirection("out");
 refresh();
 setInterval(greet,60000);
-setInterval(function(){
- if(document.visibilityState==="visible")refreshTrafficLive(false);
-},TRAFFIC_REFRESH_MS);
 document.addEventListener("visibilitychange",function(){
- if(document.visibilityState==="visible")refreshTrafficLive(true);
+ if(document.visibilityState==="visible")traffic();
 });
 window.addEventListener("pageshow",function(){
- setTimeout(function(){refreshTrafficLive(true)},120);
+ setTimeout(traffic,120);
 });
 window.addEventListener("focus",function(){
- setTimeout(function(){refreshTrafficLive(true)},120);
+ setTimeout(traffic,120);
+});
+window.addEventListener("storage",function(e){
+ if(e&&((e.key===OUT_DATA_STORE)||(e.key===BACK_DATA_STORE)))traffic();
 });
 if("serviceWorker" in navigator)window.addEventListener("load",function(){
  navigator.serviceWorker.register("./sw.js",{updateViaCache:"none"}).then(function(reg){
