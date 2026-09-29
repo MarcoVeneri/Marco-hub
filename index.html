@@ -162,6 +162,7 @@ a,button{font:inherit;-webkit-tap-highlight-color:transparent}
  width:36px;height:36px;position:relative;z-index:1;
  stroke:#fff;fill:none;stroke-width:2.15;stroke-linecap:round;stroke-linejoin:round;
 }
+.appIcon.traffic{background:linear-gradient(180deg,#596579,#344052)}
 .appIcon.alice{background:linear-gradient(180deg,#ff4f76,#ff2d55)}
 .appIcon.english{background:linear-gradient(180deg,#2596ff,#007aff)}
 .appIcon.train{background:linear-gradient(180deg,#42d75f,#30b94d)}
@@ -1082,39 +1083,22 @@ body{
 </header>
 
 <div class="dashboardGrid">
- <section class="trafficArea">
-<section id="trafficHero" class="hero tie">
- <div class="heroTop">
-  <div class="heroKicker"><span class="heroIcon"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 16h14l-1.3-5.5A2 2 0 0 0 15.8 9H8.2a2 2 0 0 0-1.9 1.5Z"/><path d="M4 16v2M20 16v2M7.5 16v1M16.5 16v1M7 9l1-3h8l1 3"/></svg></span><span id="trafficRouteTitle">Traffico casa → Firenze</span></div>
-  <div id="heroClock" class="heroTime">—</div>
- </div>
- <div class="trafficTabs" role="tablist" aria-label="Direzione traffico">
-  <button id="trafficOutTab" class="trafficTab active" type="button" role="tab" aria-selected="true">Andata</button>
-  <button id="trafficBackTab" class="trafficTab" type="button" role="tab" aria-selected="false">Ritorno</button>
- </div>
- <div id="trafficDecision" class="heroDecision" style="display:none">Aggiorno…</div>
- <div class="heroCompare" style="margin-top:5px">
-  <div id="a1Box" class="routeBox">
-   <div class="routeLabel">A1 · Autostrada</div>
-   <div id="a1Value" class="routeValue">—</div>
-   <div id="a1Eta" class="routeEta">tempo live</div>
-  </div>
-  <div id="normalBox" class="routeBox">
-   <div class="routeLabel">Strada normale</div>
-   <div id="normalValue" class="routeValue">—</div>
-   <div id="normalEta" class="routeEta">tempo live</div>
-  </div>
- </div>
- <div class="heroBottom">
-  <div id="trafficCondition" class="condition">● Dati pronti</div>
-  <div id="trafficUpdated" class="updated">Apri per aggiornare</div>
- </div>
-</section>
- </section>
-
  <section class="appsArea">
 <div class="sectionHead"><h2>Le tue app</h2><div class="sectionMore">Tutto a un tap</div></div>
 <section class="appGrid">
+ <a class="appTile" href="/Dashboard/" aria-label="Traffico">
+  <div class="appIcon traffic">
+   <svg viewBox="0 0 48 48" aria-hidden="true">
+    <path d="M8 31h32"/>
+    <path d="M13 31l2.8-11.2A4 4 0 0 1 19.7 17h8.6a4 4 0 0 1 3.9 2.8L35 31"/>
+    <path d="M15 24h18"/>
+    <circle cx="16" cy="33.5" r="2.5" fill="#fff" stroke="none"/>
+    <circle cx="32" cy="33.5" r="2.5" fill="#fff" stroke="none"/>
+    <path d="M24 8v5M18 10.5l2.5 4M30 10.5l-2.5 4"/>
+   </svg>
+  </div>
+  <div class="appName">Traffico</div><div class="appSub">Apri app</div>
+ </a>
  <a class="appTile" href="https://marcoveneri.github.io/Alice-Job-Radar/" aria-label="Lavoro Alice">
   <div class="appIcon alice">
    <svg viewBox="0 0 48 48" aria-hidden="true">
@@ -1376,29 +1360,15 @@ async function alice(){
   $("#aliceDot").className=news?"badgeDot":"";
  }catch(e){}
 }
-$("#trafficOutTab").addEventListener("click",function(){setTrafficDirection("out")});
-$("#trafficBackTab").addEventListener("click",function(){setTrafficDirection("back")});
 $("#kidsCalendarBtn").addEventListener("click",openCalendar);
 $("#calClose").addEventListener("click",closeCalendar);
 $("#calPrev").addEventListener("click",function(){calCursor.setMonth(calCursor.getMonth()-1);renderCalendar()});
 $("#calNext").addEventListener("click",function(){calCursor.setMonth(calCursor.getMonth()+1);renderCalendar()});
 $("#kidsCalendar").addEventListener("click",function(e){if(e.target===this)closeCalendar()});
 function refresh(){
- greet();traffic();english();kids();alice();
+ english();kids();alice();
 }
-setTrafficDirection("out");
 refresh();
-setInterval(greet,60000);
-document.addEventListener("visibilitychange",function(){
- if(document.visibilityState==="visible")traffic();
-});
-window.addEventListener("pageshow",function(){
- setTimeout(traffic,120);
-});
-window.addEventListener("focus",function(){
- setTimeout(traffic,120);
-});
-setInterval(traffic,60000);
 if("serviceWorker" in navigator)window.addEventListener("load",function(){
  navigator.serviceWorker.register("./sw.js",{updateViaCache:"none"}).then(function(reg){
   try{reg.update()}catch(e){}
