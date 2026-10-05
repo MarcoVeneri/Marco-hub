@@ -28,7 +28,6 @@ jobs:
           text2 = re.sub(r'href="https://marcoveneri\.github\.io/Alice-Job-Radar/[^"]*"', f'href="{new_url}"', text)
           if text2 == text:
               raise SystemExit('Alice link not found or already unchanged')
-          # bump visible/internal version markers if present
           text2 = text2.replace('apple-touch-icon-v7.png?v=7', 'apple-touch-icon-v7.png?v=8')
           path.write_text(text2, encoding='utf-8')
           PY
@@ -39,3 +38,5 @@ jobs:
           git add index.html
           git commit -m "Force Alice link refresh from Hub" || exit 0
           git push
+
+# trigger 2026-10-05T18:56+02:00
