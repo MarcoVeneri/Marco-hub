@@ -1,0 +1,41 @@
+name: Fix Alice link
+
+on:
+  push:
+    paths:
+      - '.github/workflows/fix-alice-link.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  fix-link:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Patch Alice link in Hub
+        run: |
+          python3 - <<'PY'
+          import re
+          from pathlib import Path
+          path = Path('index.html')
+          text = path.read_text(encoding='utf-8')
+          new_url = 'https://marcoveneri.github.io/Alice-Job-Radar/?v=20261005-1854&from=hub'
+          text2 = re.sub(r'href="https://marcoveneri\.github\.io/Alice-Job-Radar/[^"]*"', f'href="{new_url}"', text)
+          if text2 == text:
+              raise SystemExit('Alice link not found or already unchanged')
+          # bump visible/internal version markers if present
+          text2 = text2.replace('apple-touch-icon-v7.png?v=7', 'apple-touch-icon-v7.png?v=8')
+          path.write_text(text2, encoding='utf-8')
+          PY
+      - name: Commit fix
+        run: |
+          git config user.name "MarcoVeneri"
+          git config user.email "30596631+MarcoVeneri@users.noreply.github.com"
+          git add index.html
+          git commit -m "Force Alice link refresh from Hub" || exit 0
+          git push
