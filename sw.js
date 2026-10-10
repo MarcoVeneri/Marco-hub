@@ -1,4 +1,4 @@
-const CACHE="marco-hub-v50";
+const CACHE="marco-hub-v51";
 const SHELL=["./","./index.html","./manifest.webmanifest","./apple-touch-icon-v7.png","./icon-192-v6.png","./icon-512-v6.png","./assets/buoni-icon-v12.png"];
 
 const TODO_TILE=`
@@ -16,11 +16,20 @@ const TODO_TILE=`
  </a>
 `;
 
+function removeRetiredApps(html){
+ html=html.replace(/\s*<a class="circleBtn" href="\/Dashboard\/" aria-label="Traffico">[\s\S]*?<\/a>/,"\n");
+ html=html.replace(/\s*<a class="appTile" href="\/Dashboard\/" aria-label="Traffico">[\s\S]*?<\/a>/,"\n");
+ html=html.replace(/\s*<a class="appTile" href="\/pressione\/" aria-label="Pressione">[\s\S]*?<\/a>/,"\n");
+ html=html.replace(/\s*<a href="\/Dashboard\/">[\s\S]*?<span>Traffico<\/span><\/a>/,"\n");
+ return html;
+}
+
 async function decorateHub(response){
  if(!response || !response.ok)return response;
  const type=response.headers.get("content-type")||"";
  if(!type.includes("text/html"))return response;
  let html=await response.text();
+ html=removeRetiredApps(html);
  if(!html.includes('href="/To-Do/"') && html.includes('<button id="kidsCalendarBtn"')){
   html=html.replace('<button id="kidsCalendarBtn"',TODO_TILE+'<button id="kidsCalendarBtn"');
  }
