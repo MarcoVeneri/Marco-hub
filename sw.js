@@ -1,20 +1,25 @@
-const CACHE="marco-hub-v61";
-const SHELL=["./","./index.html","./manifest.webmanifest?v=60","./apple-touch-icon-v7.png?v=8","./icon-192-v6.png","./icon-512-v6.png","./assets/buoni-icon-v12.png?v=12"];
+const CACHE="marco-hub-v62";
+const SHELL=["./","./index.html","./ios27.css?v=62","./manifest.webmanifest?v=60","./apple-touch-icon-v7.png?v=8","./icon-192-v6.png","./icon-512-v6.png","./assets/buoni-icon-v12.png?v=12"];
 
 const TRAFFIC_SIDE=`
     <a class="sideLink" href="/Dashboard/" aria-label="Traffico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 21 10 3M17 21 14 3M12 5v3M12 11v3M12 17v2"/></svg>Traffico</a>
 `;
 
 const TRAFFIC_TILE=`
-        <a class="appTile" href="/Dashboard/" aria-label="Traffico"><div class="appTop"><div class="appIcon" style="background:rgba(75,152,238,.13);color:#3f8fd8"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 21 10 3M17 21 14 3M12 5v3M12 11v3M12 17v2"/></svg></div><span class="appArrow">›</span></div><div><div class="appName">Traffico</div><div class="appSub">Percorso lavoro</div></div></a>
+        <a class="appTile" href="/Dashboard/" aria-label="Traffico"><div class="appTop"><div class="appIcon iconTraffic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 21 10 3M17 21 14 3M12 5v3M12 11v3M12 17v2"/></svg></div><span class="appArrow">›</span></div><div><div class="appName">Traffico</div><div class="appSub">Percorso lavoro</div></div></a>
 `;
 
 function decorateHtml(html){
-  // Remove only the redundant quick card "Weekend con i figli". Keep the calendar app tile.
+  // iOS 27 mobile override, loaded after the embedded legacy styles.
+  if(!html.includes('ios27.css?v=62')){
+    html=html.replace('</head>','<link rel="stylesheet" href="./ios27.css?v=62">\n</head>');
+  }
+
+  // Remove the redundant quick card "Weekend con i figli". Keep the calendar app tile.
   html=html.replace(/\s*<section class="quickSection">[\s\S]*?<\/section>/,"\n");
   html=html.replace(/\$\("#kidsCalendarQuick"\)\.addEventListener\("click",openCalendar\);/g,"");
 
-  // Add Dashboard back into Marco Hub as a clearly road-focused Traffic app.
+  // Add Dashboard as Traffic with a road/highway icon.
   if(!html.includes('class="sideLink" href="/Dashboard/"')){
     html=html.replace('<a class="sideLink" href="/To-Do/">',TRAFFIC_SIDE+'    <a class="sideLink" href="/To-Do/">');
   }
