@@ -5,9 +5,9 @@
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
-  "background_color": "#0b1020",
-  "theme_color": "#0b1020",
-  "description": "Hub personale di Marco: traffico, inglese, lavoro Alice, treni, ricette e calendario figli.",
+  "background_color": "#edf4fb",
+  "theme_color": "#edf4fb",
+  "description": "Hub personale di Marco per To-do, spesa, inglese, lavoro Alice, treni, ricette, buoni e calendario figli.",
   "icons": [
     {
       "src": "./icon-192-v6.png",
