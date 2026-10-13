@@ -1,0 +1,41 @@
+name: Harden Marco Hub v64
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/harden-hub-v64.yml'
+      - 'scripts/harden_hub_v64.py'
+      - 'hub-ui-v64.css'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: marco-hub-v64
+  cancel-in-progress: true
+
+jobs:
+  harden:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install Pillow
+        run: python -m pip install --quiet pillow
+      - name: Build native icon UI and fresh PWA shell
+        run: python scripts/harden_hub_v64.py
+      - name: Commit v64
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html manifest.webmanifest sw.js hub-ui-v64.css hub-icon-180-v64.png hub-icon-192-v64.png hub-icon-512-v64.png
+          if git diff --cached --quiet; then
+            echo "Hub v64 already applied"
+            exit 0
+          fi
+          git commit -m "Make Marco Hub icon UI native and eliminate stale layout"
+          git push
