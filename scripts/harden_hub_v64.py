@@ -4,7 +4,7 @@ from PIL import Image, ImageDraw
 
 BUILD = "64"
 
-# --- New Marco Hub icon: same clean app-icon language as Ricette, but blue and identifiable as Hub.
+
 def make_icon(size: int, out: str):
     top = (105, 173, 240)
     bottom = (59, 131, 201)
@@ -16,9 +16,7 @@ def make_icon(size: int, out: str):
         for x in range(size):
             px[x, y] = row
     d = ImageDraw.Draw(im, "RGBA")
-    # soft top highlight
     d.rounded_rectangle((size*.06, size*.05, size*.94, size*.47), radius=size*.16, fill=(255,255,255,18))
-    # 2x2 white tiles = hub
     tile = size * .19
     gap = size * .075
     total = tile*2 + gap
@@ -32,11 +30,12 @@ def make_icon(size: int, out: str):
             d.rounded_rectangle((x,y,x+tile,y+tile), radius=r, fill=(255,255,255,245))
     im.save(out, optimize=True)
 
+
 for size, name in [(180, "hub-icon-180-v64.png"), (192, "hub-icon-192-v64.png"), (512, "hub-icon-512-v64.png")]:
     make_icon(size, name)
 
-# --- Make the icon-grid UI native in the source HTML (not injected by service worker).
-p = Path("index.html")ns = p.read_text(encoding="utf-8")
+p = Path("index.html")
+s = p.read_text(encoding="utf-8")
 
 s = re.sub(r'<link rel="manifest" href="[^"]+">', f'<link rel="manifest" href="./manifest.webmanifest?v={BUILD}">', s, count=1)
 s = re.sub(r'<link rel="icon"[^>]*>', f'<link rel="icon" sizes="180x180" href="./hub-icon-180-v64.png?v={BUILD}" type="image/png">', s, count=1)
@@ -46,7 +45,6 @@ native_css = f'<link rel="stylesheet" href="./hub-ui-v64.css?v={BUILD}">'
 if native_css not in s:
     s = s.replace("</head>", native_css + "\n</head>", 1)
 
-# Permanent Traffic entries: previously these could exist only after SW decoration.
 traffic_side = '''    <a class="sideLink" href="/Dashboard/" aria-label="Traffico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 21 10 3M17 21 14 3M12 5v3M12 11v3M12 17v2"/></svg>Traffico</a>\n'''
 if 'class="sideLink" href="/Dashboard/"' not in s:
     s = s.replace('    <a class="sideLink" href="/To-Do/"', traffic_side + '    <a class="sideLink" href="/To-Do/"', 1)
@@ -55,17 +53,14 @@ traffic_tile = '''        <a class="appTile" href="/Dashboard/" aria-label="Traf
 if 'class="appTile" href="/Dashboard/"' not in s:
     s = s.replace('        <a class="appTile" href="/To-Do/"', traffic_tile + '        <a class="appTile" href="/To-Do/"', 1)
 
-# Remove the old redundant quick panel from source, not at runtime.
 s = re.sub(r'\s*<section class="quickSection">[\s\S]*?</section>', '\n', s, count=1)
 s = s.replace('$("#kidsCalendarQuick").addEventListener("click",openCalendar);', '')
 
-# Force existing installed PWA windows onto this immutable build URL.
 marker = 'id="hub-native-build-64"'
 if marker not in s:
     force = f'''<script {marker}>\n(function(){{\n  try{{\n    const u=new URL(location.href);\n    if(u.searchParams.get('hub')!=='{BUILD}'){{u.searchParams.set('hub','{BUILD}');location.replace(u.toString());return;}}\n  }}catch(e){{}}\n}})();\n</script>\n'''
     s = s.replace("</head>", force + "</head>", 1)
 
-# Always ask the browser for the current worker script, bypassing the HTTP cache.
 reg_marker = 'id="hub-sw-v64"'
 if reg_marker not in s:
     reg = f'''<script {reg_marker}>\nif('serviceWorker' in navigator){{\n  window.addEventListener('load',async()=>{{\n    try{{const r=await navigator.serviceWorker.register('./sw.js?v={BUILD}',{{updateViaCache:'none'}});await r.update();}}catch(e){{}}\n  }});\n}}\n</script>\n'''
@@ -73,7 +68,6 @@ if reg_marker not in s:
 
 p.write_text(s, encoding="utf-8")
 
-# --- Manifest: immutable start URL and brand-new icon filenames.
 manifest = '''{
   "id": "./?hub=64",
   "name": "Marco Hub",
@@ -92,7 +86,6 @@ manifest = '''{
 '''
 Path("manifest.webmanifest").write_text(manifest, encoding="utf-8")
 
-# --- Simple, deterministic SW: no HTML decoration. Source HTML already contains the UI.
 sw = '''const VERSION="64";
 const CACHE=`marco-hub-native-v${VERSION}`;
 const SHELL=[
