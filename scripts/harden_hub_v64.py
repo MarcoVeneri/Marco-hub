@@ -1,4 +1,5 @@
 from pathlib import Path
+import base64
 import re
 from PIL import Image, ImageDraw
 
@@ -34,12 +35,18 @@ def make_icon(size: int, out: str):
 for size, name in [(180, "hub-icon-180-v64.png"), (192, "hub-icon-192-v64.png"), (512, "hub-icon-512-v64.png")]:
     make_icon(size, name)
 
+icon_data_uri = "data:image/png;base64," + base64.b64encode(Path("hub-icon-180-v64.png").read_bytes()).decode("ascii")
+
 p = Path("index.html")
 s = p.read_text(encoding="utf-8")
 
 s = re.sub(r'<link rel="manifest" href="[^"]+">', f'<link rel="manifest" href="./manifest.webmanifest?v={BUILD}">', s, count=1)
 s = re.sub(r'<link rel="icon"[^>]*>', f'<link rel="icon" sizes="180x180" href="./hub-icon-180-v64.png?v={BUILD}" type="image/png">', s, count=1)
-s = re.sub(r'<link rel="apple-touch-icon"[^>]*>', f'<link rel="apple-touch-icon" sizes="180x180" href="./hub-icon-180-v64.png?v={BUILD}">', s, count=1)
+
+# iOS 27.2: use exactly one Apple touch icon, embedded in the real Hub HTML.
+s = re.sub(r'\s*<link rel="apple-touch-icon(?:-precomposed)?"[^>]*>', '', s)
+inline_touch = f'<link rel="apple-touch-icon" sizes="180x180" href="{icon_data_uri}">'
+s = s.replace('<title>Marco Hub</title>', inline_touch + '\n<title>Marco Hub</title>', 1)
 
 native_css = f'<link rel="stylesheet" href="./hub-ui-v64.css?v={BUILD}">'
 if native_css not in s:
@@ -53,8 +60,16 @@ traffic_tile = '''        <a class="appTile" href="/Dashboard/" aria-label="Traf
 if 'class="appTile" href="/Dashboard/"' not in s:
     s = s.replace('        <a class="appTile" href="/To-Do/"', traffic_tile + '        <a class="appTile" href="/To-Do/"', 1)
 
+# Hub is only a dashboard: links always point to the real root PWAs.
+s = s.replace('href="/To-Do/app-v13/"', 'href="/To-Do/"')
+s = s.replace('href="/To-Do/app-v14/"', 'href="/To-Do/"')
+s = s.replace('href="/To-Do/app-v15/"', 'href="/To-Do/"')
+
 s = re.sub(r'\s*<section class="quickSection">[\s\S]*?</section>', '\n', s, count=1)
 s = s.replace('$("#kidsCalendarQuick").addEventListener("click",openCalendar);', '')
+
+# Remove the legacy duplicate service-worker registration; keep the hardened one below.
+s = s.replace('if("serviceWorker" in navigator)window.addEventListener("load",()=>navigator.serviceWorker.register("./sw.js?v=60",{updateViaCache:"none"}).then(r=>r.update()).catch(()=>{}))', '')
 
 marker = 'id="hub-native-build-64"'
 if marker not in s:
@@ -65,6 +80,12 @@ reg_marker = 'id="hub-sw-v64"'
 if reg_marker not in s:
     reg = f'''<script {reg_marker}>\nif('serviceWorker' in navigator){{\n  window.addEventListener('load',async()=>{{\n    try{{const r=await navigator.serviceWorker.register('./sw.js?v={BUILD}',{{updateViaCache:'none'}});await r.update();}}catch(e){{}}\n  }});\n}}\n</script>\n'''
     s = s.replace("</body>", reg + "</body>", 1)
+
+assert s.count('rel="apple-touch-icon"') == 1
+assert 'data:image/png;base64,' in s
+assert '/To-Do/app-v13/' not in s
+assert '/To-Do/app-v14/' not in s
+assert '/To-Do/app-v15/' not in s
 
 p.write_text(s, encoding="utf-8")
 
@@ -79,8 +100,8 @@ manifest = '''{
   "theme_color": "#edf4fb",
   "description": "Hub personale a icone.",
   "icons": [
-    {"src":"./hub-icon-192-v64.png","sizes":"192x192","type":"image/png","purpose":"any maskable"},
-    {"src":"./hub-icon-512-v64.png","sizes":"512x512","type":"image/png","purpose":"any maskable"}
+    {"src":"./hub-icon-192-v64.png","sizes":"192x192","type":"image/png","purpose":"any"},
+    {"src":"./hub-icon-512-v64.png","sizes":"512x512","type":"image/png","purpose":"any"}
   ]
 }
 '''
