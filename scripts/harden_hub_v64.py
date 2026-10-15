@@ -60,10 +60,13 @@ traffic_tile = '''        <a class="appTile" href="/Dashboard/" aria-label="Traf
 if 'class="appTile" href="/Dashboard/"' not in s:
     s = s.replace('        <a class="appTile" href="/To-Do/"', traffic_tile + '        <a class="appTile" href="/To-Do/"', 1)
 
-# Hub is only a dashboard: links always point to the real root PWAs.
+# Hub is only a dashboard: all old versioned links collapse to the one real To-Do PWA.
 s = s.replace('href="/To-Do/app-v13/"', 'href="/To-Do/"')
 s = s.replace('href="/To-Do/app-v14/"', 'href="/To-Do/"')
 s = s.replace('href="/To-Do/app-v15/"', 'href="/To-Do/"')
+
+# Fresh install identity for iOS, while still pointing to the SAME real /To-Do/ app.
+s = s.replace('href="/To-Do/"', 'href="/To-Do/?pwa=20261015-2"')
 
 s = re.sub(r'\s*<section class="quickSection">[\s\S]*?</section>', '\n', s, count=1)
 s = s.replace('$("#kidsCalendarQuick").addEventListener("click",openCalendar);', '')
@@ -86,6 +89,7 @@ assert 'data:image/png;base64,' in s
 assert '/To-Do/app-v13/' not in s
 assert '/To-Do/app-v14/' not in s
 assert '/To-Do/app-v15/' not in s
+assert 'href="/To-Do/?pwa=20261015-2"' in s
 
 p.write_text(s, encoding="utf-8")
 
@@ -100,8 +104,8 @@ manifest = '''{
   "theme_color": "#edf4fb",
   "description": "Hub personale a icone.",
   "icons": [
-    {"src":"./hub-icon-192-v64.png","sizes":"192x192","type":"image/png","purpose":"any"},
-    {"src":"./hub-icon-512-v64.png","sizes":"512x512","type":"image/png","purpose":"any"}
+    {"src":"./hub-icon-192-v64.png","sizes":"192x192","type":"image/png","purpose":"any maskable"},
+    {"src":"./hub-icon-512-v64.png","sizes":"512x512","type":"image/png","purpose":"any maskable"}
   ]
 }
 '''
