@@ -9,7 +9,7 @@
   "theme_color": "#edf4fb",
   "description": "Hub personale a icone.",
   "icons": [
-    {"src":"./hub-icon-192-v64.png","sizes":"192x192","type":"image/png","purpose":"any maskable"},
-    {"src":"./hub-icon-512-v64.png","sizes":"512x512","type":"image/png","purpose":"any maskable"}
+    {"src":"./hub-icon-192-v64.png","sizes":"192x192","type":"image/png","purpose":"any"},
+    {"src":"./hub-icon-512-v64.png","sizes":"512x512","type":"image/png","purpose":"any"}
   ]
 }
