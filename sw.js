@@ -1,8 +1,8 @@
-const VERSION="64";
+const VERSION="65";
 const CACHE=`marco-hub-native-v${VERSION}`;
 const SHELL=[
-  "./?hub=64",
-  "./index.html?hub=64",
+  "./?hub=65",
+  "./index.html?hub=65",
   "./hub-ui-v64.css?v=64",
   "./manifest.webmanifest?v=64",
   "./hub-icon-180-v64.png?v=64",
@@ -45,9 +45,9 @@ self.addEventListener("fetch",e=>{
       try{
         const live=new URL(e.request.url);live.searchParams.set("hub",VERSION);live.searchParams.set("__t",Date.now().toString());
         const r=await fetch(live.toString(),{cache:"no-store",credentials:"same-origin"});
-        if(r.ok){const c=await caches.open(CACHE);c.put("./index.html?hub=64",r.clone()).catch(()=>{});return r}
+        if(r.ok){const c=await caches.open(CACHE);c.put("./index.html?hub=65",r.clone()).catch(()=>{});return r}
       }catch(_){}
-      return (await caches.match("./index.html?hub=64")) || (await caches.match("./?hub=64")) || Response.error();
+      return (await caches.match("./index.html?hub=65")) || (await caches.match("./?hub=65")) || Response.error();
     })());
     return;
   }
