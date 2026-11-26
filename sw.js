@@ -10,7 +10,7 @@ const SHELL=[
   "./hub-icon-512-v64.png"
 ];
 
-const FAST_CACHE=CACHE+"-fast2";
+const FAST_CACHE=CACHE+"-fast3";
 const scope=new URL(self.registration.scope);
 const keyFor=req=>req.mode==="navigate"?new URL("index.html",scope).href:req;
 self.addEventListener("install",e=>e.waitUntil((async()=>{
