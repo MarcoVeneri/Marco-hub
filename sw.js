@@ -10,7 +10,7 @@ const SHELL=[
   "./hub-icon-512-v64.png"
 ];
 
-const FAST_CACHE=CACHE+"-fast1";
+const FAST_CACHE=CACHE+"-fast2";
 const scope=new URL(self.registration.scope);
 const keyFor=req=>req.mode==="navigate"?new URL("index.html",scope).href:req;
 self.addEventListener("install",e=>e.waitUntil((async()=>{
@@ -21,6 +21,7 @@ self.addEventListener("install",e=>e.waitUntil((async()=>{
 self.addEventListener("activate",e=>e.waitUntil((async()=>{
  await Promise.all((await caches.keys()).filter(k=>k.startsWith("marco-hub")&&k!==FAST_CACHE).map(k=>caches.delete(k)));
  await self.clients.claim();
+ const windows=await self.clients.matchAll({type:"window"}); await Promise.allSettled(windows.filter(c=>c.url.startsWith(scope.href)).map(c=>c.navigate(c.url)));
 })()));
 self.addEventListener("fetch",e=>{
  const req=e.request,u=new URL(req.url);
