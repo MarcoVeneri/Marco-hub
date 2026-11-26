@@ -9,52 +9,28 @@ const SHELL=[
   "./hub-icon-192-v64.png",
   "./hub-icon-512-v64.png"
 ];
-function fresh(url){
-  const u=new URL(url,self.registration.scope);
-  u.searchParams.set("__mhv",VERSION);
-  u.searchParams.set("__t",Date.now().toString());
-  return fetch(u.toString(),{cache:"no-store",credentials:"same-origin"});
-}
-self.addEventListener("install",e=>{
-  e.waitUntil((async()=>{
-    const c=await caches.open(CACHE);
-    for(const key of SHELL){try{const r=await fresh(key);if(r.ok)await c.put(key,r.clone())}catch(_){}}
-    await self.skipWaiting();
-  })());
-});
-self.addEventListener("activate",e=>{
-  e.waitUntil((async()=>{
-    const keys=await caches.keys();
-    await Promise.all(keys.filter(k=>k.startsWith("marco-hub")&&k!==CACHE).map(k=>caches.delete(k)));
-    await self.clients.claim();
-    const windows=await self.clients.matchAll({type:"window",includeUncontrolled:true});
-    for(const client of windows){
-      try{
-        const u=new URL(client.url);
-        if(u.origin===self.location.origin&&u.searchParams.get("hub")!==VERSION){u.searchParams.set("hub",VERSION);await client.navigate(u.toString())}
-      }catch(_){}
-    }
-  })());
-});
+
+const FAST_CACHE=CACHE+"-fast1";
+const scope=new URL(self.registration.scope);
+const keyFor=req=>req.mode==="navigate"?new URL("index.html",scope).href:req;
+self.addEventListener("install",e=>e.waitUntil((async()=>{
+ const c=await caches.open(FAST_CACHE);
+ await Promise.allSettled(SHELL.map(async path=>{const url=new URL(path,scope);const res=await fetch(url,{cache:"reload"});if(res.ok){await c.put(url,res.clone());if(url.pathname===scope.pathname||url.pathname===scope.pathname+"index.html")await c.put(new URL("index.html",scope),res.clone());}}));
+ await self.skipWaiting();
+})()));
+self.addEventListener("activate",e=>e.waitUntil((async()=>{
+ await Promise.all((await caches.keys()).filter(k=>k.startsWith("marco-hub")&&k!==FAST_CACHE).map(k=>caches.delete(k)));
+ await self.clients.claim();
+})()));
 self.addEventListener("fetch",e=>{
-  if(e.request.method!=="GET")return;
-  const u=new URL(e.request.url);
-  if(u.pathname.includes("/Alice-Job-Radar/data/jobs.json"))return;
-  if(e.request.mode==="navigate"){
-    e.respondWith((async()=>{
-      try{
-        const live=new URL(e.request.url);live.searchParams.set("hub",VERSION);live.searchParams.set("__t",Date.now().toString());
-        const r=await fetch(live.toString(),{cache:"no-store",credentials:"same-origin"});
-        if(r.ok){const c=await caches.open(CACHE);c.put("./index.html?hub=66",r.clone()).catch(()=>{});return r}
-      }catch(_){}
-      return (await caches.match("./index.html?hub=66")) || (await caches.match("./?hub=66")) || Response.error();
-    })());
-    return;
-  }
-  if(u.origin===self.location.origin){
-    e.respondWith((async()=>{
-      try{const r=await fetch(e.request,{cache:"no-store"});if(r.ok){const c=await caches.open(CACHE);c.put(e.request,r.clone()).catch(()=>{})}return r}
-      catch(_){return (await caches.match(e.request,{ignoreSearch:true})) || Response.error()}
-    })());
-  }
+ const req=e.request,u=new URL(req.url);
+ if(req.method!=="GET"||u.origin!==scope.origin||!u.pathname.startsWith(scope.pathname))return;
+ const data=/\\.json$/i.test(u.pathname);
+ const key=data?u.origin+u.pathname:keyFor(req);
+ const c=caches.open(FAST_CACHE);
+ const live=c.then(async cache=>{const res=await fetch(req,{cache:data?"no-store":"no-cache"});if(res.ok)await cache.put(key,res.clone());return res;});
+ const cached=c.then(cache=>cache.match(key));
+ if(data){e.respondWith(live.catch(async()=>await cached||Response.error()));return;}
+ e.waitUntil(live.then(()=>{},()=>{}));
+ e.respondWith(cached.then(hit=>hit||live).catch(()=>Response.error()));
 });
